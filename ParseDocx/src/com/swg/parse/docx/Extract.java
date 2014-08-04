@@ -26,7 +26,7 @@ public class Extract {
     private static Properties xmlProps = new Properties();
 
     private int propCounter;
-    private int lineCounter;
+    //private int lineCounter;
 
     private boolean comboIndex;
     private boolean checked;
@@ -50,48 +50,60 @@ public class Extract {
     public void extract(List<List<String>> data) {
         extractData = data;
 
-//         lookForUntil("DE Location ID", "HCA");
-//         lookForUntil("Name", "xamination");
-//         lookForUntil("xamination", "Work Request No.");
-//         lookForUntil("Work Request No.", "Division");
-//         lookForCombo("Division");
-//         lookForUntil("District Number", "Town or County");
-//         lookForUntil("Town or County", "State");
-//         lookForCombo("State");
-//         lookForUntil("ile Number", "Address and/or Location");
-//         lookForUntil("Address and/or Location", "nspection Company");
-//         lookForUntil("nspection Company", "Date GPS Synchronized");
-//         lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
-//         lookForGps("Start GPS X", "GPS File Name");
-//         lookForUntil("GPS File Name", "Region");
-//         lookForCombo("Region");
-//         lookForUntil("Planned Examination Length", "Actual Examination Length");
-//         lookForUntil("Actual Examination Length", "Section 2");
-//         lookForCheck("oreign Pipe in Excavation", "Size");
+        lookForUntil("DE Location ID", "HCA");
+        lookForUntil("Name", "xamination");
+        lookForUntil("xamination", "Work Request No.");
+        lookForUntil("Work Request No.", "Division");
+        lookForCombo("Division");
+        lookForUntil("District Number", "Town or County");
+        lookForUntil("Town or County", "State");
+        lookForCombo("State");
+        lookForUntil("ile Number", "Address and/or Location");
+        lookForUntil("Address and/or Location", "nspection Company");
+        lookForUntil("nspection Company", "Date GPS Synchronized");
+        lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
+        lookForGps("Start GPS X", "GPS File Name");
+        lookForUntil("GPS File Name", "Region");
+        lookForCombo("Region");
+        lookForUntil("Planned Examination Length", "Actual Examination Length");
+        lookForUntil("Actual Examination Length", "Section 2");
+        lookForCheck("oreign Pipe in Excavation", "Size");
         lookForUntil("Size", "Material");
-//         lookForUntil("Material", "Foreign Current");
-//         lookForCheck("Foreign Current", "ond Present");
-//         lookForCheck("ond Present", "If");
-//         lookForCheck("To", "CP Present");
-//         lookForCheck("CP Present", "Anode Present");
-//         lookForCheck("Anode Present", "nvironmental Conditions:");
-//         lookForUntil("Temp", "Time");
-//         lookForUntil("Time", "Weather Conditions");
-//         lookForUntil("Weather Conditions", "oil Conditions:");
-//         lookForCheck("oil Conditions", "Bedding/Shading Type");
-//         lookForUntil("Bedding/Shading Type", "Rockshield Used");
-//         lookForCheck("Rockshield Used", "Soil Type:");
-
-//        lookForCheck("Soil Type", "Depth of Cover");
-//        lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
+        lookForUntil("Material", "Foreign Current");
+        lookForCheck("Foreign Current", "ond Present");
+        lookForCheck("ond Present", "If");
+        lookForCheck("To", "CP Present");
+        lookForCheck("CP Present", "Anode Present");
+        lookForCheck("Anode Present", "nvironmental Conditions:");
+        lookForUntil("Temp", "Time");
+        lookForUntil("Time", "Weather Conditions");
+        lookForUntil("Weather Conditions", "oil Conditions:");
+        lookForCheck("oil Conditions", "Bedding/Shading Type");
+        lookForUntil("Bedding/Shading Type", "Rockshield Used");
+        lookForCheck("Rockshield Used", "Soil Type:");
+        lookForCheck("Soil Type", "Depth of Cover");
+        lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
         lookForUntil("Size", "InDiam");
-//        lookForUntil("InDiam", "Wthick");
-//        lookForUntil("Wthick", "Grade");
-//        lookForUntil("Grade", "Yield");
-//        lookForUntil("Yield", "WkReqNo");
-//        lookForUntil("WkReqNo", "Installation Month");
-//        lookForUntil("Installation Month", "Installation Year");
-//        lookForUntil("Installation Year", "OpsSysName");
+        lookForUntil("InDiam", "Wthick");
+        lookForUntil("Wthick", "Grade");
+        lookForUntil("Grade", "Yield");
+        lookForUntil("Yield", "WkReqNo");
+        lookForUntil("WkReqNo", "Installation Month");
+        lookForUntil("Installation Month", "Installation Year");
+        lookForUntil("Installation Year", "OpsSysName");
+        lookForUntil("OpsSysName", "Weld Seam:");
+        lookForCheck("Weld Seam", "Coating Types:");
+        lookForCheck("Coating Types", "Coating Condition:");
+        lookForCheck("Coating Condition", "Holiday Detection Volt Setting");
+        lookForUntil("Holiday Detection Volt Setting", "Type of Coating Damage");
+        //lookForCheck("Ground Cover Found", "on-C");
+        lookForUntil("listers", "I have reviewed the procedures performed and have found them:");
+        lookForCheck("I have reviewed the procedures performed and have found them", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");
+        lookForUntil("Inspected By", "Inspection Date");
+        //        lookForUntil("Inspected Date", "Print");
+        lookForUntil("Reviewed By", "Date Reviewed");
+        lookForUntil("Date Reviewed", "Print");
+
     }
 
     private void lookForGps(String lab1, String lab2) {
@@ -117,7 +129,7 @@ public class Extract {
     private void lookForUntil(String lab1, String lab2) {
         String name = findName(lab1);
         String val = "";
-        String nextLine;
+        String nextLine = "";
         int lineCounter = nameLine;
         do {
             nextLine = extractData.get(++lineCounter).get(1).trim();
@@ -128,22 +140,6 @@ public class Extract {
         processDisplayName(name.trim(), val);
     }
 
-//    private void lookFor(int offset, int add, String... args) {
-//        String name = findName(args);
-//        // find the last arg and do an offset
-//        int lineCounter = -1;
-//        for (List<String> data : extractData) {
-//            data = cleanUpData(data);
-//            lineCounter++;
-//            if (data.contains(args[args.length - 1])) {
-//                String value = extractData.get(lineCounter + offset).get(1).trim();
-//                for (int j = 0; j < add; j++) {
-//                    value = value + extractData.get(lineCounter + offset + add).get(1).trim();
-//                }
-//                processDisplayName(name.trim(), value);
-//            }
-//        }
-//    }
     private void lookForCheck(String lab1, String lab2) {
         String name = findName(lab1);
         String val = "";
@@ -164,19 +160,18 @@ public class Extract {
         processDisplayName(name.trim(), val);
     }
 
-    private void lookForCombo(String... args) {
-        String name = findName(args);
+    private void lookForCombo(String lab1) {
+        String name = findName(lab1);
+        int lineCounter = nameLine;
         String value = "";
-        for (int i = 0; i < args.length; i++) {
-            List<String> tags = extractData.get(++lineCounter);
-            if (tags.get(1).contains("<w:wResult")) {
-                comboIndex = true;
-                value = getListEntryValue(tags);
-            } else {
-                value = getListEntryValue(tags);
-            }
-            processDisplayName(name.trim(), value);
+        List<String> tags = extractData.get(++lineCounter);
+        if (tags.get(1).contains("<w:wResult")) {
+            comboIndex = true;
+            value = getListEntryValue(tags);
+        } else {
+            value = getListEntryValue(tags);
         }
+        processDisplayName(name.trim(), value);
     }
 
     private String getListEntryValue(List<String> tags) {
@@ -205,13 +200,23 @@ public class Extract {
     }
 
     private void processDisplayName(String name, String value) {
+        // exceptions
+        if (value.equalsIgnoreCase("No      % consumed")){
+            value = "No";
+        }
         name = name.trim().replace(" ", "_");
+        String displayName, displayValue = null;
+        if (xmlProps.containsKey(value)) {
+            displayValue = xmlProps.getProperty(value);
+        } else {
+            displayValue = value;
+        }
         if (xmlProps.containsKey(name)) {
-            String displayValue = xmlProps.getProperty(name).replace(" ", "_");
-            props.put(df.format(propCounter) + "_" + displayValue, value);
+            displayName = xmlProps.getProperty(name).replace(" ", "_");
+            props.put(df.format(propCounter) + "_" + displayName, displayValue);
             propCounter++;
         } else {
-            props.put(df.format(propCounter) + "_" + name.trim().replace(" ", "_"), value);
+            props.put(df.format(propCounter) + "_" + name.trim().replace(" ", "_"), displayValue);
             propCounter++;
         }
     }
@@ -232,7 +237,7 @@ public class Extract {
         // build up the label
         int localCounter = 0;
         String name = "";
-        lineCounter = -1;
+        int lineCounter = -1;
         nameLine = -1;
         for (List<String> data : extractData) {
             data = cleanUpData(data);
@@ -262,7 +267,7 @@ public class Extract {
     private String findName(String[] args) {
         // build up the label
         String name = "";
-        lineCounter = -1;
+        int lineCounter = -1;
         for (int i = 0; i < args.length; i++) {
             for (List<String> data : extractData) {
                 data = cleanUpData(data);

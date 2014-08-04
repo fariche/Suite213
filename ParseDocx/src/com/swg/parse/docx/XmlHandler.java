@@ -20,7 +20,7 @@ public class XmlHandler extends DefaultHandler {
 
     public static List<List<String>> dataList = new ArrayList<>();
     public Properties props = new Properties();
-    private boolean textVal, isList, isChecked, isResult;
+    private boolean textVal, isList, isChecked, isResult, weldSeam, groundCover;
     private String data;
     private static List<String> xmlString = new ArrayList<String>();
 
@@ -77,17 +77,62 @@ public class XmlHandler extends DefaultHandler {
                 }
                 break;
             case "w:t":
+                // *** Start of code regarding 'Weld Seam'
+                if (!weldSeam) {
+                    int lastIndex = xmlString.size() - 1;
+                    if (xmlString.get(lastIndex).equalsIgnoreCase("u")) {
+                        xmlString.remove(lastIndex);
+                    }
+                    lastIndex = xmlString.size() - 1;
+                    if (xmlString.get(lastIndex).contains("nknown")) {
+                        xmlString.remove(lastIndex);
+                        xmlString.add("Unknown");
+                        List<String> data = dataList.get(dataList.size() - 1);
+                        data.add(5, "Unknown");
+                        xmlString.clear();
+                        weldSeam = true;
+                        return;
+                    }
+                }
+                // *** End of code regarding 'Weld Seam'
+//                // *** Ground Cover
+//                if (!groundCover) {
+//                    int lastIndex = xmlString.size() - 1;
+//                    lastIndex = xmlString.size() - 1;
+//                    if (xmlString.get(lastIndex).contains("Native")) {
+//                        xmlString.remove(lastIndex);
+//                        xmlString.add("Native");
+//                        List<String> data = dataList.get(dataList.size() - 1);
+//                        data.add(5, "Native");
+//                        xmlString.clear();
+//                        groundCover = true;
+//                        return;
+//                    }
+//                    if (xmlString.get(lastIndex).contains("Pavement")) {
+//                        xmlString.remove(lastIndex);
+//                        xmlString.add("Pavement");
+//                        List<String> data = dataList.get(dataList.size() - 1);
+//                        data.add(5, "Pavement");
+//                        xmlString.clear();
+//                        groundCover = true;
+//                        return;
+//                    }
+//                }
+//                // *** End of Ground Cover
                 xmlString.add("<w:t/>");
                 String s = xmlString.get(1);
                 if (s.length() == 1) {
                     char character = data.charAt(0); // This gives the character 'a'
-                    if (character == 8194 || character == 61527 || character == 61482) {
+                    //if (character == 8194 || character == 61527 || character == 61482) {
+                    if (character == 61527 || character == 61482) {
                         xmlString.clear();
                     }
                 } else if (xmlString.size() > 2) {
                     dataList.add(xmlString);
                 }
+                //if (!isChecked) {
                 xmlString = new ArrayList<String>();
+                //}
                 break;
             default:
         }
@@ -97,6 +142,9 @@ public class XmlHandler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) {
         if (textVal) {
             data = new String(ch, start, length).trim();
+            if (data.endsWith("Spiral")) {
+                System.out.println("");
+            }
             if (data.length() == 0) {
                 textVal = false;
             } else if (data.length() == 1) {
@@ -104,7 +152,7 @@ public class XmlHandler extends DefaultHandler {
                 //System.out.printf("\nChar: %s=%d", character, (int) character);
                 if (character != 8194 || character != 61527 || character != 61482) {
                     xmlString.add(data);
-                    //System.out.printf("\nCodes that did get printed: %s - %d",character, (int)character);
+                    //System.out.printf("\nCodes that did get printed: %s - %d", character, (int) character);
                 }
             } else if (data.length() >= 2) {
                 xmlString.add(data);
