@@ -8,7 +8,9 @@ package com.swg.parse.docx;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -29,6 +31,9 @@ public class Extract {
     private boolean comboIndex;
     private boolean checked;
     private int gpsYcounter;
+    private int multiNameCounter;
+
+    private Map<String, Integer> usedNames = new Hashtable<String, Integer>();
 
     private int nameLine;
 
@@ -44,35 +49,49 @@ public class Extract {
 
     public void extract(List<List<String>> data) {
         extractData = data;
-        lookForUntil("DE Location ID", "HCA");
-        lookForUntil("Name", "xamination");
-        lookForUntil("xamination", "Work Request No.");
-        lookForUntil("Work Request No.", "Division");
-        lookForCombo("Division");
-        lookForUntil("District Number", "Town or County");
-        lookForUntil("Town or County", "State");
-        lookForCombo("State");
-        lookForUntil("ile Number", "Address and/or Location");
-        lookForUntil("Address and/or Location", "nspection Company");
-        lookForUntil("nspection Company", "Date GPS Synchronized");
-        lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
-        lookForGps("Start GPS X", "GPS File Name");
-        lookForUntil("GPS File Name", "Region");
-        lookForCombo("Region");
-        lookForUntil("Planned Examination Length", "Actual Examination Length");
-        lookForUntil("Actual Examination Length", "Section 2");
-        lookForCheck("oreign Pipe in Excavation", "Size");
+
+//         lookForUntil("DE Location ID", "HCA");
+//         lookForUntil("Name", "xamination");
+//         lookForUntil("xamination", "Work Request No.");
+//         lookForUntil("Work Request No.", "Division");
+//         lookForCombo("Division");
+//         lookForUntil("District Number", "Town or County");
+//         lookForUntil("Town or County", "State");
+//         lookForCombo("State");
+//         lookForUntil("ile Number", "Address and/or Location");
+//         lookForUntil("Address and/or Location", "nspection Company");
+//         lookForUntil("nspection Company", "Date GPS Synchronized");
+//         lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
+//         lookForGps("Start GPS X", "GPS File Name");
+//         lookForUntil("GPS File Name", "Region");
+//         lookForCombo("Region");
+//         lookForUntil("Planned Examination Length", "Actual Examination Length");
+//         lookForUntil("Actual Examination Length", "Section 2");
+//         lookForCheck("oreign Pipe in Excavation", "Size");
         lookForUntil("Size", "Material");
-        lookForUntil("Material", "Foreign Current");
-        lookForCheck("Foreign Current", "ond Present");
-        lookForCheck("ond Present", "If");
-        lookForCheck("To", "CP Present");
-        lookForCheck("CP Present", "Anode Present");
-        lookForCheck("Anode Present", "nvironmental Conditions:");
-        lookForUntil("Temp", "Time");
-        lookForUntil("Time", "Weather Conditions");
-        lookForUntil("Weather Conditions", "oil Conditions:");
-        lookForCheck("oil Conditions", "Bedding/Shading Type");
+//         lookForUntil("Material", "Foreign Current");
+//         lookForCheck("Foreign Current", "ond Present");
+//         lookForCheck("ond Present", "If");
+//         lookForCheck("To", "CP Present");
+//         lookForCheck("CP Present", "Anode Present");
+//         lookForCheck("Anode Present", "nvironmental Conditions:");
+//         lookForUntil("Temp", "Time");
+//         lookForUntil("Time", "Weather Conditions");
+//         lookForUntil("Weather Conditions", "oil Conditions:");
+//         lookForCheck("oil Conditions", "Bedding/Shading Type");
+//         lookForUntil("Bedding/Shading Type", "Rockshield Used");
+//         lookForCheck("Rockshield Used", "Soil Type:");
+
+//        lookForCheck("Soil Type", "Depth of Cover");
+//        lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
+        lookForUntil("Size", "InDiam");
+//        lookForUntil("InDiam", "Wthick");
+//        lookForUntil("Wthick", "Grade");
+//        lookForUntil("Grade", "Yield");
+//        lookForUntil("Yield", "WkReqNo");
+//        lookForUntil("WkReqNo", "Installation Month");
+//        lookForUntil("Installation Month", "Installation Year");
+//        lookForUntil("Installation Year", "OpsSysName");
     }
 
     private void lookForGps(String lab1, String lab2) {
@@ -105,37 +124,41 @@ public class Extract {
             if (!nextLine.equalsIgnoreCase(lab2)) {
                 val = val + nextLine;
             }
-        } while (!nextLine.equalsIgnoreCase(lab2));// || !extractData.get(lineCounter + 1).get(1).trim().equalsIgnoreCase(lab2));
-
+        } while (!nextLine.equalsIgnoreCase(lab2));
         processDisplayName(name.trim(), val);
     }
 
-    private void lookFor(int offset, int add, String... args) {
-        String name = findName(args);
-        // find the last arg and do an offset
-        int lineCounter = -1;
-        for (List<String> data : extractData) {
-            data = cleanUpData(data);
-            lineCounter++;
-            if (data.contains(args[args.length - 1])) {
-                String value = extractData.get(lineCounter + offset).get(1).trim();
-                for (int j = 0; j < add; j++) {
-                    value = value + extractData.get(lineCounter + offset + add).get(1).trim();
-                }
-                processDisplayName(name.trim(), value);
-            }
-        }
-    }
-
+//    private void lookFor(int offset, int add, String... args) {
+//        String name = findName(args);
+//        // find the last arg and do an offset
+//        int lineCounter = -1;
+//        for (List<String> data : extractData) {
+//            data = cleanUpData(data);
+//            lineCounter++;
+//            if (data.contains(args[args.length - 1])) {
+//                String value = extractData.get(lineCounter + offset).get(1).trim();
+//                for (int j = 0; j < add; j++) {
+//                    value = value + extractData.get(lineCounter + offset + add).get(1).trim();
+//                }
+//                processDisplayName(name.trim(), value);
+//            }
+//        }
+//    }
     private void lookForCheck(String lab1, String lab2) {
         String name = findName(lab1);
         String val = "";
         String nextLine;
+        boolean first = false;
         int lineCounter = nameLine;
         do {
             nextLine = extractData.get(++lineCounter).get(1).trim();
             if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
-                val = extractData.get(lineCounter).get(5);
+                if (first) {
+                    val = val + "," + extractData.get(lineCounter).get(5);
+                } else {
+                    val = val + extractData.get(lineCounter).get(5);
+                }
+                first = true;
             }
         } while (!nextLine.equalsIgnoreCase(lab2));
         processDisplayName(name.trim(), val);
@@ -183,14 +206,6 @@ public class Extract {
 
     private void processDisplayName(String name, String value) {
         name = name.trim().replace(" ", "_");
-//        if (name.equalsIgnoreCase("Y")) {
-//            if (gpsYcounter == 0) {
-//                name = "Start_GPS_Y";
-//                gpsYcounter++;
-//            } else if (gpsYcounter == 1) {
-//                name = "End_GPS_Y";
-//            }
-//        }
         if (xmlProps.containsKey(name)) {
             String displayValue = xmlProps.getProperty(name).replace(" ", "_");
             props.put(df.format(propCounter) + "_" + displayValue, value);
@@ -213,7 +228,9 @@ public class Extract {
     }
 
     private String findName(String args) {
+        Set<String> keys = this.usedNames.keySet();
         // build up the label
+        int localCounter = 0;
         String name = "";
         lineCounter = -1;
         nameLine = -1;
@@ -222,6 +239,15 @@ public class Extract {
             lineCounter++;
             nameLine++;
             if (data.contains(args)) {
+                if (keys.contains(args)) {
+                    Integer nameReuse = this.usedNames.get(args);
+                    if (nameReuse > localCounter++) {
+                        continue;
+                    }
+                } else if (!keys.contains(args)) {
+                    usedNames.put(args, ++localCounter);
+                }
+                usedNames.put(args, localCounter);
                 if (name.isEmpty()) {
                     name = name + args;
                 } else {
