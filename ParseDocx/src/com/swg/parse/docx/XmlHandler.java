@@ -106,7 +106,7 @@ public class XmlHandler extends DefaultHandler {
                     xmlString.add(data);
                     //System.out.printf("\nCodes that did get printed: %s - %d",character, (int)character);
                 }
-            } else if (data.length() > 2) {
+            } else if (data.length() >= 2) {
                 xmlString.add(data);
             }
             textVal = false;

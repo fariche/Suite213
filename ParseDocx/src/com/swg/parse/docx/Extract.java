@@ -59,16 +59,20 @@ public class Extract {
         lookForGps("Start GPS X", "GPS File Name");
         lookForUntil("GPS File Name", "Region");
         lookForCombo("Region");
-        lookForUntil("Planned Examination Length","Actual Examination Length");
-        lookForUntil("Actual Examination Length","Section 2");
-        lookForCheck("oreign Pipe in Excavation","Size");
-//        lookForUntil("Size");
-//        lookForUntil(1, 0, "Material");
-//        lookForCheck("Foreign Current");
-//        lookForCheck("ond Present");
-//        lookForCheck("Current Flow");
-//        lookForCheck("CP Present");
-//        lookForCheck("Anode Present");
+        lookForUntil("Planned Examination Length", "Actual Examination Length");
+        lookForUntil("Actual Examination Length", "Section 2");
+        lookForCheck("oreign Pipe in Excavation", "Size");
+        lookForUntil("Size", "Material");
+        lookForUntil("Material", "Foreign Current");
+        lookForCheck("Foreign Current", "ond Present");
+        lookForCheck("ond Present", "If");
+        lookForCheck("To", "CP Present");
+        lookForCheck("CP Present", "Anode Present");
+        lookForCheck("Anode Present", "nvironmental Conditions:");
+        lookForUntil("Temp", "Time");
+        lookForUntil("Time", "Weather Conditions");
+        lookForUntil("Weather Conditions", "oil Conditions:");
+        lookForCheck("oil Conditions", "Bedding/Shading Type");
     }
 
     private void lookForGps(String lab1, String lab2) {
@@ -79,7 +83,7 @@ public class Extract {
         do {
             nextLine = extractData.get(++lineCounter).get(1).trim();
             val.add(nextLine);
-        } while (!extractData.get(lineCounter + 1).get(1).trim().equalsIgnoreCase(lab2));
+        } while (!nextLine.equalsIgnoreCase(lab2));
 
         props.put(df.format(propCounter) + "_" + "Start GPS X", val.get(0));
         propCounter++;
@@ -98,8 +102,10 @@ public class Extract {
         int lineCounter = nameLine;
         do {
             nextLine = extractData.get(++lineCounter).get(1).trim();
-            val = val + nextLine;
-        } while (!extractData.get(lineCounter + 1).get(1).trim().equalsIgnoreCase(lab2));
+            if (!nextLine.equalsIgnoreCase(lab2)) {
+                val = val + nextLine;
+            }
+        } while (!nextLine.equalsIgnoreCase(lab2));// || !extractData.get(lineCounter + 1).get(1).trim().equalsIgnoreCase(lab2));
 
         processDisplayName(name.trim(), val);
     }
@@ -121,24 +127,18 @@ public class Extract {
         }
     }
 
-    private void lookForCheck(String... args) {
-        String name = findName(args);
-        String value = null;
-        int lineCounter = -1;
-        for (List<String> data : extractData) {
-            data = cleanUpData(data);
-            lineCounter++;
-            if (data.contains(args[0])) {
-                List<String> tags = extractData.get(++lineCounter);
-//                if (tags.get(1).contains("<w:checked>")) {
-//                    checked = true;
-//                    value = tags.get(5);
-//                }
-                if (value != null) {
-                    processDisplayName(name.trim(), value);
-                }
+    private void lookForCheck(String lab1, String lab2) {
+        String name = findName(lab1);
+        String val = "";
+        String nextLine;
+        int lineCounter = nameLine;
+        do {
+            nextLine = extractData.get(++lineCounter).get(1).trim();
+            if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
+                val = extractData.get(lineCounter).get(5);
             }
-        }
+        } while (!nextLine.equalsIgnoreCase(lab2));
+        processDisplayName(name.trim(), val);
     }
 
     private void lookForCombo(String... args) {
@@ -228,7 +228,7 @@ public class Extract {
                     name = name + "_" + args;
                 }
                 return name;
-            }            
+            }
         }
         return name;
     }
