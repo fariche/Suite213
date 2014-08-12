@@ -49,7 +49,7 @@ public class Extract {
 
     public void extract(List<List<String>> data) {
         extractData = data;
-
+        
         lookForUntil("DE Location ID", "HCA");
         lookForUntil("Name", "xamination");
         lookForUntil("xamination", "Work Request No.");
@@ -103,7 +103,48 @@ public class Extract {
         //        lookForUntil("Inspected Date", "Print");
         lookForUntil("Reviewed By", "Date Reviewed");
         lookForUntil("Date Reviewed", "Print");
-
+        lookForUntil("Soil pH at Pipe Depth","(using Antimony half cell)");
+        lookForUntil("Soil Resistivity at Pipe Depth","cm");
+        lookForCheck("Soil Chemistry Performed", "Method used -");
+        lookForUntil("Chlorides","ppm");
+        lookForUntil("Nitrates","ppm");
+        lookForUntil("Sulfates","ppm");
+        lookForUntil("O’clock","Bacterial Samples Taken");
+        lookForCheck("Bacterial Samples Taken","If yes, see Section 6");
+        lookForCheck("Asphalt and/or Tar Wrap samples taken","Section 4");
+        //lookForCheck("Defects:"," All external");
+        //lookForCombo("Coating");
+        lookForUntil("Distance from Zero Point (feet)","O’clock Position");
+        lookForUntil("O’clock Position","Length (Axial) (inch)");
+        lookForUntil("Length (Axial) (inch)","Length (Circumferential) (inch)");
+        lookForUntil("Length (Circumferential) (inch)","Maximum Depth (inch)");
+       
+        lookForUntil("Maximum Depth (inch)","Repair Category");
+        
+//        lookFor("Number");
+//        lookForNext("Num 1");
+//        lookForNext("Num 2");
+//        lookForNext("Num 3");
+//        lookForNext("Num 4");
+//        lookForNext("Num 5");
+        
+        lookForCombo("Coating)");
+        lookForNextCombo("Type of Defect 2");
+        lookForNextCombo("Type of Defect 3");
+        lookForNextCombo("Type of Defect 4");
+        lookForNextCombo("Type of Defect 5");
+        lookForCombo("Repair Category");
+        lookForNextCombo("Repair Category 2");
+        lookForNextCombo("Repair Category 3");
+        lookForNextCombo("Repair Category 4");
+        lookForNextCombo("Repair Category 5");
+        lookForCombo("Corrosion Interactivity");
+        lookForNextCombo("Corrosion Interactivity 2");
+        lookForNextCombo("Corrosion Interactivity 3");
+        lookForNextCombo("Corrosion Interactivity 4");
+        lookForNextCombo("Corrosion Interactivity 5");
+                
+        System.out.println("");
     }
 
     private void lookForGps(String lab1, String lab2) {
@@ -126,6 +167,10 @@ public class Extract {
         propCounter++;
     }
 
+    private void lookFor(String lab1) {
+        findName(lab1);
+    }
+    
     private void lookForUntil(String lab1, String lab2) {
         String name = findName(lab1);
         String val = "";
@@ -173,6 +218,30 @@ public class Extract {
         }
         processDisplayName(name.trim(), value);
     }
+    
+    // User supplies a name, like a column
+    private void lookForNextCombo(String name) {
+        int lineCounter = nameLine;
+        String value = "";
+        List<String> tags = extractData.get(++lineCounter);
+        if (tags.get(1).contains("<w:wResult")) {
+            comboIndex = true;
+            value = getListEntryValue(tags);
+        } else {
+            value = getListEntryValue(tags);
+        }
+        processDisplayName(name.trim(), value);
+    }
+    
+    // User supplies a name, like a column
+    private void lookForNext(String lab1) {
+        String name = findName(lab1);
+        int lineCounter = nameLine;
+        String value = "";
+        List<String> tags = extractData.get(++lineCounter);
+        value = tags.get(3);
+        processDisplayName(name.trim(), value);
+    }
 
     private String getListEntryValue(List<String> tags) {
         String value;
@@ -192,7 +261,7 @@ public class Extract {
         } else {
             String item = tags.get(1);
             String temp = "<w:listEntry val=";
-            int begin = temp.length() + 1;
+            int begin = temp.length();
             int end = item.length() - 1;
             value = item.substring(begin, end);
             return value;
@@ -200,9 +269,17 @@ public class Extract {
     }
 
     private void processDisplayName(String name, String value) {
-        // exceptions
+        // exception
         if (value.equalsIgnoreCase("No      % consumed")){
             value = "No";
+        }
+        // exception
+        if (name.trim().contains("clock")){
+            name = "6 O'clock";
+        }
+        // exception
+        if (name.trim().contains("Coating)")){
+            name = "Type of Defect";
         }
         name = name.trim().replace(" ", "_");
         String displayName, displayValue = null;

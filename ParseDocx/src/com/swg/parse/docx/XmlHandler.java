@@ -20,7 +20,7 @@ public class XmlHandler extends DefaultHandler {
 
     public static List<List<String>> dataList = new ArrayList<>();
     public Properties props = new Properties();
-    private boolean textVal, isList, isChecked, isResult, weldSeam, groundCover;
+    private boolean textVal, isList, isChecked, isResult, weldSeam, groundCover, isTable;
     private String data;
     private static List<String> xmlString = new ArrayList<String>();
 
@@ -28,6 +28,15 @@ public class XmlHandler extends DefaultHandler {
     public void startElement(String nsURI, String localName, String rawName, Attributes attributes) throws SAXException {
         String resultVal;
         switch (rawName) {
+//            case "w:tc":
+//                if (isTable) {
+//                    xmlString.add("<w:tc>");
+//                }
+//                break;
+//            case "w:tbl":
+//                xmlString.add("<w:tbl>");
+//                isTable = true;
+//                break;
             case "w:result":
                 resultVal = attributes.getValue("w:val").trim();
                 xmlString.add("<w:wResult val=" + resultVal + ">");
@@ -61,6 +70,15 @@ public class XmlHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (qName) {
+//            case "w:tc":
+//                if (isTable) {
+//                    xmlString.add("<w:tc/>");
+//                }
+//                break;
+//            case "w:tbl":
+//                xmlString.add("<w:tbl/>");
+//                isTable = false;
+//                break;
             case "w:ddList":
                 if (isList) {
                     xmlString.add("<w:ddList/>");
