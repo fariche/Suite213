@@ -49,7 +49,7 @@ public class Extract {
 
     public void extract(List<List<String>> data) {
         extractData = data;
-        
+
         lookForUntil("DE Location ID", "HCA");
         lookForUntil("Name", "xamination");
         lookForUntil("xamination", "Work Request No.");
@@ -62,72 +62,74 @@ public class Extract {
         lookForUntil("Address and/or Location", "nspection Company");
         lookForUntil("nspection Company", "Date GPS Synchronized");
         lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
-        lookForGps("Start GPS X", "GPS File Name");
+        lookForGps("Start: GPS X", "GPS File Name"); // Fix this 39
         lookForUntil("GPS File Name", "Region");
+        lookForUntil("Name", "Region");
         lookForCombo("Region");
         lookForUntil("Planned Examination Length", "Actual Examination Length");
         lookForUntil("Actual Examination Length", "Section 2");
         lookForCheck("oreign Pipe in Excavation", "Size");
         lookForUntil("Size", "Material");
-        lookForUntil("Material", "Foreign Current");
+        lookForUntil("Material", "Foreign Current");// Fix this 60
         lookForCheck("Foreign Current", "ond Present");
         lookForCheck("ond Present", "If");
-        lookForCheck("To", "CP Present");
+        lookForCheck("To:", "CP Present"); // Fix this 66
         lookForCheck("CP Present", "Anode Present");
         lookForCheck("Anode Present", "nvironmental Conditions:");
-        lookForUntil("Temp", "Time");
-        lookForUntil("Time", "Weather Conditions");
-        lookForUntil("Weather Conditions", "oil Conditions:");
-        lookForCheck("oil Conditions", "Bedding/Shading Type");
-        lookForUntil("Bedding/Shading Type", "Rockshield Used");
-        lookForCheck("Rockshield Used", "Soil Type:");
-        lookForCheck("Soil Type", "Depth of Cover");
-        lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
-        lookForUntil("Size", "InDiam");
-        lookForUntil("InDiam", "Wthick");
-        lookForUntil("Wthick", "Grade");
-        lookForUntil("Grade", "Yield");
-        lookForUntil("Yield", "WkReqNo");
-        lookForUntil("WkReqNo", "Installation Month");
-        lookForUntil("Installation Month", "Installation Year");
-        lookForUntil("Installation Year", "OpsSysName");
-        lookForUntil("OpsSysName", "Weld Seam:");
-        lookForCheck("Weld Seam", "Coating Types:");
-        lookForCheck("Coating Types", "Coating Condition:");
-        lookForCheck("Coating Condition", "Holiday Detection Volt Setting");
-        lookForUntil("Holiday Detection Volt Setting", "Type of Coating Damage");
-        //lookForCheck("Ground Cover Found", "on-C");
-        lookForUntil("listers", "I have reviewed the procedures performed and have found them:");
-        lookForCheck("I have reviewed the procedures performed and have found them", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");
-        lookForUntil("Inspected By", "Inspection Date");
-        //        lookForUntil("Inspected Date", "Print");
-        lookForUntil("Reviewed By", "Date Reviewed");
-        lookForUntil("Date Reviewed", "Print");
-        lookForUntil("Soil pH at Pipe Depth","(using Antimony half cell)");
-        lookForUntil("Soil Resistivity at Pipe Depth","cm");
-        lookForCheck("Soil Chemistry Performed", "Method used -");
-        lookForUntil("Chlorides","ppm");
-        lookForUntil("Nitrates","ppm");
-        lookForUntil("Sulfates","ppm");
-        lookForUntil("O’clock","Bacterial Samples Taken");
-        lookForCheck("Bacterial Samples Taken","If yes, see Section 6");
-        lookForCheck("Asphalt and/or Tar Wrap samples taken","Section 4");
-        //lookForCheck("Defects:"," All external");
-        //lookForCombo("Coating");
-        lookForUntil("Distance from Zero Point (feet)","O’clock Position");
-        lookForUntil("O’clock Position","Length (Axial) (inch)");
-        lookForUntil("Length (Axial) (inch)","Length (Circumferential) (inch)");
-        lookForUntil("Length (Circumferential) (inch)","Maximum Depth (inch)");
-       
-        lookForUntil("Maximum Depth (inch)","Repair Category");
-        
-//        lookFor("Number");
-//        lookForNext("Num 1");
-//        lookForNext("Num 2");
-//        lookForNext("Num 3");
-//        lookForNext("Num 4");
-//        lookForNext("Num 5");
-        
+        /*
+         lookForUntil("Temp", "Time");
+         lookForUntil("Time", "Weather Conditions");
+         lookForUntil("Weather Conditions", "oil Conditions:");
+         //lookForCheck("oil Conditions", "Bedding/Shading Type"); // Fix this
+         lookForUntil("Bedding/Shading Type", "Rockshield Used");
+         lookForCheck("Rockshield Used", "Soil Type:");
+         //lookForCheck("Soil Type", "Depth of Cover"); // Fix this
+         lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
+         lookForUntil("Size", "InDiam");
+         lookForUntil("InDiam", "Wthick");
+         lookForUntil("Wthick", "Grade");
+         lookForUntil("Grade", "Yield");
+         lookForUntil("Yield", "WkReqNo");
+         lookForUntil("WkReqNo", "Installation Month");
+         lookForUntil("Installation Month", "Installation Year");
+         lookForUntil("Installation Year", "OpsSysName");
+         lookForUntil("OpsSysName", "Weld Seam:");
+         /*
+         //lookForCheck("Weld Seam", "Coating Types:"); //Fix this
+         //lookForCheck("Coating Types", "Coating Condition:"); Fix this
+         //lookForCheck("Coating Condition", "Holiday Detection Volt Setting"); Fix this
+         lookForUntil("Holiday Detection Volt Setting", "Type of Coating Damage");
+         //lookForCheck("Ground Cover Found", "on-C"); // Fix this
+         lookForUntil("listers", "I have reviewed the procedures performed and have found them:");
+         //lookForCheck("I have reviewed the procedures performed and have found them", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
+         lookForUntil("Inspected By", "Inspection Date");
+         //lookForUntil("Inspected Date", "Print"); //Fix this
+         lookForUntil("Reviewed By", "Date Reviewed");
+         lookForUntil("Date Reviewed", "Print");
+         lookForUntil("Soil pH at Pipe Depth","(using Antimony half cell)");
+         lookForUntil("Soil Resistivity at Pipe Depth","cm");
+         lookForCheck("Soil Chemistry Performed", "Method used -");
+         lookForUntil("Chlorides","ppm");
+         lookForUntil("Nitrates","ppm");
+         lookForUntil("Sulfates","ppm");
+         lookForUntil("O’clock","Bacterial Samples Taken");
+         lookForCheck("Bacterial Samples Taken","If yes, see Section 6");
+         lookForCheck("Asphalt and/or Tar Wrap samples taken","Section 4");
+         //lookForCheck("Defects:"," All external");//Fix this
+         //lookForCombo("Coating");//Fix this
+         lookForUntil("Distance from Zero Point (feet)","O’clock Position");
+         lookForUntil("O’clock Position","Length (Axial) (inch)");
+         lookForUntil("Length (Axial) (inch)","Length (Circumferential) (inch)");
+         lookForUntil("Length (Circumferential) (inch)","Maximum Depth (inch)");
+         lookForUntil("Maximum Depth (inch)","Repair Category");
+         /* Fix below
+         lookFor("Number");
+         lookForNext("Num 1");
+         lookForNext("Num 2");
+         lookForNext("Num 3");
+         lookForNext("Num 4");
+         lookForNext("Num 5");
+         */
         lookForCombo("Coating)");
         lookForNextCombo("Type of Defect 2");
         lookForNextCombo("Type of Defect 3");
@@ -143,12 +145,21 @@ public class Extract {
         lookForNextCombo("Corrosion Interactivity 3");
         lookForNextCombo("Corrosion Interactivity 4");
         lookForNextCombo("Corrosion Interactivity 5");
-                
+
+        // Section 5
+        lookForUntil("ICDA Scrub #1: Min", "Max");
+        lookForUntil("Max", "WT ∆%");
+        lookForUntil("ICDA Scrub #2: Min", "Max");
+
         System.out.println("");
     }
 
     private void lookForGps(String lab1, String lab2) {
         String name = findName(lab1);
+        if (name.equalsIgnoreCase("")) {
+            System.out.println("*** Cannot find name: " + lab1);
+            return;
+        }
         List<String> val = new ArrayList<String>();
         String nextLine;
         int lineCounter = nameLine;
@@ -157,22 +168,22 @@ public class Extract {
             val.add(nextLine);
         } while (!nextLine.equalsIgnoreCase(lab2));
 
-        props.put(df.format(propCounter) + "_" + "Start GPS X", val.get(0));
-        propCounter++;
-        props.put(df.format(propCounter) + "_" + "Start GPS Y", val.get(1));
-        propCounter++;
-        props.put(df.format(propCounter) + "_" + "End GPS X", val.get(3));
-        propCounter++;
-        props.put(df.format(propCounter) + "_" + "End GPS Y", val.get(4));
-        propCounter++;
+        props.put(df.format(propCounter++) + "_" + "Start_GPS_X", val.get(0));
+        props.put(df.format(propCounter++) + "_" + "Start_GPS_Y", val.get(1));
+        props.put(df.format(propCounter++) + "_" + "End_GPS_X", val.get(4));
+        props.put(df.format(propCounter++) + "_" + "End_GPS_Y", val.get(5));
     }
 
     private void lookFor(String lab1) {
         findName(lab1);
     }
-    
+
     private void lookForUntil(String lab1, String lab2) {
         String name = findName(lab1);
+        if (name.equalsIgnoreCase("")) {
+            System.out.println("*** Cannot find name: " + lab1);
+            return;
+        }
         String val = "";
         String nextLine = "";
         int lineCounter = nameLine;
@@ -192,7 +203,6 @@ public class Extract {
         boolean first = false;
         int lineCounter = nameLine;
         do {
-            nextLine = extractData.get(++lineCounter).get(1).trim();
             if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
                 if (first) {
                     val = val + "," + extractData.get(lineCounter).get(5);
@@ -201,6 +211,7 @@ public class Extract {
                 }
                 first = true;
             }
+            nextLine = extractData.get(++lineCounter).get(1).trim();
         } while (!nextLine.equalsIgnoreCase(lab2));
         processDisplayName(name.trim(), val);
     }
@@ -218,7 +229,7 @@ public class Extract {
         }
         processDisplayName(name.trim(), value);
     }
-    
+
     // User supplies a name, like a column
     private void lookForNextCombo(String name) {
         int lineCounter = nameLine;
@@ -232,7 +243,7 @@ public class Extract {
         }
         processDisplayName(name.trim(), value);
     }
-    
+
     // User supplies a name, like a column
     private void lookForNext(String lab1) {
         String name = findName(lab1);
@@ -270,15 +281,15 @@ public class Extract {
 
     private void processDisplayName(String name, String value) {
         // exception
-        if (value.equalsIgnoreCase("No      % consumed")){
+        if (value.equalsIgnoreCase("No      % consumed")) {
             value = "No";
         }
         // exception
-        if (name.trim().contains("clock")){
+        if (name.trim().contains("clock")) {
             name = "6 O'clock";
         }
         // exception
-        if (name.trim().contains("Coating)")){
+        if (name.trim().contains("Coating)")) {
             name = "Type of Defect";
         }
         name = name.trim().replace(" ", "_");
@@ -301,7 +312,7 @@ public class Extract {
     private List<String> cleanUpData(List<String> data) {
         List<String> clean = new ArrayList<String>();
         for (String d : data) {
-            d = d.replace(":", "");
+            //d = d.replace(":", "");
             d = d.replace("   ", " ");
             d = d.replace("  ", " ");
             clean.add(d);
@@ -318,6 +329,7 @@ public class Extract {
         nameLine = -1;
         for (List<String> data : extractData) {
             data = cleanUpData(data);
+//            System.out.println("*** Looking for:" + data);
             lineCounter++;
             nameLine++;
             if (data.contains(args)) {
@@ -328,6 +340,7 @@ public class Extract {
                     }
                 } else if (!keys.contains(args)) {
                     usedNames.put(args, ++localCounter);
+                    ++multiNameCounter;
                 }
                 usedNames.put(args, localCounter);
                 if (name.isEmpty()) {
