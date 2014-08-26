@@ -50,40 +50,39 @@ public class Extract {
     public void extract(List<List<String>> data) {
         extractData = data;
 
-        lookForUntil("DE Location ID", "HCA");
-        lookForUntil("Name", "xamination");
-        lookForUntil("xamination", "Work Request No.");
-        lookForUntil("Work Request No.", "Division");
-        lookForCombo("Division");
-        lookForUntil("District Number", "Town or County");
-        lookForUntil("Town or County", "State");
-        lookForCombo("State");
-        lookForUntil("ile Number", "Address and/or Location");
-        lookForUntil("Address and/or Location", "nspection Company");
-        lookForUntil("nspection Company", "Date GPS Synchronized");
-        lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
-        lookForGps("Start: GPS X", "GPS File Name"); // Fix this 39
-        lookForUntil("GPS File Name", "Region");
-        lookForUntil("Name", "Region");
-        lookForCombo("Region");
-        lookForUntil("Planned Examination Length", "Actual Examination Length");
-        lookForUntil("Actual Examination Length", "Section 2");
-        lookForCheck("oreign Pipe in Excavation", "Size");
-        lookForUntil("Size", "Material");
-        lookForUntil("Material", "Foreign Current");// Fix this 60
-        lookForCheck("Foreign Current", "ond Present");
-        lookForCheck("ond Present", "If");
-        lookForCheck("To:", "CP Present"); // Fix this 66
-        lookForCheck("CP Present", "Anode Present");
-        lookForCheck("Anode Present", "nvironmental Conditions:");
         /*
+         lookForUntil("DE Location ID", "HCA");
+         lookForUntil("Name", "xamination");
+         lookForUntil("xamination", "Work Request No.");
+         lookForUntil("Work Request No.", "Division");
+         lookForCombo("Division");
+         lookForUntil("District Number", "Town or County");
+         lookForUntil("Town or County", "State");
+         lookForCombo("State");
+         lookForUntil("ile Number", "Address and/or Location");
+         lookForUntil("Address and/or Location", "nspection Company");
+         lookForUntil("nspection Company", "Date GPS Synchronized");
+         lookForUntil("Date GPS Synchronized", "Field Location (from Top of Pipe)");
+         lookForGps("Start: GPS X", "GPS File Name");
+         lookForUntil("GPS File Name", "Region");
+         lookForCombo("Region");
+         lookForUntil("Planned Examination Length", "Actual Examination Length");
+         lookForUntil("Actual Examination Length", "Section 2");
+         lookForCheck("oreign Pipe in Excavation", "Size");
+         lookForUntil("Size", "Material");
+         lookForUntil("Material", "Foreign Current");
+         lookForCheck("Foreign Current", "ond Present");
+         lookForCheck("ond Present", "If");
+         lookForCheck("To:", "CP Present");
+         lookForCheck("CP Present", "Anode Present");
+         lookForCheck("Anode Present", "nvironmental Conditions:");
          lookForUntil("Temp", "Time");
          lookForUntil("Time", "Weather Conditions");
          lookForUntil("Weather Conditions", "oil Conditions:");
-         //lookForCheck("oil Conditions", "Bedding/Shading Type"); // Fix this
+         lookForCheck("oil Conditions:", "Bedding/Shading Type");
          lookForUntil("Bedding/Shading Type", "Rockshield Used");
          lookForCheck("Rockshield Used", "Soil Type:");
-         //lookForCheck("Soil Type", "Depth of Cover"); // Fix this
+         lookForCheck("Soil Type:", "Depth of Cover");
          lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
          lookForUntil("Size", "InDiam");
          lookForUntil("InDiam", "Wthick");
@@ -94,12 +93,14 @@ public class Extract {
          lookForUntil("Installation Month", "Installation Year");
          lookForUntil("Installation Year", "OpsSysName");
          lookForUntil("OpsSysName", "Weld Seam:");
-         /*
-         //lookForCheck("Weld Seam", "Coating Types:"); //Fix this
-         //lookForCheck("Coating Types", "Coating Condition:"); Fix this
-         //lookForCheck("Coating Condition", "Holiday Detection Volt Setting"); Fix this
+         lookForCheck("Weld Seam:", "Coating Types:");
+         lookForCheck("Coating Types:", "Coating Condition:"); 
+         lookForCheck("Coating Condition:", "Holiday Detection Volt Setting");
+        
          lookForUntil("Holiday Detection Volt Setting", "Type of Coating Damage");
-         //lookForCheck("Ground Cover Found", "on-C"); // Fix this
+         */
+        lookForCheck("Ground Cover Found:", "on-C"); // Fix this
+         /*
          lookForUntil("listers", "I have reviewed the procedures performed and have found them:");
          //lookForCheck("I have reviewed the procedures performed and have found them", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
          lookForUntil("Inspected By", "Inspection Date");
@@ -122,6 +123,7 @@ public class Extract {
          lookForUntil("Length (Axial) (inch)","Length (Circumferential) (inch)");
          lookForUntil("Length (Circumferential) (inch)","Maximum Depth (inch)");
          lookForUntil("Maximum Depth (inch)","Repair Category");
+         
          /* Fix below
          lookFor("Number");
          lookForNext("Num 1");
@@ -129,29 +131,27 @@ public class Extract {
          lookForNext("Num 3");
          lookForNext("Num 4");
          lookForNext("Num 5");
+         lookForCombo("Coating)");
+         lookForNextCombo("Type of Defect 2");
+         lookForNextCombo("Type of Defect 3");
+         lookForNextCombo("Type of Defect 4");
+         lookForNextCombo("Type of Defect 5");
+         lookForCombo("Repair Category");
+         lookForNextCombo("Repair Category 2");
+         lookForNextCombo("Repair Category 3");
+         lookForNextCombo("Repair Category 4");
+         lookForNextCombo("Repair Category 5");
+         lookForCombo("Corrosion Interactivity");
+         lookForNextCombo("Corrosion Interactivity 2");
+         lookForNextCombo("Corrosion Interactivity 3");
+         lookForNextCombo("Corrosion Interactivity 4");
+         lookForNextCombo("Corrosion Interactivity 5");
+
+         // Section 5
+         lookForUntil("ICDA Scrub #1: Min", "Max");
+         lookForUntil("Max", "WT ∆%");
+         lookForUntil("ICDA Scrub #2: Min", "Max");
          */
-        lookForCombo("Coating)");
-        lookForNextCombo("Type of Defect 2");
-        lookForNextCombo("Type of Defect 3");
-        lookForNextCombo("Type of Defect 4");
-        lookForNextCombo("Type of Defect 5");
-        lookForCombo("Repair Category");
-        lookForNextCombo("Repair Category 2");
-        lookForNextCombo("Repair Category 3");
-        lookForNextCombo("Repair Category 4");
-        lookForNextCombo("Repair Category 5");
-        lookForCombo("Corrosion Interactivity");
-        lookForNextCombo("Corrosion Interactivity 2");
-        lookForNextCombo("Corrosion Interactivity 3");
-        lookForNextCombo("Corrosion Interactivity 4");
-        lookForNextCombo("Corrosion Interactivity 5");
-
-        // Section 5
-        lookForUntil("ICDA Scrub #1: Min", "Max");
-        lookForUntil("Max", "WT ∆%");
-        lookForUntil("ICDA Scrub #2: Min", "Max");
-
-        System.out.println("");
     }
 
     private void lookForGps(String lab1, String lab2) {
@@ -198,21 +198,39 @@ public class Extract {
 
     private void lookForCheck(String lab1, String lab2) {
         String name = findName(lab1);
+        if (name.equalsIgnoreCase("")) {
+            System.out.println("*** Cannot find name: " + lab1);
+            return;
+        }
         String val = "";
         String nextLine;
         boolean first = false;
         int lineCounter = nameLine;
-        do {
-            if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
-                if (first) {
-                    val = val + "," + extractData.get(lineCounter).get(5);
-                } else {
-                    val = val + extractData.get(lineCounter).get(5);
+        if (name.equalsIgnoreCase("Ground Cover Found:")) {
+            do {
+                if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
+                    if (first) {
+                        val = val + "," + extractData.get(++lineCounter).get(1);
+                    } else {
+                        val = val + extractData.get(++lineCounter).get(1);
+                    }
+                    first = true;
                 }
-                first = true;
-            }
-            nextLine = extractData.get(++lineCounter).get(1).trim();
-        } while (!nextLine.equalsIgnoreCase(lab2));
+                nextLine = extractData.get(++lineCounter).get(1).trim();
+            } while (!nextLine.equalsIgnoreCase(lab2));
+        } else {
+            do {
+                if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
+                    if (first) {
+                        val = val + "," + extractData.get(lineCounter).get(5);
+                    } else {
+                        val = val + extractData.get(lineCounter).get(5);
+                    }
+                    first = true;
+                }
+                nextLine = extractData.get(++lineCounter).get(1).trim();
+            } while (!nextLine.equalsIgnoreCase(lab2));
+        }
         processDisplayName(name.trim(), val);
     }
 
@@ -292,7 +310,16 @@ public class Extract {
         if (name.trim().contains("Coating)")) {
             name = "Type of Defect";
         }
+//        // exception
+//        if (name.trim().contains("oil Conditions:")) {
+//            name = "Soil Conditions";
+//        }
+//        // exception
+//        if (name.trim().contains("Weld Seam:")) {
+//            name = "Weld Seam";
+//        }
         name = name.trim().replace(" ", "_");
+        name = name.trim().replace(":", "");
         String displayName, displayValue = null;
         if (xmlProps.containsKey(value)) {
             displayValue = xmlProps.getProperty(value);
