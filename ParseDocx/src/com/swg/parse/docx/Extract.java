@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 /**
@@ -49,11 +50,9 @@ public class Extract {
 
     public void extract(List<List<String>> data) {
         extractData = data;
-
         /*
-        
          label("#   Section 1                                                 #");
-        
+
          lookForUntil("DE Location ID", "HCA");
          lookForUntil("Name", "xamination");
          lookForUntil("xamination", "Work Request No.");
@@ -71,9 +70,9 @@ public class Extract {
          lookForCombo("Region");
          lookForUntil("Planned Examination Length", "Actual Examination Length");
          lookForUntil("Actual Examination Length", "Section 2");
-        
+
          label("#   Section 2                                                 #");
-        
+
          lookForCheck("oreign Pipe in Excavation", "Size");
          lookForUntil("Size", "Material");
          lookForUntil("Material", "Foreign Current");
@@ -110,9 +109,9 @@ public class Extract {
          lookForUntil("Inspection Date", "Print"); //Fix this
          lookForUntil("Reviewed By", "Date Reviewed");
          lookForUntil("Date Reviewed", "Print");
-        
+
          label("#   Section 3                                                 #");
-        
+
          lookForUntil("Soil pH at Pipe Depth", "(using Antimony half cell)");
          lookForUntil("Soil Resistivity at Pipe Depth", "cm");
          lookForCheck("Soil Chemistry Performed", "Method used -");
@@ -124,14 +123,14 @@ public class Extract {
          lookForCheck("Asphalt and/or Tar Wrap samples taken", "Section 4");
          lookForCheck("Defects:", "All external");//Fix this
          //lookForCombo("Coating)");//Fix this
-        
+
          // Add more
          lookForUntil("Distance from Zero Point (feet)", "O’clock Position");
          lookForUntil("O’clock Position", "Length (Axial) (inch)");
          lookForUntil("Length (Axial) (inch)", "Length (Circumferential) (inch)");
          lookForUntil("Length (Circumferential) (inch)", "Maximum Depth (inch)");
          lookForUntil("Maximum Depth (inch)", "Repair Category");
-        
+
          label("#   Section 4                                                 #");
 
          // Fix below
@@ -165,10 +164,21 @@ public class Extract {
          label("#   Section 5                                                 #");
          */
         // Add more info here
-        readTableInfo("Distance from Zero Point", "ICDA Scrub #1: Min"); //300
+        readTableInfo("Distance from Zero Point", "ICDA Scrub #1: Min"); //300-319
 //        lookForUntil("ICDA Scrub #1: Min", "Max");
 //        lookForUntil("Max", "WT ∆%");
 //        lookForUntil("ICDA Scrub #2: Min", "Max");
+//        lookForUntil("Max", "WT ∆%");
+        lookForUntil("ICDA Scrub #1: Min", "ICDA Scrub #2: Min");
+        lookForUntil("ICDA Scrub #2: Min", "Comments:");
+        lookForUntil("Comments:", "Section");
+        lookForUntil("amples", "Collected b");
+        lookForUntil("Collected b", "Date c");
+        lookForUntil("ollected", "th");
+        lookForUntil("Interpreted by", "Date of reading");
+        lookForUntil("Date of reading","14");
+        lookForUntil("14", "Date of reading");
+        lookForUntil("Date of reading","Cap Color");
     }
 
     private void readTableInfo(String lab1, String lab2) {
@@ -232,9 +242,14 @@ public class Extract {
         do {
             nextLine = extractData.get(++lineCounter).get(1).trim();
             if (!nextLine.equalsIgnoreCase(lab2)) {
-                val = val + nextLine;
+                if (val.equalsIgnoreCase("")) {
+                    val = val + nextLine;
+                } else {
+                    val = val + "|" + nextLine;
+                }
             }
         } while (!nextLine.equalsIgnoreCase(lab2));
+
         processDisplayName(name.trim(), val);
     }
 
@@ -344,14 +359,13 @@ public class Extract {
     }
 
     private void processDisplayName(String name, String value) {
+        if (value.equalsIgnoreCase("")) {
+            value = "N/A";
+        }
         // exception
         if (value.equalsIgnoreCase("No      % consumed")) {
             value = "No";
         }
-//        // exception
-//        if (name.trim().contains("clock")) {
-//            name = "6 O'clock";
-//        }
         // exception
         if (name.trim().contains("Coating)")) {
             name = "Type of Defect";
