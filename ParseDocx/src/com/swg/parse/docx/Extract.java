@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 /**
@@ -25,6 +24,7 @@ public class Extract {
     public static Properties props = new Properties();
     private static List<List<String>> extractData;
     private static Properties xmlProps = new Properties();
+    private static List<String> repeats = new ArrayList();
 
     private int propCounter;
     //private int lineCounter;
@@ -370,8 +370,22 @@ public class Extract {
         if (name.trim().contains("Coating)")) {
             name = "Type of Defect";
         }
+        // exception
+        if (name.equalsIgnoreCase("Date of reading")){
+            if (repeats.contains("Date of reading")){
+                name = "14th " + name;
+            } else {
+                repeats.add("Date of reading");
+                name = "7th " + name;
+            }
+        }
+        // exception
+        if (value.startsWith("th|day|Interpreted by|")){
+            value = value.substring(new String("th|day|Interpreted by|").length());
+        }
         name = name.trim().replace(" ", "_");
         name = name.trim().replace(":", "");
+        
         String displayName, displayValue = null;
         if (xmlProps.containsKey(value)) {
             displayValue = xmlProps.getProperty(value);
