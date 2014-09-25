@@ -186,7 +186,37 @@ public class Extract {
         lookForCheck(" . Severity of Coating Anomaly Found", "2b");//406-411
         lookForCheck("ipe", " . Severity of the coating anomaly found was");//415-420
         lookForCheck("severe than originally prioritized?", " . Is this the initial assessment of this covered segment?");//423-426
-
+        lookForCheck(" . Is this the initial assessment of this covered segment?"," . If both 3a");
+        lookForCheck(" . If both 3a"," . Was corrosion found?");//429-435
+        lookForCheck(" . Was corrosion found?"," . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?");
+        lookForCheck(" . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?"," . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?");
+        lookForCheck(" . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region"," OTE");
+        lookForCheck(" assessed for adjustments?"," 10");//454-458
+        lookForCheck(" . Were changes made to the"," f Yes, document on MOC.  If No, explain why not.");
+        
+        lookForCheck(" . Are additional indirect inspection surveys needed on this segment?"," 7B – Root Cause (based on data on");
+        lookForCheck(" 1. Is the corrosion considered significant?"," Only if Yes, proceed to 2, otherwise go to");
+        lookForCheck(" a. Was the review conducted?","b.");//499-503
+        lookForCheck("Do alternative methods need to be implemented?","Field Work:");
+        lookForCheck("4. For this HCA, has corrosion been found and a root cause determined at other locations?"," Only if Y");
+        lookForCheck("5. For this HCA, are similar occurrences of the root cause being determined at other locations?","7C - Remaining Strength Calculation");
+        lookForCheck("Date calculation completed:","Section");
+        
+        label("#   Section 8                                                 #");
+        lookForUntil("nspector’s Comments","Section");
+        
+        
+        label("#   Section 9                                                 #");
+        lookForCheck("Required?"," Reference Work Request No.");
+        lookForUntil(" Reference Work Request No.", "Check one:");//535-536
+        lookForCheck(" Repair was"," Remediation Comments:");
+        lookForUntil(" Remediation Comments:", "Section");//535-536
+        
+        
+        label("#   Section 10                                                #");
+        label("#   Section 11                                                #");
+        
+        
     }
 
     private void readTableInfo(String lab1, String lab2) {
