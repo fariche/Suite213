@@ -51,7 +51,7 @@ public class Extract {
     public void extract(List<List<String>> data) {
         extractData = data;
 
-        label("#   Section 1                                                 #");
+        //label("#   Section 1                                                 #");
 
         lookForUntil("DE Location ID", "HCA");
         lookForUntil("Name", "xamination");
@@ -71,7 +71,7 @@ public class Extract {
         lookForUntil("Planned Examination Length", "Actual Examination Length");
         lookForUntil("Actual Examination Length", "Section 2");
 
-        label("#   Section 2                                                 #");
+        //label("#   Section 2                                                 #");
 
         lookForCheck("oreign Pipe in Excavation", "Size");
         lookForUntil("Size", "Material");
@@ -110,7 +110,7 @@ public class Extract {
         lookForUntil("Reviewed By", "Date Reviewed");
         lookForUntil("Date Reviewed", "Print");
 
-        label("#   Section 3                                                 #");
+        //label("#   Section 3                                                 #");
 
         lookForUntil("Soil pH at Pipe Depth", "(using Antimony half cell)");
         lookForUntil("Soil Resistivity at Pipe Depth", "cm");
@@ -131,7 +131,7 @@ public class Extract {
         lookForUntil("Length (Circumferential) (inch)", "Maximum Depth (inch)");
         lookForUntil("Maximum Depth (inch)", "Repair Category");
 
-        label("#   Section 4                                                 #");
+        //label("#   Section 4                                                 #");
         // Fix below
         /*
          lookFor("Number");
@@ -158,7 +158,7 @@ public class Extract {
         lookForNextCombo("Corrosion Interactivity 5");
 
         // Section 5
-        label("#   Section 5                                                 #");
+        //label("#   Section 5                                                 #");
 
         // Add more info here
         readTableInfo("Distance from Zero Point", "ICDA Scrub #1: Min"); //300-319
@@ -177,10 +177,10 @@ public class Extract {
         lookForUntil("14", "Date of reading");
         lookForUntil("Date of reading", "Cap Color");
 
-        label("#   Section 6                                                 #");
+        //label("#   Section 6                                                 #");
 
         // need new code for tables
-        label("#   Section 7                                                 #");
+        //label("#   Section 7                                                 #");
 
         lookForCheck("ty of Coating Anomaly Suspected", " . Severity of Coating Anomaly Found");//401-406
         lookForCheck(" . Severity of Coating Anomaly Found", "2b");//406-411
@@ -202,19 +202,19 @@ public class Extract {
         lookForCheck("5. For this HCA, are similar occurrences of the root cause being determined at other locations?","7C - Remaining Strength Calculation");
         lookForCheck("Date calculation completed:","Section");
         
-        label("#   Section 8                                                 #");
+        //label("#   Section 8                                                 #");
         lookForUntil("nspector’s Comments","Section");
         
         
-        label("#   Section 9                                                 #");
+        //label("#   Section 9                                                 #");
         lookForCheck("Required?"," Reference Work Request No.");
         lookForUntil(" Reference Work Request No.", "Check one:");//535-536
         lookForCheck(" Repair was"," Remediation Comments:");
         lookForUntil(" Remediation Comments:", "Section");//535-536
         
         
-        label("#   Section 10                                                #");
-        label("#   Section 11                                                #");
+        //label("#   Section 10                                                #");
+        //label("#   Section 11                                                #");
         
         
     }

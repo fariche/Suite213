@@ -2,5 +2,5 @@ Manifest-Version: 1.0
 OpenIDE-Module: com.swg.parse.docx
 OpenIDE-Module-Localizing-Bundle: com/swg/parse/docx/Bundle.properties
 OpenIDE-Module-Requires: org.openide.windows.WindowManager
-OpenIDE-Module-Specification-Version: 1.0
+OpenIDE-Module-Specification-Version: 2014.10.3
 

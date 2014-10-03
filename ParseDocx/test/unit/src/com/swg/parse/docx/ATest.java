@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
@@ -19,6 +20,10 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class ATest {
 
+    private static int branch = 0;
+
+    static XmlHandler xml;
+
     /**
      * @param args the command line arguments
      */
@@ -27,8 +32,8 @@ public class ATest {
             URL url = ATest.class.getResource("CAD_2013_RS-01.xml");
             File f = new File(url.getFile());
             XMLReader parser = XMLReaderFactory.createXMLReader();
-            XmlHandler xml = new XmlHandler();
-            parser.setContentHandler(xml);
+            xml = new XmlHandler();
+            parser.setContentHandler((ContentHandler) xml);
             parser.parse(f.getAbsolutePath());
             System.out.println(" *** STORED DATA ***");
             int i = 0;
