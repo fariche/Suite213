@@ -16,7 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
  *
  * @author michaelmann
  */
-public class XmlHandler extends DefaultHandler {
+public class XmlHandler1 extends DefaultHandler {
 
     public static List<List<String>> dataList = new ArrayList<>();
     public Properties props = new Properties();
@@ -28,6 +28,9 @@ public class XmlHandler extends DefaultHandler {
     public void startElement(String nsURI, String localName, String rawName, Attributes attributes) throws SAXException {
         String resultVal;
         switch (rawName) {
+//            case "w:r":
+//                xmlString.add("<w:r>");
+//                break;
             case "w:result":
                 resultVal = attributes.getValue("w:val").trim();
                 xmlString.add("<w:wResult val=" + resultVal + ">");
@@ -61,6 +64,9 @@ public class XmlHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (qName) {
+//            case "w:r":
+//                xmlString.add("<w:r/>");
+//                break;
             case "w:ddList":
                 if (isList) {
                     xmlString.add("<w:ddList/>");
