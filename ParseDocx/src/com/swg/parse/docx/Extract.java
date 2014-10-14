@@ -52,7 +52,6 @@ public class Extract {
         extractData = data;
 
         //label("#   Section 1                                                 #");
-
         lookForUntil("DE Location ID", "HCA");
         lookForUntil("Name", "xamination");
         lookForUntil("Number", "Work Request No.");
@@ -72,7 +71,6 @@ public class Extract {
         lookForUntil("Actual Examination Length", "Section 2");
 
         //label("#   Section 2                                                 #");
-
         lookForCheck("oreign Pipe in Excavation", "Size");
         lookForUntil("Size", "Material");
         lookForUntil("Material", "Foreign Current");
@@ -111,7 +109,6 @@ public class Extract {
         lookForUntil("Date Reviewed", "Print");
 
         //label("#   Section 3                                                 #");
-
         lookForUntil("Soil pH at Pipe Depth", "(using Antimony half cell)");
         lookForUntil("Soil Resistivity at Pipe Depth", "cm");
         lookForCheck("Soil Chemistry Performed", "Method used -");
@@ -159,7 +156,6 @@ public class Extract {
 
         // Section 5
         //label("#   Section 5                                                 #");
-
         // Add more info here
         readTableInfo("Distance from Zero Point", "ICDA Scrub #1: Min"); //300-319
         //        lookForUntil("ICDA Scrub #1: Min", "Max");
@@ -178,70 +174,68 @@ public class Extract {
         lookForUntil("Date of reading", "Cap Color");
 
         //label("#   Section 6                                                 #");
-
         // need new code for tables
         //label("#   Section 7                                                 #");
-
         lookForCheck("ty of Coating Anomaly Suspected", " . Severity of Coating Anomaly Found");//401-406
         lookForCheck(" . Severity of Coating Anomaly Found", "2b");//406-411
         lookForCheck("ipe", " . Severity of the coating anomaly found was");//415-420
         lookForCheck("severe than originally prioritized?", " . Is this the initial assessment of this covered segment?");//423-426
-        lookForCheck(" . Is this the initial assessment of this covered segment?"," . If both 3a");
-        lookForCheck(" . If both 3a"," . Was corrosion found?");//429-435
-        lookForCheck(" . Was corrosion found?"," . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?");
-        lookForCheck(" . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?"," . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?");
-        lookForCheck(" . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region"," OTE");
-        lookForCheck(" assessed for adjustments?"," 10");//454-458
-        lookForCheck(" . Were changes made to the"," f Yes, document on MOC.  If No, explain why not.");
-        
-        lookForCheck(" . Are additional indirect inspection surveys needed on this segment?"," 7B – Root Cause (based on data on");
-        lookForCheck(" 1. Is the corrosion considered significant?"," Only if Yes, proceed to 2, otherwise go to");
-        lookForCheck(" a. Was the review conducted?","b.");//499-503
-        lookForCheck("Do alternative methods need to be implemented?","Field Work:");
-        lookForCheck("4. For this HCA, has corrosion been found and a root cause determined at other locations?"," Only if Y");
-        lookForCheck("5. For this HCA, are similar occurrences of the root cause being determined at other locations?","7C - Remaining Strength Calculation");
-        lookForCheck("Date calculation completed:","Section");
-        
+        lookForCheck(" . Is this the initial assessment of this covered segment?", " . If both 3a");
+        lookForCheck(" . If both 3a", " . Was corrosion found?");//429-435
+        lookForCheck(" . Was corrosion found?", " . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?");
+        lookForCheck(" . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", " . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?");
+        lookForCheck(" . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region", " OTE");
+        lookForCheck(" assessed for adjustments?", " 10");//454-458
+        lookForCheck(" . Were changes made to the", " f Yes, document on MOC.  If No, explain why not.");
+
+        lookForCheck(" . Are additional indirect inspection surveys needed on this segment?", " 7B – Root Cause (based on data on");
+        lookForCheck(" 1. Is the corrosion considered significant?", " Only if Yes, proceed to 2, otherwise go to");
+        lookForCheck(" a. Was the review conducted?", "b.");//499-503
+        lookForCheck("Do alternative methods need to be implemented?", "Field Work:");
+        lookForCheck("4. For this HCA, has corrosion been found and a root cause determined at other locations?", " Only if Y");
+        lookForCheck("5. For this HCA, are similar occurrences of the root cause being determined at other locations?", "7C - Remaining Strength Calculation");
+        lookForCheck("Date calculation completed:", "Section");
+
         //label("#   Section 8                                                 #");
-        lookForUntil("nspector’s Comments","Section");
-        
-        
+        lookForUntil("nspector’s Comments", "Section");
+
         //label("#   Section 9                                                 #");
-        lookForCheck("Required?"," Reference Work Request No.");
+        lookForCheck("Required?", " Reference Work Request No.");
         lookForUntil(" Reference Work Request No.", "Check one:");//535-536
-        lookForCheck(" Repair was"," Remediation Comments:");
+        lookForCheck(" Repair was", " Remediation Comments:");
         lookForUntil(" Remediation Comments:", "Section");//535-536
-        
-        
+
         //label("#   Section 10                                                #");
         //label("#   Section 11                                                #");
-        
-        
     }
 
     private void readTableInfo(String lab1, String lab2) {
-        String name = findName(lab1);
-        if (name.equalsIgnoreCase("")) {
-            System.out.println("*** Cannot find name: " + lab1);
-            return;
-        }
-        String nextLine = null, val;
-        String[] labs = {"[R1]", "[R2]", "[R3]"};
-        int lineCounter = startLine, labIndex = 0, offset = 7;
-        int master = startLine;
-        do {
-            for (int i = 0; i < 6; i++) {
-                name = extractData.get(lineCounter).get(1).trim();
-                val = extractData.get(lineCounter++ + offset).get(1).trim();
-                processDisplayName(labs[labIndex] + name.trim(), val);
-                ++master;
-                //System.out.println("Master:" + master);
+        try {
+            String name = findName(lab1);
+            if (name.equalsIgnoreCase("")) {
+                System.out.println("*** Cannot find name: " + lab1);
+                return;
             }
-            lineCounter = startLine;
-            offset += 6;
-            ++labIndex;
-            nextLine = extractData.get(master + 7).get(1).trim(); // target 319
-        } while (!nextLine.equalsIgnoreCase(lab2));
+            String nextLine = null, val;
+            String[] labs = {"[R1]", "[R2]", "[R3]"};
+            int lineCounter = startLine, labIndex = 0, offset = 7;
+            int master = startLine;
+            do {
+                for (int i = 0; i < 6; i++) {
+                    name = extractData.get(lineCounter).get(1).trim();
+                    val = extractData.get(lineCounter++ + offset).get(1).trim();
+                    processDisplayName(labs[labIndex] + name.trim(), val);
+                    ++master;
+                    //System.out.println("Master:" + master);
+                }
+                lineCounter = startLine;
+                offset += 6;
+                ++labIndex;
+                nextLine = extractData.get(master + 7).get(1).trim(); // target 319
+            } while (!nextLine.equalsIgnoreCase(lab2));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void lookForGps(String lab1, String lab2) {
@@ -269,64 +263,72 @@ public class Extract {
     }
 
     private void lookForUntil(String lab1, String lab2) {
-        String name = findName(lab1);
-        if (name.equalsIgnoreCase("")) {
-            System.out.println("*** Cannot find name: " + lab1);
-            return;
-        }
-        String val = "";
-        String nextLine = "";
-        int lineCounter = startLine;
-        do {
-            nextLine = extractData.get(++lineCounter).get(1).trim();
-            if (!nextLine.equalsIgnoreCase(lab2)) {
-                if (val.equalsIgnoreCase("")) {
-                    val = val + nextLine;
-                } else {
-                    val = val + "|" + nextLine;
-                }
+        try {
+            String name = findName(lab1);
+            if (name.equalsIgnoreCase("")) {
+                System.out.println("*** Cannot find name: " + lab1);
+                return;
             }
-        } while (!nextLine.equalsIgnoreCase(lab2));
+            String val = "";
+            String nextLine = "";
+            int lineCounter = startLine;
+            do {
+                nextLine = extractData.get(++lineCounter).get(1).trim();
+                if (!nextLine.equalsIgnoreCase(lab2)) {
+                    if (val.equalsIgnoreCase("")) {
+                        val = val + nextLine;
+                    } else {
+                        val = val + "|" + nextLine;
+                    }
+                }
+            } while (!nextLine.equalsIgnoreCase(lab2));
 
-        processDisplayName(name.trim(), val);
+            processDisplayName(name.trim(), val);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void lookForCheck(String lab1, String lab2) {
-        String name = findName(lab1);
-        if (name.equalsIgnoreCase("")) {
-            System.out.println("*** Cannot find name: " + lab1);
-            return;
-        }
-        String val = "";
-        String nextLine;
-        boolean first = false;
-        int lineCounter = startLine;
-        if (name.equalsIgnoreCase("Ground Cover Found:") || name.equalsIgnoreCase("Defects:")) {
-            do {
-                if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
-                    if (first) {
-                        val = val + "," + extractData.get(++lineCounter).get(1);
-                    } else {
-                        val = val + extractData.get(++lineCounter).get(1);
+        try {
+            String name = findName(lab1);
+            if (name.equalsIgnoreCase("")) {
+                System.out.println("*** Cannot find name: " + lab1);
+                return;
+            }
+            String val = "";
+            String nextLine;
+            boolean first = false;
+            int lineCounter = startLine;
+            if (name.equalsIgnoreCase("Ground Cover Found:") || name.equalsIgnoreCase("Defects:")) {
+                do {
+                    if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
+                        if (first) {
+                            val = val + "," + extractData.get(++lineCounter).get(1);
+                        } else {
+                            val = val + extractData.get(++lineCounter).get(1);
+                        }
+                        first = true;
                     }
-                    first = true;
-                }
-                nextLine = extractData.get(++lineCounter).get(1).trim();
-            } while (!nextLine.equalsIgnoreCase(lab2));
-        } else {
-            do {
-                if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
-                    if (first) {
-                        val = val + "," + extractData.get(lineCounter).get(5);
-                    } else {
-                        val = val + extractData.get(lineCounter).get(5);
+                    nextLine = extractData.get(++lineCounter).get(1).trim();
+                } while (!nextLine.equalsIgnoreCase(lab2));
+            } else {
+                do {
+                    if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
+                        if (first) {
+                            val = val + "," + extractData.get(lineCounter).get(5);
+                        } else {
+                            val = val + extractData.get(lineCounter).get(5);
+                        }
+                        first = true;
                     }
-                    first = true;
-                }
-                nextLine = extractData.get(++lineCounter).get(1).trim();
-            } while (!nextLine.equalsIgnoreCase(lab2.trim()));
+                    nextLine = extractData.get(++lineCounter).get(1).trim();
+                } while (!nextLine.equalsIgnoreCase(lab2.trim()));
+            }
+            processDisplayName(name.trim(), val);
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
         }
-        processDisplayName(name.trim(), val);
     }
 
     private void lookForCombo(String lab1) {

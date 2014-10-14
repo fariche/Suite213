@@ -94,31 +94,6 @@ public class XmlHandler extends DefaultHandler {
                         return;
                     }
                 }
-                // *** End of code regarding 'Weld Seam'
-//                // *** Ground Cover
-//                if (!groundCover) {
-//                    int lastIndex = xmlString.size() - 1;
-//                    lastIndex = xmlString.size() - 1;
-//                    if (xmlString.get(lastIndex).contains("Native")) {
-//                        xmlString.remove(lastIndex);
-//                        xmlString.add("Native");
-//                        List<String> data = dataList.get(dataList.size() - 1);
-//                        data.add(5, "Native");
-//                        xmlString.clear();
-//                        groundCover = true;
-//                        return;
-//                    }
-//                    if (xmlString.get(lastIndex).contains("Pavement")) {
-//                        xmlString.remove(lastIndex);
-//                        xmlString.add("Pavement");
-//                        List<String> data = dataList.get(dataList.size() - 1);
-//                        data.add(5, "Pavement");
-//                        xmlString.clear();
-//                        groundCover = true;
-//                        return;
-//                    }
-//                }
-//                // *** End of Ground Cover
                 xmlString.add("<w:t/>");
                 String s = xmlString.get(1);
                 if (s.length() == 1) {
