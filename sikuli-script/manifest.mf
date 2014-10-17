@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.sikuli.script
+OpenIDE-Module-Localizing-Bundle: com/sikuli/script/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
