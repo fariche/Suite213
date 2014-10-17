@@ -60,54 +60,57 @@ public class XmlHandler extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        switch (qName) {
-            case "w:ddList":
-                if (isList) {
-                    xmlString.add("<w:ddList/>");
-                    dataList.add(xmlString);
+        try {
+            switch (qName) {
+                case "w:ddList":
+                    if (isList) {
+                        xmlString.add("<w:ddList/>");
+                        dataList.add(xmlString);
+                        xmlString = new ArrayList<String>();
+                    }
+                    break;
+                case "w:checkBox":
+                    xmlString.add("<w:checkBox/>");
+                    break;
+                case "w:checked":
+                    if (isChecked) {
+                        xmlString.add("<w:checked/>");
+                    }
+                    break;
+                case "w:t":
+                    // *** Start of code regarding 'Weld Seam'
+                    if (!weldSeam) {
+                        int lastIndex = xmlString.size() - 1;
+                        if (xmlString.get(lastIndex).equalsIgnoreCase("u")) {
+                            xmlString.remove(lastIndex);
+                        }
+                        lastIndex = xmlString.size() - 1;
+                        if (xmlString.get(lastIndex).contains("nknown")) {
+                            xmlString.remove(lastIndex);
+                            xmlString.add("Unknown");
+                            List<String> data = dataList.get(dataList.size() - 1);
+                            data.add(5, "Unknown");
+                            xmlString.clear();
+                            weldSeam = true;
+                            return;
+                        }
+                    }
+                    xmlString.add("<w:t/>");
+                    String s = xmlString.get(1);
+                    if (s.length() == 1) {
+                        char character = data.charAt(0); // This gives the character 'a'
+                        if (character == 8194 || character == 61527 || character == 61482) {
+                            //if (character == 61527 || character == 61482) {
+                            xmlString.clear();
+                        }
+                    } else if (xmlString.size() > 2) {
+                        dataList.add(xmlString);
+                    }
                     xmlString = new ArrayList<String>();
-                }
-                break;
-            case "w:checkBox":
-                xmlString.add("<w:checkBox/>");
-                break;
-            case "w:checked":
-                if (isChecked) {
-                    xmlString.add("<w:checked/>");
-                }
-                break;
-            case "w:t":
-                // *** Start of code regarding 'Weld Seam'
-                if (!weldSeam) {
-                    int lastIndex = xmlString.size() - 1;
-                    if (xmlString.get(lastIndex).equalsIgnoreCase("u")) {
-                        xmlString.remove(lastIndex);
-                    }
-                    lastIndex = xmlString.size() - 1;
-                    if (xmlString.get(lastIndex).contains("nknown")) {
-                        xmlString.remove(lastIndex);
-                        xmlString.add("Unknown");
-                        List<String> data = dataList.get(dataList.size() - 1);
-                        data.add(5, "Unknown");
-                        xmlString.clear();
-                        weldSeam = true;
-                        return;
-                    }
-                }
-                xmlString.add("<w:t/>");
-                String s = xmlString.get(1);
-                if (s.length() == 1) {
-                    char character = data.charAt(0); // This gives the character 'a'
-                    if (character == 8194 || character == 61527 || character == 61482) {
-                    //if (character == 61527 || character == 61482) {
-                        xmlString.clear();
-                    }
-                } else if (xmlString.size() > 2) {
-                    dataList.add(xmlString);
-                }
-                xmlString = new ArrayList<String>();
-                break;
-            default:
+                    break;
+                default:
+            }
+        } catch (Exception e) {
         }
     }
 
