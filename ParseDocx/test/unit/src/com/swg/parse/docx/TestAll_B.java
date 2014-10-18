@@ -1,7 +1,5 @@
 package com.swg.parse.docx;
 
-//import com.swg.reverse.xml.Form213CheckBoxHandler;
-//import com.swg.reverse.xml.UnZipIt;
 import static com.swg.parse.docx.ATest.xml;
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +27,12 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class TestAll_B {
 
-    private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
-    //private static final File docx = new File(path + "CAD_2013_RS-01.docx");
+    // mike's win7-64 path
+    private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
+
+    // swgas path
+    //private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
+
     /**
      * @param args the command line arguments
      */
