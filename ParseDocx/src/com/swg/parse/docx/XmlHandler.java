@@ -100,7 +100,6 @@ public class XmlHandler extends DefaultHandler {
                     if (s.length() == 1) {
                         char character = data.charAt(0); // This gives the character 'a'
                         if (character == 8194 || character == 61527 || character == 61482) {
-                            //if (character == 61527 || character == 61482) {
                             xmlString.clear();
                         }
                     } else if (xmlString.size() > 2) {
