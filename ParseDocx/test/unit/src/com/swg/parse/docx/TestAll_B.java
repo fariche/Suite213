@@ -27,10 +27,10 @@ import org.xml.sax.helpers.XMLReaderFactory;
 public class TestAll_B {
 
     // mike's win7-64 path
-    private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
+    //private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
 
     // swgas path
-    //private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
+    private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
 
     /**
      * @param args the command line arguments
