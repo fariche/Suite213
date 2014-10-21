@@ -24,9 +24,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class BTest {
 
-    private static int branch = 0;
-
-    static XmlHandler xml;
+    private static XmlHandler xml;
 
     /**
      * @param args the command line arguments

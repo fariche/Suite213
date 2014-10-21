@@ -1,6 +1,5 @@
 package com.swg.parse.docx;
 
-import static com.swg.parse.docx.ATest.xml;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -51,7 +50,7 @@ public class TestAll_B {
 
     private void parseXML(File f) throws SAXException, IOException {
         XMLReader parser = XMLReaderFactory.createXMLReader();
-        xml = new XmlHandler();
+        XmlHandler xml = new XmlHandler();
         parser.setContentHandler((ContentHandler) xml);
         parser.parse(f.getAbsolutePath());
         System.out.println(" *** STORED DATA ***");
