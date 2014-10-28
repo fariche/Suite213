@@ -13,8 +13,8 @@ import javax.swing.ImageIcon;
  * @author michaelmann
  */
 public class Utils {
-    //public final static String docx = "docx";
-    public final static String xml = "xml";
+    public final static String docx = "docx";
+    //public final static String xml = "xml";
  
     /*
      * Get the extension of a file.
