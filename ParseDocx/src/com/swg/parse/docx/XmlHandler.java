@@ -52,7 +52,6 @@ public class XmlHandler extends DefaultHandler {
                 break;
             case "w:t":
                 // dont display empty strings
-                System.out.print("<w:t>");
                 xmlString.add("<w:t>");
                 textVal = true;
                 break;
@@ -97,7 +96,6 @@ public class XmlHandler extends DefaultHandler {
                         }
                     }
                     xmlString.add("<w:t/>");
-                    System.out.println("<w:t/>");
                     String s = xmlString.get(1);
                     if (s.length() == 1) {
                         char character = data.charAt(0); // This gives the character 'a'
@@ -119,7 +117,6 @@ public class XmlHandler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) {
         if (textVal) {
             data = new String(ch, start, length).trim();
-            System.out.print(data);
             if (data.endsWith("Spiral")) {
                 System.out.println("");
             }

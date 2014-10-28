@@ -21,7 +21,7 @@ public class DocxFileFilter extends FileFilter {
         }
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.docx)) {
+            if (extension.equals(Utils.xml)) {
                 return true;
             } else {
                 return false;
@@ -32,7 +32,6 @@ public class DocxFileFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        //return "*.xml";
-        return "*.docx";
+        return "*.xml";
     }
 }
