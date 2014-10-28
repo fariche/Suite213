@@ -24,7 +24,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
  *
  * @author mpm3
  */
-public class TestAll_B {
+public class TestAll_C {
 
     // mike's win7-64 path
     //private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
@@ -36,7 +36,7 @@ public class TestAll_B {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new TestAll_B().go();
+        new TestAll_C().go();
     }
 
     private void copyDocxToZip(File docx, File zip) {
@@ -50,16 +50,16 @@ public class TestAll_B {
 
     private void parseXML(File f) throws SAXException, IOException {
         XMLReader parser = XMLReaderFactory.createXMLReader();
-        XmlHandler xml = new XmlHandler();
+        XmlHandlerC xml = new XmlHandlerC();
         parser.setContentHandler((ContentHandler) xml);
         parser.parse(f.getAbsolutePath());
         System.out.println(" *** STORED DATA ***");
         int i = 0;
-        for (List<String> s : XmlHandler.dataList) {
+        for (List<String> s : XmlHandlerC.dataList) {
             System.out.printf("%d %s\n", i++, s.toString());
         }
-        Extract ext = new Extract();
-        ext.extract(XmlHandler.dataList);
+        ExtractC ext = new ExtractC();
+        ext.extract(XmlHandlerC.dataList);
         System.out.println("\n*** PROPERTIES ***");
         System.out.println(ext.toString());
     }

@@ -26,9 +26,9 @@ public class TestAll {
 
     
     // mike's win7-64 path
-    private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
+    //private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
 
-    //private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
+    private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
     private static final File docx = new File(path + "CAD_2013_RS-01.docx");
 
     /**

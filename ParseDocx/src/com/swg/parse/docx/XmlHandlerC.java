@@ -16,7 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
  *
  * @author michaelmann
  */
-public class XmlHandler extends DefaultHandler {
+public class XmlHandlerC extends DefaultHandler {
 
     public static List<List<String>> dataList = new ArrayList<>();
     public Properties props = new Properties();
@@ -52,6 +52,7 @@ public class XmlHandler extends DefaultHandler {
                 break;
             case "w:t":
                 // dont display empty strings
+                System.out.print("<w:t>");
                 xmlString.add("<w:t>");
                 textVal = true;
                 break;
@@ -79,23 +80,24 @@ public class XmlHandler extends DefaultHandler {
                     break;
                 case "w:t":
                     // *** Start of code regarding 'Weld Seam'
-                    if (!weldSeam) {
-                        int lastIndex = xmlString.size() - 1;
-                        if (xmlString.get(lastIndex).equalsIgnoreCase("u")) {
-                            xmlString.remove(lastIndex);
-                        }
-                        lastIndex = xmlString.size() - 1;
-                        if (xmlString.get(lastIndex).contains("nknown")) {
-                            xmlString.remove(lastIndex);
-                            xmlString.add("Unknown");
-                            List<String> data = dataList.get(dataList.size() - 1);
-                            data.add(5, "Unknown");
-                            xmlString.clear();
-                            weldSeam = true;
-                            return;
-                        }
-                    }
+//                    if (!weldSeam) {
+//                        int lastIndex = xmlString.size() - 1;
+//                        if (xmlString.get(lastIndex).equalsIgnoreCase("u")) {
+//                            xmlString.remove(lastIndex);
+//                        }
+//                        lastIndex = xmlString.size() - 1;
+//                        if (xmlString.get(lastIndex).contains("nknown")) {
+//                            xmlString.remove(lastIndex);
+//                            xmlString.add("Unknown");
+//                            List<String> data = dataList.get(dataList.size() - 1);
+//                            data.add(5, "Unknown");
+//                            xmlString.clear();
+//                            weldSeam = true;
+//                            return;
+//                        }
+//                    }
                     xmlString.add("<w:t/>");
+                    System.out.println("<w:t/>");
                     String s = xmlString.get(1);
                     if (s.length() == 1) {
                         char character = data.charAt(0); // This gives the character 'a'
@@ -117,21 +119,23 @@ public class XmlHandler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) {
         if (textVal) {
             data = new String(ch, start, length).trim();
-            if (data.endsWith("Spiral")) {
-                System.out.println("");
-            }
-            if (data.length() == 0) {
-                textVal = false;
-            } else if (data.length() == 1) {
-                char character = data.charAt(0);
-                //System.out.printf("\nChar: %s=%d", character, (int) character);
-                if (character != 8194 || character != 61527 || character != 61482) {
-                    xmlString.add(data);
-                    //System.out.printf("\nCodes that did get printed: %s - %d", character, (int) character);
-                }
-            } else if (data.length() >= 2) {
-                xmlString.add(data);
-            }
+            xmlString.add(data);
+            System.out.print(data);
+//            if (data.endsWith("Spiral")) {
+//                System.out.println("");
+//            }
+//            if (data.length() == 0) {
+//                textVal = false;
+//            } else if (data.length() == 1) {
+//                char character = data.charAt(0);
+//                //System.out.printf("\nChar: %s=%d", character, (int) character);
+//                if (character != 8194 || character != 61527 || character != 61482) {
+//                    xmlString.add(data);
+//                    //System.out.printf("\nCodes that did get printed: %s - %d", character, (int) character);
+//                }
+//            } else if (data.length() >= 2) {
+//                xmlString.add(data);
+//            }
             textVal = false;
         }
     }
