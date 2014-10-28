@@ -32,7 +32,6 @@ public class DocxFileFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        //return "*.xml";
         return "*.docx";
     }
 }
