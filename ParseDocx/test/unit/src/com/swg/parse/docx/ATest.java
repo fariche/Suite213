@@ -38,8 +38,9 @@ public class ATest {
             for (List<String> s : XmlHandler.dataList) {
                 System.out.printf("%d %s\n", i++, s.toString());
             }
+            String test = null;
             Extract ext = new Extract();
-            ext.extract(XmlHandler.dataList);
+            ext.extract(XmlHandler.dataList, test);
             System.out.println("\n*** PROPERTIES ***");
             System.out.println(ext.toString());
         } catch (SAXException ex) {

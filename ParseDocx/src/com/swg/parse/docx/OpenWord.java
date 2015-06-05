@@ -8,6 +8,7 @@ package com.swg.parse.docx;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -19,9 +20,15 @@ import org.openide.util.NbBundle.Messages;
 import org.openide.windows.IOProvider;
 import org.openide.windows.InputOutput;
 import org.openide.windows.WindowManager;
+import org.python.google.common.io.Files;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 
 @ActionID(
         category = "Edit",
@@ -36,6 +43,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 public final class OpenWord implements ActionListener {
 
     public static File selectedFile;
+    private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
     private static final InputOutput io = IOProvider.getDefault().getIO("XML", true);
     private static InputOutput ioProps;
     private static final String newline = System.getProperty("line.separator");
@@ -55,7 +63,25 @@ public final class OpenWord implements ActionListener {
             File file = fc.getSelectedFile();
             selectedFile = file;
             io.getOut().append("Opening: " + file.getName() + newline);
-            parseFile();
+            
+            try {
+                File zip = new File(selectedFile.getAbsolutePath().substring(0, selectedFile.getAbsolutePath().length() - 4) + "zip");
+                copyDocxToZip(selectedFile, zip);
+                UnZipIt.unZip(zip.getAbsolutePath(), path + "temp");
+                parseXML(new File(path + "temp/word/document.xml"));
+                FileUtils.deleteDirectory(new File(path + "temp"));
+                zip.delete();
+                System.out.println("\n*** Done ***");
+                
+                
+                
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            } catch (SAXException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+            
+            //parseFile();
         } else {
             io.getOut().append("Open command cancelled by user" + newline);
         }
@@ -63,13 +89,53 @@ public final class OpenWord implements ActionListener {
         io.getOut().close();
 
     }
+    
+    private void parseXML(File f) throws SAXException, IOException {
+        FileInputStream inputTest = new FileInputStream(path);
+        XWPFDocument docxTest = new XWPFDocument(inputTest);
+        XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
+        
+        String contentIn = ContentTest.getText();
+        String[] contentTok = contentIn.split("\\s+");
+        StringBuilder builder = new StringBuilder();
+        for (String value : contentTok) {
+            builder.append(value).append(" ");
+        }
+        String content = builder.toString();
+        
+        
+        
+        XMLReader parser = XMLReaderFactory.createXMLReader();
+        XmlHandler xml = new XmlHandler();  //only look at document.xml
+        parser.setContentHandler((ContentHandler) xml);
+        parser.parse(f.getAbsolutePath());
+        System.out.println(" *** STORED DATA ***");
+        int i = 0;
+        for (List<String> s : XmlHandler.dataList) {
+            System.out.printf("%d %s\n", i++, s.toString());
+        }
+        Extract ext = new Extract();
+        ext.extract(XmlHandler.dataList, content);
+        System.out.println("\n*** PROPERTIES ***");
+        System.out.println(ext.toString());
+    }
 
+    
+    private void copyDocxToZip(File docx, File zip) {
+        try {
+            Files.copy(docx, zip);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+    }
+    
+    /*
     private void parseFile() {
         try {
             File f = selectedFile;
             XMLReader parser = XMLReaderFactory.createXMLReader();
             XmlHandler xml = new XmlHandler();
-            parser.setContentHandler(xml);
+            parser.setContentHandler((ContentHandler)xml);
             parser.parse(f.getAbsolutePath());
             //System.out.println(" *** STORED DATA ***");
             io.getOut().println(" *** STORED DATA ***");
@@ -92,4 +158,5 @@ public final class OpenWord implements ActionListener {
             Exceptions.printStackTrace(ex);
         }
     }
+    */
 }

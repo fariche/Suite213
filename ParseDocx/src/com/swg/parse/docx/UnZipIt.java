@@ -22,7 +22,7 @@ public class UnZipIt {
     List<String> fileList;
 
     /**
-     * Unzip it
+     * Unzip it(the input .zip file)
      *
      * @param zipFile input zip file
      * @param outputFolder

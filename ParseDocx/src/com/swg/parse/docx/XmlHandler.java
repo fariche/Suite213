@@ -18,11 +18,15 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class XmlHandler extends DefaultHandler {
 
+    /***
+     * List of string containing all the <w:t> elements of the .xml file
+     * (Only <w:t> elements) 
+     */
     public static List<List<String>> dataList = new ArrayList<>();
     public Properties props = new Properties();
     private boolean textVal, isList, isChecked, isResult, weldSeam, groundCover, isTable;
     private String data;
-    private static List<String> xmlString = new ArrayList<String>();
+    private static List<String> xmlString = new ArrayList<>();
 
     @Override
     public void startElement(String nsURI, String localName, String rawName, Attributes attributes) throws SAXException {
