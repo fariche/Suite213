@@ -70,7 +70,7 @@ public class XmlHandler extends DefaultHandler {
                     if (isList) {
                         xmlString.add("<w:ddList/>");
                         dataList.add(xmlString);
-                        xmlString = new ArrayList<String>();
+                        xmlString = new ArrayList<>();
                     }
                     break;
                 case "w:checkBox":
@@ -109,7 +109,7 @@ public class XmlHandler extends DefaultHandler {
                     } else if (xmlString.size() > 2) {
                         dataList.add(xmlString);
                     }
-                    xmlString = new ArrayList<String>();
+                    xmlString = new ArrayList<>();
                     break;
                 default:
             }
@@ -121,7 +121,7 @@ public class XmlHandler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) {
         if (textVal) {
             data = new String(ch, start, length).trim();
-            if (data.endsWith("Spiral")) {
+            if (data.endsWith("Spiral")) {  //not sure what this is doing here-----------
                 System.out.println("");
             }
             if (data.length() == 0) {
@@ -133,7 +133,7 @@ public class XmlHandler extends DefaultHandler {
                     xmlString.add(data);
                     //System.out.printf("\nCodes that did get printed: %s - %d", character, (int) character);
                 }
-            } else if (data.length() >= 2) {
+            } else if (data.length() > 1) {
                 xmlString.add(data);
             }
             textVal = false;

@@ -90,22 +90,23 @@ public class Extract {
         FindValue("Planned Examination Length", "Actual Examination Length", content);
         FindValue("Actual Examination Length", "Foreign Pipe in Excavation", content);
         label("#   Section 2                                                 #");
-        //-----------------------------------------------------Checkpoint --> works
         lookForCheck("Foreign Pipe in Excavation", "Size");
         FindValue("Size", "Material", content);
         FindValue("Material", "Foreign Current", content);
         lookForCheck("Foreign Current", "Bond Present");
+        lookForCheck("Bond Present", "If Current Flow");
         //-----------------------------------------------------Checkpoint --> works
-        lookForCheck("Bond Present", "If");  //Bond Present
-        lookForCheck("To:", "CP Present");  //If Current Flow
+        lookForCheck("If Current Flow, To:", "CP Present");  //If Current Flow --> works
+        lookForCheck("From:", "CP Present");
+        //From ...
         lookForCheck("CP Present", "Anode Present");
-        lookForCheck("Anode Present", "nvironmental Conditions:");
+        lookForCheck("Anode Present", "Environmental Conditions:");
         
         FindValue("% consumed", "Environmental Conditions:", content);
         FindValue("Temp", "Time 24-hr", content);
         FindValue("Time 24-hr", "Weather Conditions", content);
         FindValue("Weather Conditions", "Soil Conditions:", content);
-        lookForCheck("oil Conditions:", "Bedding/Shading Type");    //Soil Conditions: ---> checkbox
+        lookForCheck("Soil Conditions:", "Bedding/Shading Type");    //Soil Conditions: ---> checkbox
         FindValue("Bedding/Shading Type", "Rockshield Used", content);
         lookForCheck("Rockshield Used", "Soil Type:");
         lookForCheck("Soil Type:", "Depth of Cover");
@@ -402,33 +403,6 @@ public class Extract {
     }
 
     /***
-     * Find the Value and the file name of the GPS
-     * Makes those values nicely formated (does not return the value)
-     * display the fond value
-     * @param lab1 "Start: GPS" string
-     * @param lab2 "GPS File Name" string
-     */
-    private void lookForGps(String lab1, String lab2) {
-        String name = findName(lab1);
-        if (name.equalsIgnoreCase("")) {
-            System.out.println("*** Cannot find name: " + lab1);
-            return;
-        }
-        List<String> val = new ArrayList<String>();
-        String nextLine;
-        int lineCounter = startLine;
-        do {
-            nextLine = extractData.get(++lineCounter).get(1).trim();
-            val.add(nextLine);
-        } while (!nextLine.equalsIgnoreCase(lab2));
-
-        props.put(df.format(propCounter++) + "_" + "Start_GPS_X", val.get(0));
-        props.put(df.format(propCounter++) + "_" + "Start_GPS_Y", val.get(1));
-        props.put(df.format(propCounter++) + "_" + "End_GPS_X", val.get(4));
-        props.put(df.format(propCounter++) + "_" + "End_GPS_Y", val.get(5));
-    }
-
-    /***
      * simple find passed String
      * @param lab1 
      */
@@ -488,6 +462,11 @@ public class Extract {
             String nextLine;
             boolean first = false;
             int lineCounter = startLine;
+            boolean TokenizedLab2Detected = false;
+            String[] Lab2Tok = lab2.split("\\s+");
+            
+            
+            
             //exception
             if (name.equalsIgnoreCase("Ground Cover Found:") || name.equalsIgnoreCase("Defects:")) {
                 do {
@@ -502,8 +481,19 @@ public class Extract {
                     nextLine = extractData.get(++lineCounter).get(1).trim();
                 } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2));
             } else {
+//-------------------------------------------------------------------------------------                
                 do {
-                    if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
+                    if (extractData.get(lineCounter).get(2).contains("<w:checked/>") && 
+                           extractData.get(lineCounter + 1).get(0).contains("<w:t>") ) {
+                        if (first) {
+                            val = val + "," + extractData.get(lineCounter).get(5) +
+                                    extractData.get(lineCounter + 1).get(1);
+                        } else {
+                            val = val + extractData.get(lineCounter).get(5);
+                        }
+                        first = true;
+                    }
+                    else if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
                         if (first) {
                             val = val + "," + extractData.get(lineCounter).get(5);
                         } else {
@@ -511,8 +501,22 @@ public class Extract {
                         }
                         first = true;
                     }
-                    nextLine = extractData.get(++lineCounter).get(1).trim();
-                } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2));
+                    nextLine = extractData.get(++lineCounter).get(1).trim();    //goes to next
+                    
+                    for(String value : Lab2Tok){
+                        if(nextLine.equalsIgnoreCase(value))
+                            TokenizedLab2Detected = true;
+                        }
+                    
+                } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2) && !TokenizedLab2Detected);
+            }
+            
+            
+            if(val.contains("   ") ){
+                val = val.substring(0, val.indexOf("   "));
+            }
+            else if(val.contains("\t") ){
+                val = val.substring(0, val.indexOf("\t"));
             }
             processDisplayName(name.trim(), val);
         } catch (java.lang.IndexOutOfBoundsException e) {
@@ -612,10 +616,10 @@ public class Extract {
         if (value.equalsIgnoreCase("")) {
             value = "N/A";
         }
-        // exception
-        if (value.equalsIgnoreCase("No      % consumed")) {
-            value = "No";
-        }
+        // exception needs to be handle some other way ---> DONE!
+//        if (value.equalsIgnoreCase("No      % consumed")) {
+//            value = "No";
+//        }
         // exception
         if (name.trim().contains("Coating)")) {
             name = "Type of Defect";
@@ -636,7 +640,6 @@ public class Extract {
             value = value.substring(new String("th|day|Interpreted by|").length());
         }
         //formating
-        name = name.trim().replace(" ", "_");
         name = name.trim().replace(":", "");
 
         String displayName, displayValue = null;
@@ -685,8 +688,11 @@ public class Extract {
         String name = "";
         int lineCounter = -1;
         startLine = -1;
+        boolean TokenizedArgDetected = false; 
         
         String subArg = args.substring(1);
+        
+        String[] ArgTok = args.split("\\s+");
         
         for (List<String> data : extractData) {
             data = cleanUpData(data);
@@ -695,8 +701,14 @@ public class Extract {
             if (lineCounter == 406) {
                 System.out.println("Stop");
             }
+            for(String val : ArgTok){
+                if(data.contains(val))
+                    TokenizedArgDetected = true;
+            }
+            
             startLine++;
-            if (data.contains(args) || data.contains(subArg)) {
+            if (data.contains(args) || data.contains(subArg) || 
+                    TokenizedArgDetected == true) {
                 if (keys.contains(args)) {
                     Integer nameReuse = this.usedNames.get(args);
                     if (nameReuse > localCounter++) {
