@@ -95,13 +95,10 @@ public class Extract {
         FindValue("Material", "Foreign Current", content);
         lookForCheck("Foreign Current", "Bond Present");
         lookForCheck("Bond Present", "If Current Flow");
-        //-----------------------------------------------------Checkpoint --> works
-        lookForCheck("If Current Flow, To:", "CP Present");  //If Current Flow --> works
+        lookForCheck("If Current Flow, To:", "From");
         lookForCheck("From:", "CP Present");
-        //From ...
         lookForCheck("CP Present", "Anode Present");
         lookForCheck("Anode Present", "Environmental Conditions:");
-        
         FindValue("% consumed", "Environmental Conditions:", content);
         FindValue("Temp", "Time 24-hr", content);
         FindValue("Time 24-hr", "Weather Conditions", content);
@@ -121,23 +118,23 @@ public class Extract {
         FindValue("Installation Month", "Installation Year", content);
         FindValue("Installation Year", "OpsSysName", content);
         FindValue("OpsSysName", "Weld Seam:", content);
-        
         lookForCheck("Weld Seam:", "Coating Types:");
         FindValue("Other", "Coating Types:", content);
         lookForCheck("Coating Types:", "Coating Condition:");
-        //-------------------------ERROR
-        //FindValue("Other", "Coating Condition:", content);
-        //-------------------------ERROR
-        //lookForCheck("Coating Condition:", "Holiday Detection Volt Setting");
-        //--------------------------
-        
+        FindValue("Other", "Coating Condition:", content);
+        lookForCheck("Coating Condition:", "Holiday Detection Volt Setting");
         FindValue("Holiday Detection Volt Setting", "Type of Coating", content);
-        lookForCheck("Ground Cover Found:", "on-C");    //Ground Cover Found: ---> checkbox
-        FindValue("Non-Corrosive Disbondment", "Concrete", content); //problem ...
+        //-----------------------------------------------------Checkpoint --> works
+
+        //--------------------------
+        lookForCheck("Ground Cover Found:", "on-C");    //Ground Cover Found: ---> checkbox //problem ...
+        //--------------------------
+        FindValue("Non-Corrosive Disbondment", "Concrete", content);
         FindValue("Blistering Due to Corrosion", "pH of Fluid in Blisters", content); //problem
+        //--------------------------
         FindValue("pH of Fluid in Blisters", "I have reviewed the procedures performed and have found them:", content);
         //-------------------ERROR
-        //lookForCheck("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
+        lookForCheck("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
         //-------------------
         FindValue("Inspected By", "Inspection Date", content);
         FindValue("Inspection Date", "Print or type name", content);
@@ -207,26 +204,7 @@ public class Extract {
         
         
         //----------------------------------------------------------------------------
-        
-//        label("#   Section 1                                                 #");
-//        lookForUntil("DE Location ID", "HCA");
-//        lookForUntil("Name", "xamination");
-//        lookForUntil("Number", "Work Request No.");
-//        lookForUntil("Work Request No.", "Division");
-//        lookForCombo("Division");
-//        lookForUntil("District Number", "Town or County");
-//        lookForUntil("Town or County", "State");
-//        lookForCombo("State");
-//        lookForUntil("ile Number", "Address and/or Location");
-//        lookForUntil("Address and/or Location", "nspection Company");
-//        lookForUntil("nspection Company", "Date");
-//        lookForUntil("Synchronized", "Field Location (from Top of Pipe)");
-//        lookForGps("Start: GPS X", "GPS File Name");
-//        lookForUntil("GPS File Name", "Region");
-//        lookForCombo("Region");
-//        lookForUntil("Planned Examination Length", "Actual Examination Length");
-//        lookForUntil("Actual Examination Length", "Section 2");
-//
+
 //        label("#   Section 2                                                 #");
 //        lookForCheck("oreign Pipe in Excavation", "Size");
 //        lookForUntil("Size", "Material");
@@ -451,6 +429,7 @@ public class Extract {
      * @param lab2 
      */
     private void lookForCheck(String lab1, String lab2) {
+        LabsList.add(lab1);
         try {
             String name = findName(lab1);
             if (name.equalsIgnoreCase("")) {
@@ -464,8 +443,8 @@ public class Extract {
             int lineCounter = startLine;
             boolean TokenizedLab2Detected = false;
             String[] Lab2Tok = lab2.split("\\s+");
-            
-            
+            boolean ErrorCheck = false;
+            boolean hasSublab = false, hasLab = false;
             
             //exception
             if (name.equalsIgnoreCase("Ground Cover Found:") || name.equalsIgnoreCase("Defects:")) {
@@ -483,13 +462,38 @@ public class Extract {
             } else {
 //-------------------------------------------------------------------------------------                
                 do {
+                    
+                    for(int i =1; i< 3; i++){
+                        for(String checkVal : Lab2Tok){
+                           if(extractData.get(lineCounter + i).get(1).contains(checkVal))
+                               ErrorCheck = true;
+                        }
+                        if(extractData.get(lineCounter + i).get(1).contains(lab2) ||
+                            extractData.get(lineCounter + i).get(1).contains(sublab2)){
+                            ErrorCheck = true;
+                        }
+                    }
+                    //--------------------------------------------------------------
+                    for(int j=0; j < extractData.get(lineCounter).size(); j++){
+                        if(extractData.get(lineCounter).get(j).contains(lab2)){
+                            hasLab = true;
+                        }
+                        if(extractData.get(lineCounter).get(j).contains(sublab2)){
+                            hasSublab = true;
+                        }
+                    }
+                    //--------------------------------------------------------------
+                    
+                    //handls the option that is checked
                     if (extractData.get(lineCounter).get(2).contains("<w:checked/>") && 
-                           extractData.get(lineCounter + 1).get(0).contains("<w:t>") ) {
+                           extractData.get(lineCounter + 1).get(0).contains("<w:t>") &&
+                            !ErrorCheck ) {
                         if (first) {
                             val = val + "," + extractData.get(lineCounter).get(5) +
                                     extractData.get(lineCounter + 1).get(1);
                         } else {
-                            val = val + extractData.get(lineCounter).get(5);
+                            val = val + extractData.get(lineCounter).get(5) +
+                                    extractData.get(lineCounter + 1).get(1);
                         }
                         first = true;
                     }
@@ -501,23 +505,26 @@ public class Extract {
                         }
                         first = true;
                     }
-                    nextLine = extractData.get(++lineCounter).get(1).trim();    //goes to next
+                    nextLine = extractData.get(++lineCounter).get(1);    //goes to next
                     
                     for(String value : Lab2Tok){
                         if(nextLine.equalsIgnoreCase(value))
                             TokenizedLab2Detected = true;
                         }
                     
-                } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2) && !TokenizedLab2Detected);
+                } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2) && !TokenizedLab2Detected 
+                        && !hasSublab && !hasLab);
             }
             
             
+            //if the checked option has \t, this means that after \t begins another label
             if(val.contains("   ") ){
                 val = val.substring(0, val.indexOf("   "));
             }
             else if(val.contains("\t") ){
                 val = val.substring(0, val.indexOf("\t"));
             }
+            
             processDisplayName(name.trim(), val);
         } catch (java.lang.IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
@@ -616,28 +623,9 @@ public class Extract {
         if (value.equalsIgnoreCase("")) {
             value = "N/A";
         }
-        // exception needs to be handle some other way ---> DONE!
-//        if (value.equalsIgnoreCase("No      % consumed")) {
-//            value = "No";
-//        }
         // exception
         if (name.trim().contains("Coating)")) {
             name = "Type of Defect";
-        }
-        // exception
-        if (name.equalsIgnoreCase("Date of reading")) {
-            //no need of this
-            if (repeats.contains("Date of reading")) {
-                name = "14th " + name;
-            } else {
-                //no need
-                repeats.add("Date of reading");
-                name = "7th " + name;
-            }
-        }
-        // exception
-        if (value.startsWith("th|day|Interpreted by|")) {
-            value = value.substring(new String("th|day|Interpreted by|").length());
         }
         //formating
         name = name.trim().replace(":", "");
@@ -649,12 +637,11 @@ public class Extract {
             displayValue = value;
         }
         if (xmlProps.containsKey(name)) {
-            displayName = xmlProps.getProperty(name).replace(" ", "_");
-            //System.out.println(displayName + " = " + displayValue);
+            displayName = xmlProps.getProperty(name);
             props.put(df.format(propCounter) + "_" + displayName, displayValue);
             propCounter++;
         } else {
-            props.put(df.format(propCounter) + "_" + name.trim().replace(" ", "_"), displayValue);
+            props.put(df.format(propCounter) + "_" + name.trim(), displayValue);
             propCounter++;
         }
     }
@@ -667,7 +654,6 @@ public class Extract {
     private List<String> cleanUpData(List<String> data) {
         List<String> clean = new ArrayList<String>();
         for (String d : data) {
-            //d = d.replace(":", "");
             d = d.replace("   ", " ");
             d = d.replace("  ", " ");
             clean.add(d);
@@ -688,7 +674,7 @@ public class Extract {
         String name = "";
         int lineCounter = -1;
         startLine = -1;
-        boolean TokenizedArgDetected = false; 
+        boolean TokenizedArgDetected = false, TokenizedDataDetected = false; 
         
         String subArg = args.substring(1);
         
@@ -705,10 +691,14 @@ public class Extract {
                 if(data.contains(val))
                     TokenizedArgDetected = true;
             }
+            for(String dataTok : data){
+                if(dataTok.contains(args))
+                    TokenizedDataDetected = true;
+            }
             
             startLine++;
             if (data.contains(args) || data.contains(subArg) || 
-                    TokenizedArgDetected == true) {
+                    TokenizedArgDetected == true || TokenizedDataDetected == true) {
                 if (keys.contains(args)) {
                     Integer nameReuse = this.usedNames.get(args);
                     if (nameReuse > localCounter++) {
@@ -775,11 +765,16 @@ public class Extract {
             TempIndex = content.indexOf(labl);
             TempIndexEnd = content.indexOf(nextLabel);
             
-            //---------------------------- Can you explain this Kasra???? 
-            //                              No I can't, happy now?
+            //---------------------------- it is Complicated
             if(LabsList.contains(labl)){
-                content = content.substring(TempIndex+labl.length(), content.length());
+                content = content.substring(content.indexOf(labl)+labl.length(), content.length());
+
+                    if( content.contains(LabsList.get(LabsList.size()-1))  ){
+                        content = content.substring(content.indexOf(LabsList.get(LabsList.size()-1)), content.length());
+                    }
+                
             }
+            
             
             LabsList.add(labl);
             if(LabsList.contains(nextLabel)){
@@ -788,7 +783,9 @@ public class Extract {
             else if(NextLabsList.contains(nextLabel) || TempIndex > TempIndexEnd){
                 content = content.substring(TempIndex, content.length() );
             }
+                            
             NextLabsList.add(nextLabel);
+            
             //----------------------------
 
             begin = content.indexOf(labl)+labl.length();
@@ -827,7 +824,7 @@ public class Extract {
             }
             
             //-----------------------------------------------
-            System.out.println(labels + " = " + Vals);
+            //System.out.println(labels + " = " + Vals);
             
             return 1;
         }
