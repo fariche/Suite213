@@ -31,6 +31,7 @@ public class Extract {
     
     private static int TempIndex = 0;
     private static int TempIndexEnd =0;
+    private static String mainContent = null;
 
     private int propCounter;
     //private int lineCounter;
@@ -63,110 +64,156 @@ public class Extract {
      */
     public void extract(List<List<String>> data, String content) {
         extractData = data;
+        mainContent = content;
         
         //--------------------------------------------------------------------------
         
         //------------------------------------------------
-        FindValue("This form is used", "DE Location ID", content);
+        FindValue("This form is used", "DE Location ID");
         label("#   Section 1                                                 #");
-        FindValue("DE Location ID", "HCA Name", content);
-        FindValue("HCA Name", "Examination Number", content);
-        FindValue("Examination Number", "Work Request No.", content);
-        FindValue("Work Request No.", "Division", content);
+        FindValue("DE Location ID", "HCA Name");
+        FindValue("HCA Name", "Examination Number");
+        FindValue("Examination Number", "Work Request No.");
+        FindValue("Work Request No.", "Division");
         lookForCombo("Division");
-        FindValue("District Number", "Town or County", content);
-        FindValue("Town or County", "State", content);
+        FindValue("District Number", "Town or County");
+        FindValue("Town or County", "State");
         lookForCombo("State");
-        FindValue("Tile Number", "Address and/or Location", content);
-        FindValue("Address and/or Location", "Inspection Company", content);
-        FindValue("Inspection Company", "Date GPS Synchronized", content);
-        FindValue("Date GPS Synchronized", "Field Location (from Top of Pipe)", content);
-        FindValue("Start: GPS X", "Y", content);
-        FindValue("Y", "End: GPS X", content);
-        FindValue("End: GPS X", "Y", content);
-        FindValue("Y", "GPS File Name", content);
-        FindValue("GPS File Name", "Region", content);
+        FindValue("Tile Number", "Address and/or Location");
+        FindValue("Address and/or Location", "Inspection Company");
+        FindValue("Inspection Company", "Date GPS Synchronized");
+        FindValue("Date GPS Synchronized", "Field Location (from Top of Pipe)");
+        FindValue("Start: GPS X", "Y");
+        FindValue("Y", "End: GPS X");
+        FindValue("End: GPS X", "Y");
+        FindValue("Y", "GPS File Name");
+        FindValue("GPS File Name", "Region");
         lookForCombo("Region");
-        FindValue("Planned Examination Length", "Actual Examination Length", content);
-        FindValue("Actual Examination Length", "Foreign Pipe in Excavation", content);
+        FindValue("Planned Examination Length", "Actual Examination Length");
+        FindValue("Actual Examination Length", "Foreign Pipe in Excavation");
         label("#   Section 2                                                 #");
         lookForCheck("Foreign Pipe in Excavation", "Size");
-        FindValue("Size", "Material", content);
-        FindValue("Material", "Foreign Current", content);
+        FindValue("Size", "Material");
+        FindValue("Material", "Foreign Current");
         lookForCheck("Foreign Current", "Bond Present");
         lookForCheck("Bond Present", "If Current Flow");
         lookForCheck("If Current Flow, To:", "From");
         lookForCheck("From:", "CP Present");
         lookForCheck("CP Present", "Anode Present");
         lookForCheck("Anode Present", "Environmental Conditions:");
-        FindValue("% consumed", "Environmental Conditions:", content);
-        FindValue("Temp", "Time 24-hr", content);
-        FindValue("Time 24-hr", "Weather Conditions", content);
-        FindValue("Weather Conditions", "Soil Conditions:", content);
+        FindValue("% consumed", "Environmental Conditions:");
+        FindValue("Temp", "Time 24-hr");
+        FindValue("Time 24-hr", "Weather Conditions");
+        FindValue("Weather Conditions", "Soil Conditions:");
         lookForCheck("Soil Conditions:", "Bedding/Shading Type");    //Soil Conditions: ---> checkbox
-        FindValue("Bedding/Shading Type", "Rockshield Used", content);
+        FindValue("Bedding/Shading Type", "Rockshield Used");
         lookForCheck("Rockshield Used", "Soil Type:");
         lookForCheck("Soil Type:", "Depth of Cover");
-        FindValue("Other", "Depth of Cover", content);
-        FindValue("Depth of Cover", "Pipe Data (as found in EMRS):", content);
-        FindValue("Nominal Size", "InDiam", content );
-        FindValue("InDiam", "Wthick", content);
-        FindValue("Wthick", "Grade", content);
-        FindValue("Grade", "Yield", content);
-        FindValue("Yield", "WkReqNo", content);
-        FindValue("WkReqNo", "Installation Month", content);
-        FindValue("Installation Month", "Installation Year", content);
-        FindValue("Installation Year", "OpsSysName", content);
-        FindValue("OpsSysName", "Weld Seam:", content);
+        FindValue("Other", "Depth of Cover");
+        FindValue("Depth of Cover", "Pipe Data (as found in EMRS):");
+        FindValue("Nominal Size", "InDiam" );
+        FindValue("InDiam", "Wthick");
+        FindValue("Wthick", "Grade");
+        FindValue("Grade", "Yield");
+        FindValue("Yield", "WkReqNo");
+        FindValue("WkReqNo", "Installation Month");
+        FindValue("Installation Month", "Installation Year");
+        FindValue("Installation Year", "OpsSysName");
+        FindValue("OpsSysName", "Weld Seam:");
         lookForCheck("Weld Seam:", "Coating Types:");
-        FindValue("Other", "Coating Types:", content);
+        FindValue("Other", "Coating Types:");
         lookForCheck("Coating Types:", "Coating Condition:");
-        FindValue("Other", "Coating Condition:", content);
+        FindValue("Other", "Coating Condition:");
         lookForCheck("Coating Condition:", "Holiday Detection Volt Setting");
-        FindValue("Holiday Detection Volt Setting", "Type of Coating", content);
+        FindValue("Holiday Detection Volt Setting", "Type of Coating");
         //-----------------------------------------------------Checkpoint --> works
 
+        //----------------------------------------------ERROR
         //--------------------------
         lookForCheck("Ground Cover Found:", "on-C");    //Ground Cover Found: ---> checkbox //problem ...
         //--------------------------
-        FindValue("Non-Corrosive Disbondment", "Concrete", content);
-        FindValue("Blistering Due to Corrosion", "pH of Fluid in Blisters", content); //problem
+        FindValue("Non-Corrosive Disbondment", "Concrete");
+        FindValue("Blistering Due to Corrosion", "pH of Fluid in Blisters"); //problem
         //--------------------------
-        FindValue("pH of Fluid in Blisters", "I have reviewed the procedures performed and have found them:", content);
-        //-------------------ERROR
-        lookForCheck("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
-        //-------------------
-        FindValue("Inspected By", "Inspection Date", content);
-        FindValue("Inspection Date", "Print or type name", content);
-        FindValue("Reviewed By", "Date Reviewed", content);
-        FindValue("Date Reviewed", "Print or type name", content);
-        label("#   Section 3                                                 #");
+        //----------------------------------------------ERROR
         
-        FindValue("Soil pH at Pipe Depth", "(using Antimony half cell)", content);
-        FindValue("Soil Resistivity at Pipe Depth", "cm", content);
-        //Soil Chemistry Performed ---> checkbox
-        //Method used - ---> checkbox
-        FindValue("Chlorides", "ppm", content);
-        FindValue("Nitrates", "ppm", content);
-        FindValue("Sulfates", "ppm", content);
-        FindValue("6 O’clock", "Bacterial Samples Taken", content);
-        //Bacterial Samples Taken
-        //If yes, see Section 6	Asphalt and/or Tar Wrap samples taken ---> checkbox
-        //section 4 ---> label ---------------------------------------------
-        //Defects: ---> single checkbox
+        //----------------------------------------------------------------------
+        FindValue("pH of Fluid in Blisters", "I have reviewed the procedures performed and have found them:");
+        lookForCheck("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
+        FindValue("Inspected By", "Inspection Date");
+        FindValue("Inspection Date", "Print or type name");
+        FindValue("Reviewed By", "Date Reviewed");
+        FindValue("Date Reviewed", "Print or type name");
+        label("#   Section 3                                                 #");
+        FindValue("Soil pH at Pipe Depth", "(using Antimony half cell)");
+        FindValue("Soil Resistivity at Pipe Depth", "cm");
+        lookForCheck("Soil Chemistry Performed", "Method used");
+        lookForCheck("Method used -", "Results:");
+        FindValue("Chlorides", "ppm");
+        FindValue("Nitrates", "ppm");
+        FindValue("Sulfates", "ppm");
+        FindValue("6 O’clock", "Bacterial Samples Taken");
+        lookForCheck("Bacterial Samples Taken", "If yes, see Section 6");
+        lookForCheck("Asphalt and/or Tar Wrap samples taken", "Section 4");
+        label("#   Section 4                                                 #");
+        lookForCheck("Defects:", "All external");
+        //-----------------------------------------------------Checkpoint --> works
         //!!!!!!!!!! Table section 4 !!!!!!!!!!!!
-        //section 5 ---> label ----------------------------------------------
-        FindValue("Comments:", "Ultrasonic Thickness Readings", content);
+//        lookFor("Number");
+//        lookForNext("Num 1");
+//        lookForNext("Num 2");
+//        lookForNext("Num 3");
+//        lookForNext("Num 4");
+//        lookForNext("Num 5");
+//         
+//        lookForCombo("Type of Defect (excludes Coating)");
+//        lookForNextCombo("Type of Defect 2");
+//        lookForNextCombo("Type of Defect 3");
+//        lookForNextCombo("Type of Defect 4");
+//        lookForNextCombo("Type of Defect 5");
+//        lookForCombo("Repair Category");
+//        lookForNextCombo("Repair Category 2");
+//        lookForNextCombo("Repair Category 3");
+//        lookForNextCombo("Repair Category 4");
+//        lookForNextCombo("Repair Category 5");
+//        lookForCombo("Corrosion Interactivity");
+//        lookForNextCombo("Corrosion Interactivity 2");
+//        lookForNextCombo("Corrosion Interactivity 3");
+//        lookForNextCombo("Corrosion Interactivity 4");
+//        lookForNextCombo("Corrosion Interactivity 5");
+//        
+//        lookForCombo("Coating)");
+//        lookForNextCombo("Type of Defect 2");
+//        lookForNextCombo("Type of Defect 3");
+//        lookForNextCombo("Type of Defect 4");
+//        lookForNextCombo("Type of Defect 5");
+//        lookForCombo("Repair Category");
+//        lookForNextCombo("Repair Category 2");
+//        lookForNextCombo("Repair Category 3");
+//        lookForNextCombo("Repair Category 4");
+//        lookForNextCombo("Repair Category 5");
+//        lookForCombo("Corrosion Interactivity");
+//        lookForNextCombo("Corrosion Interactivity 2");
+//        lookForNextCombo("Corrosion Interactivity 3");
+//        lookForNextCombo("Corrosion Interactivity 4");
+//        lookForNextCombo("Corrosion Interactivity 5");
+        
+        
+//        ReadTable("Number", "* See Remediation Design for determination of Repair Category.");
+        //in progress ...
+        FindValue("Comments:", "Ultrasonic Thickness Readings");
+        label("#   Section 5                                                 #");
+        
         //!!!!!!!!! Table "Ultrasonic Thickness Readings" !!!!!!!!!!!!
-        FindValue("Comments:", "Culture Results", content);
+        FindValue("Comments:", "Culture Results");
         //section 6 ---> label ---------------------------------------------
-        FindValue("Location of samples", "Collected by", content);
-        FindValue("Collected by", "Date collected", content);
-        FindValue("Date collected", "7th day Interpreted by", content);
-        FindValue("7th day Interpreted by", "Date of reading", content);
-        FindValue("Date of reading", "14th day Interpreted by", content);
-        FindValue("14th day Interpreted by", "Date of reading", content);
-        FindValue("Date of reading", "Cap Color", content);
+        FindValue("Location of samples", "Collected by");
+        FindValue("Collected by", "Date collected");
+        FindValue("Date collected", "7th day Interpreted by");
+        FindValue("7th day Interpreted by", "Date of reading");
+        FindValue("Date of reading", "14th day Interpreted by");
+        FindValue("14th day Interpreted by", "Date of reading");
+        FindValue("Date of reading", "Cap Color");
         //!!!!!!!!!! Table section 6 !!!!!!!!!!!!!! 
         //section 7 ---> label ---------------------------------------------
         //Severity of Coating Anomaly Suspected ---> checkbox
@@ -180,24 +227,24 @@ public class Extract {
         //Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region? ---> checkbox
         //Was the Severity Classification Table assessed for adjustments? ---> checkbox
         //Were changes made to the Severity Classification Table? ---> checkbox
-        FindValue("If Yes, document on MOC. If No, explain why not.", "11. Are additional indirect inspection surveys needed on this segment?", content );
+        FindValue("If Yes, document on MOC. If No, explain why not.", "11. Are additional indirect inspection surveys needed on this segment?" );
         //Are additional indirect inspection surveys needed on this segment? ---> checkbox
         //Is the corrosion considered significant?  ---> checkbox
         //!!!!!!!!!!!!! Table - Check the most likely root cause !!!!!!!!!!!!!!!
-        FindValue("Explanation for Other:", "Office Work:", content);
+        FindValue("Explanation for Other:", "Office Work:");
         //Was the review conducted? ---> checkbox
         //Do alternative methods need to be implemented? ---> checkbox
         //For this HCA, has corrosion been found and a root cause determined at other locations? ---> checkbox
         //For this HCA, are similar occurrences of the root cause being determined at other locations? ---> checkbox
-        FindValue("Date calculation completed:", "|_| N/A", content);
+        FindValue("Date calculation completed:", "|_| N/A");
         //checkbox ...
         //section 8 ---> lable -------------------------------------------------
-        FindValue("Inspector’s Comments:", "Remediation Action Required?", content);
+        FindValue("Inspector’s Comments:", "Remediation Action Required?");
         //section 9 ---> label -------------------------------------------------
         //Remediation Action Required?  ---> checkbox
-        FindValue("Reference Work Request No.", "Check one: Repair was:", content);
+        FindValue("Reference Work Request No.", "Check one: Repair was:");
         //Repair was: ---> checkbox
-        FindValue("Remediation Comments:", "ANOMALY SKETCH", content);
+        FindValue("Remediation Comments:", "ANOMALY SKETCH");
         //section 10 ---> label ------------------------------------------------
         //need titles ?
         //section 11 ---> label ------------------------------------------------
@@ -431,7 +478,9 @@ public class Extract {
     private void lookForCheck(String lab1, String lab2) {
         LabsList.add(lab1);
         try {
+            TempIndexEnd = mainContent.indexOf(lab2);
             String name = findName(lab1);
+            TempIndexEnd = 0;
             if (name.equalsIgnoreCase("")) {
                 System.out.println("*** Cannot find name: " + lab1);
                 return;
@@ -439,10 +488,10 @@ public class Extract {
             String sublab2 = lab2.substring(1);
             String val = "";
             String nextLine;
+            String[] Lab2Tok = lab2.split("\\s+");
             boolean first = false;
             int lineCounter = startLine;
             boolean TokenizedLab2Detected = false;
-            String[] Lab2Tok = lab2.split("\\s+");
             boolean ErrorCheck = false;
             boolean hasSublab = false, hasLab = false;
             
@@ -505,12 +554,17 @@ public class Extract {
                         }
                         first = true;
                     }
-                    nextLine = extractData.get(++lineCounter).get(1);    //goes to next
+                    if(val.contains("<w:t/>")){
+                        val = extractData.get(lineCounter+1).get(1);
+                    }
                     
-                    for(String value : Lab2Tok){
-                        if(nextLine.equalsIgnoreCase(value))
-                            TokenizedLab2Detected = true;
-                        }
+                    nextLine = extractData.get(++lineCounter).get(1);    //goes to next
+                    if(nextLine.contains(lab2))
+                        break;
+                    
+                    if(nextLine.contains(Lab2Tok[0]) && nextLine.contains(Lab2Tok[1]) )
+                        TokenizedLab2Detected = true;
+                        
                     
                 } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2) && !TokenizedLab2Detected 
                         && !hasSublab && !hasLab);
@@ -629,6 +683,7 @@ public class Extract {
         }
         //formating
         name = name.trim().replace(":", "");
+        name = name.trim().replace("-", "");
 
         String displayName, displayValue = null;
         if (xmlProps.containsKey(value)) {
@@ -675,6 +730,7 @@ public class Extract {
         int lineCounter = -1;
         startLine = -1;
         boolean TokenizedArgDetected = false, TokenizedDataDetected = false; 
+        int StartIndex =0;
         
         String subArg = args.substring(1);
         
@@ -688,7 +744,8 @@ public class Extract {
                 System.out.println("Stop");
             }
             for(String val : ArgTok){
-                if(data.contains(val))
+                StartIndex = mainContent.indexOf(val);
+                if( data.contains(val) && !data.equals(val) && StartIndex < TempIndexEnd)
                     TokenizedArgDetected = true;
             }
             for(String dataTok : data){
@@ -701,7 +758,7 @@ public class Extract {
                     TokenizedArgDetected == true || TokenizedDataDetected == true) {
                 if (keys.contains(args)) {
                     Integer nameReuse = this.usedNames.get(args);
-                    if (nameReuse > localCounter++) {
+                    if (nameReuse > localCounter++){ 
                         continue;
                     }
                 } else if (!keys.contains(args)) {
@@ -735,6 +792,7 @@ public class Extract {
                         name = name + "_" + args[i];
                     }
                     return name;
+                    
                 }
             }
         }
@@ -753,8 +811,9 @@ public class Extract {
     }
     
     //from - untill reader
-    private int FindValue(String labl, String nextLabel, String content ){
+    private int FindValue(String labl, String nextLabel){
         int begin =0, end=0;
+        String content = mainContent;
         
         if(!content.contains(labl) || !content.contains(nextLabel)){
             System.out.println("Could not find the desired labels");
@@ -808,11 +867,10 @@ public class Extract {
             String Vals = builder2.toString();
             labels = labels.replace(':', ' ');
             Vals = Vals.replace("|_|", " ");
-            String LabelPrime;
             
             
             if (props.containsKey(labels)) {
-                LabelPrime = labels + " 2";
+                String LabelPrime = labels + " 2";
             //LabelPrime = props.getProperty(labels).replace(" ", "_");
             //System.out.println(displayName + " = " + displayValue);
                 props.put(df.format(propCounter) + " " + LabelPrime, Vals);
@@ -828,6 +886,110 @@ public class Extract {
             
             return 1;
         }
+    }
+    
+    private int ReadTable(String StartString, String StopString){
+                        
+
+        
+//        int begin =0, end=0;
+//        String content = mainContent;
+//        
+//        if(!content.contains(StartString) || !content.contains(StopString)){
+//            System.out.println("Could not find the desired labels");
+//            return -1;
+//        }
+//        else{
+//            
+//            TempIndex = content.indexOf(StartString);
+//            TempIndexEnd = content.indexOf(StopString);
+//            
+//            while(TempIndexEnd - TempIndex > 1000){
+//                content = content.substring(content.indexOf(StartString)+StartString.length(), content.length());
+//                TempIndex = content.indexOf(StartString);
+//                TempIndexEnd = content.indexOf(StopString);
+//            }
+//            
+//
+//            begin = content.indexOf(StartString)+StartString.length();
+//            end = content.indexOf(StopString);
+//
+//            String WholeTableContent = content.substring(begin, end);
+//            String [] WholeTableContentTok;
+//            
+//            
+//            String temp = StartString;
+//            String val = null;
+//            String TableTest = null;
+//            
+////            for(int k =0; k < WholeTableContent.length(); k++ ){
+////                char c = WholeTableContent.charAt(k);
+////                while(c != '\n' && c != '\r' ){
+////                    TableTest = temp;
+////                    val = val + WholeTableContent.charAt(k);
+////                    k++;
+////                    c = WholeTableContent.charAt(k);
+////                }
+////                c = WholeTableContent.charAt(k);
+////                temp = "";
+////                while(c != '\n' && c != '\t' && c != '\r' &&
+////                        (c != ' ' && c != ' ' && c != ' ') ){
+////                    c = WholeTableContent.charAt(k);
+////                    temp += c;
+////                    k++;
+////                }
+////                
+////                //-----------------------------display
+////                if (props.containsKey(TableTest)) {
+////                    String TableTest2 = TableTest + " 2";
+////
+////                    props.put(df.format(propCounter) + " " + TableTest2, val);
+////                    propCounter++;
+////                }
+////                else{
+////                    props.put(df.format(propCounter) + " " + TableTest, val);
+////                    propCounter++;
+////                }
+////                //-----------------------------end display
+////                    
+////                val = "";
+////                    
+////                
+////                
+////            }
+//            
+//            
+//            
+//            if (props.containsKey(StartString)) {
+//                String TableTest2 = StartString + " 2";
+//            
+//                props.put(df.format(propCounter) + " " + TableTest2, WholeTableContent);
+//                propCounter++;
+//            }
+//            else{
+//                props.put(df.format(propCounter) + " " + StartString, WholeTableContent);
+//                propCounter++;
+//            }
+//            
+//        }
+//        
+//
+        
+        List<List<String>> ReadTableList = extractData;
+  
+//        findName(StartString);
+//        ReadTableList.get(lineCounter)
+//        
+//        extractData.get(lineCounter + 1).get(0).contains("<w:t>")
+        
+//        for(int i=0; i< ReadTableList.)
+//        
+//            
+//            extractData.get(lineCounter + 1).get(0).contains("<w:t>")
+//        ReadTableList.
+       
+        
+        return 0;
     }
 
 }
