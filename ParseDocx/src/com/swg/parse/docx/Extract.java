@@ -28,6 +28,7 @@ public class Extract {
     
     private static final List<String> LabsList = new ArrayList<>();
     private static final List<String> NextLabsList = new ArrayList<>();
+    private static final int lineTracker = 0;
     
     private static int TempIndex = 0;
     private static int TempIndexEnd =0;
@@ -158,55 +159,26 @@ public class Extract {
         label("#   Section 4                                                 #");
         lookForCheck("Defects:", "All external");
         //-----------------------------------------------------Checkpoint --> works
-        //!!!!!!!!!! Table section 4 !!!!!!!!!!!!
-//        lookFor("Number");
-//        lookForNext("Num 1");
-//        lookForNext("Num 2");
-//        lookForNext("Num 3");
-//        lookForNext("Num 4");
-//        lookForNext("Num 5");
-//         
-//        lookForCombo("Type of Defect (excludes Coating)");
-//        lookForNextCombo("Type of Defect 2");
-//        lookForNextCombo("Type of Defect 3");
-//        lookForNextCombo("Type of Defect 4");
-//        lookForNextCombo("Type of Defect 5");
-//        lookForCombo("Repair Category");
-//        lookForNextCombo("Repair Category 2");
-//        lookForNextCombo("Repair Category 3");
-//        lookForNextCombo("Repair Category 4");
-//        lookForNextCombo("Repair Category 5");
-//        lookForCombo("Corrosion Interactivity");
-//        lookForNextCombo("Corrosion Interactivity 2");
-//        lookForNextCombo("Corrosion Interactivity 3");
-//        lookForNextCombo("Corrosion Interactivity 4");
-//        lookForNextCombo("Corrosion Interactivity 5");
-//        
-//        lookForCombo("Coating)");
-//        lookForNextCombo("Type of Defect 2");
-//        lookForNextCombo("Type of Defect 3");
-//        lookForNextCombo("Type of Defect 4");
-//        lookForNextCombo("Type of Defect 5");
-//        lookForCombo("Repair Category");
-//        lookForNextCombo("Repair Category 2");
-//        lookForNextCombo("Repair Category 3");
-//        lookForNextCombo("Repair Category 4");
-//        lookForNextCombo("Repair Category 5");
-//        lookForCombo("Corrosion Interactivity");
-//        lookForNextCombo("Corrosion Interactivity 2");
-//        lookForNextCombo("Corrosion Interactivity 3");
-//        lookForNextCombo("Corrosion Interactivity 4");
-//        lookForNextCombo("Corrosion Interactivity 5");
         
         
-//        ReadTable("Number", "* See Remediation Design for determination of Repair Category.");
-        //in progress ...
+        ReadDropDownOnTable("Number", "See Remediation Design for determination of Repair Category.", 5);
+        HorizontalTableFindValue("Number", "Type of Defect", 5);
+        HorizontalTableFindValue("Distance from Zero Point (feet)", "O’clock Position", 5);
+        HorizontalTableFindValue("O’clock Position", "Length (Axial) (inch)", 5);
+        HorizontalTableFindValue("Length (Axial) (inch)", "Length (Circumferential) (inch)", 5);
+        HorizontalTableFindValue("Length (Circumferential) (inch)", "Maximum Depth (inch)", 5);
         FindValue("Comments:", "Ultrasonic Thickness Readings");
         label("#   Section 5                                                 #");
         
         //!!!!!!!!! Table "Ultrasonic Thickness Readings" !!!!!!!!!!!!
+        FindValue("ICDA Scrub #1: Min", "Max");
+        FindValue("Max", "WT ∆%");
+        FindValue("WT ∆%", "ICDA Scrub #2: Min");
+        FindValue("ICDA Scrub #2: Min", "Max");
+        FindValue("Max", "WT ∆%");
+        FindValue("WT ∆%", "Comments:");
         FindValue("Comments:", "Culture Results");
-        //section 6 ---> label ---------------------------------------------
+        label("#   Section 6                                                 #");
         FindValue("Location of samples", "Collected by");
         FindValue("Collected by", "Date collected");
         FindValue("Date collected", "7th day Interpreted by");
@@ -251,221 +223,6 @@ public class Extract {
         
         
         //----------------------------------------------------------------------------
-
-//        label("#   Section 2                                                 #");
-//        lookForCheck("oreign Pipe in Excavation", "Size");
-//        lookForUntil("Size", "Material");
-//        lookForUntil("Material", "Foreign Current");
-//        lookForCheck("Foreign Current", "ond Present");
-//        lookForCheck("ond Present", "If");
-//        lookForCheck("To:", "CP Present");
-//        lookForCheck("CP Present", "Anode Present");
-//        lookForCheck("Anode Present", "nvironmental Conditions:");
-//        lookForUntil("Temp", "Time");
-//        lookForUntil("Time", "Weather Conditions");
-//        lookForUntil("Weather Conditions", "oil Conditions:");
-//        lookForCheck("oil Conditions:", "Bedding/Shading Type");
-//        lookForUntil("Bedding/Shading Type", "Rockshield Used");
-//        lookForCheck("Rockshield Used", "Soil Type:");
-//        lookForCheck("Soil Type:", "Depth of Cover");
-//        lookForUntil("Depth of Cover", "Pipe Data (as found in EMRS):");
-//        lookForUntil("Size", "InDiam");
-//        lookForUntil("InDiam", "Wthick");
-//        lookForUntil("Wthick", "Grade");
-//        lookForUntil("Grade", "Yield");
-//        lookForUntil("Yield", "WkReqNo");
-//        lookForUntil("WkReqNo", "Installation Month");
-//        lookForUntil("Installation Month", "Installation Year");
-//        lookForUntil("Installation Year", "OpsSysName");
-//        lookForUntil("OpsSysName", "Weld Seam:");
-//        lookForCheck("Weld Seam:", "Coating Types:");
-//        lookForCheck("Coating Types:", "Coating Condition:");
-//        lookForCheck("Coating Condition:", "Holiday Detection Volt Setting");
-//        lookForUntil("Holiday Detection Volt Setting", "Type of Coating Damage");
-//        lookForCheck("Ground Cover Found:", "on-C"); // Fix this
-//        lookForUntil("listers", "I have reviewed the procedures performed and have found them:");
-//        lookForCheck("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
-//        lookForUntil("Inspected By", "Inspection Date");
-//        lookForUntil("Inspection Date", "Print"); //Fix this
-//        lookForUntil("Reviewed By", "Date Reviewed");
-//        lookForUntil("Date Reviewed", "Print");
-//
-//        label("#   Section 3                                                 #");
-//        lookForUntil("Soil pH at Pipe Depth", "(using Antimony half cell)");
-//        lookForUntil("Soil Resistivity at Pipe Depth", "cm");
-//        lookForCheck("Soil Chemistry Performed", "Method used -");
-//        lookForUntil("Chlorides", "ppm");
-//        lookForUntil("Nitrates", "ppm");
-//        lookForUntil("Sulfates", "ppm");
-//        lookForUntil("O’clock", "Bacterial Samples Taken");
-//        lookForCheck("Bacterial Samples Taken", "If yes, see Section 6");
-//        lookForCheck("Asphalt and/or Tar Wrap samples taken", "Section 4");
-//        lookForCheck("Defects:", "All external");//Fix this
-//        //lookForCombo("Coating)");//Fix this
-//
-//        // Add more
-//        lookForUntil("Distance from Zero Point (feet)", "O’clock Position");
-//        lookForUntil("O’clock Position", "Length (Axial) (inch)");
-//        lookForUntil("Length (Axial) (inch)", "Length (Circumferential) (inch)");
-//        lookForUntil("Length (Circumferential) (inch)", "Maximum Depth (inch)");
-//        lookForUntil("Maximum Depth (inch)", "Repair Category");
-//
-//        label("#   Section 4                                                 #");
-//        // Fix below
-//        
-//         lookFor("Number");
-//         lookForNext("Num 1");
-//         lookForNext("Num 2");
-//         lookForNext("Num 3");
-//         lookForNext("Num 4");
-//         lookForNext("Num 5");
-//         
-//        lookForCombo("Coating)");
-//        lookForNextCombo("Type of Defect 2");
-//        lookForNextCombo("Type of Defect 3");
-//        lookForNextCombo("Type of Defect 4");
-//        lookForNextCombo("Type of Defect 5");
-//        lookForCombo("Repair Category");
-//        lookForNextCombo("Repair Category 2");
-//        lookForNextCombo("Repair Category 3");
-//        lookForNextCombo("Repair Category 4");
-//        lookForNextCombo("Repair Category 5");
-//        lookForCombo("Corrosion Interactivity");
-//        lookForNextCombo("Corrosion Interactivity 2");
-//        lookForNextCombo("Corrosion Interactivity 3");
-//        lookForNextCombo("Corrosion Interactivity 4");
-//        lookForNextCombo("Corrosion Interactivity 5");
-//
-//        // Section 5
-//        label("#   Section 5                                                 #");
-//        // Add more info here
-//        readTableInfo("Distance from Zero Point", "ICDA Scrub #1: Min"); //300-319
-//        //        lookForUntil("ICDA Scrub #1: Min", "Max");
-//        //        lookForUntil("Max", "WT ∆%");
-//        //        lookForUntil("ICDA Scrub #2: Min", "Max");
-//        //        lookForUntil("Max", "WT ∆%");
-//        lookForUntil("ICDA Scrub #1: Min", "ICDA Scrub #2: Min");
-//        lookForUntil("ICDA Scrub #2: Min", "Comments:");
-//        lookForUntil("Comments:", "Section");
-//        lookForUntil("amples", "Collected b");
-//        lookForUntil("Collected b", "Date c");
-//        lookForUntil("ollected", "th");
-//        lookForUntil("Interpreted by", "Date of reading");
-//        lookForUntil("Date of reading", "14");
-//        lookForUntil("14", "Date of reading");
-//        lookForUntil("Date of reading", "Cap Color");
-//
-//        label("#   Section 6                                                 #");
-//        // need new code for tables
-//        label("#   Section 7                                                 #");
-//        lookForCheck("ty of Coating Anomaly Suspected", " . Severity of Coating Anomaly Found");//401-406
-//        lookForCheck(" . Severity of Coating Anomaly Found", "2b");//406-411
-//        lookForCheck("ipe", " . Severity of the coating anomaly found was");//415-420
-//        lookForCheck("severe than originally prioritized?", " . Is this the initial assessment of this covered segment?");//423-426
-//        lookForCheck(" . Is this the initial assessment of this covered segment?", " . If both 3a");
-//        lookForCheck(" . If both 3a", " . Was corrosion found?");//429-435
-//        lookForCheck(" . Was corrosion found?", " . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?");
-//        lookForCheck(" . Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", " . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?");
-//        lookForCheck(" . Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region", " OTE");
-//        lookForCheck(" assessed for adjustments?", " 10");//454-458
-//        lookForCheck(" . Were changes made to the", " f Yes, document on MOC.  If No, explain why not.");
-//
-//        lookForCheck(" . Are additional indirect inspection surveys needed on this segment?", " 7B – Root Cause (based on data on");
-//        lookForCheck(" 1. Is the corrosion considered significant?", " Only if Yes, proceed to 2, otherwise go to");
-//        lookForCheck(" a. Was the review conducted?", "b.");//499-503
-//        lookForCheck("Do alternative methods need to be implemented?", "Field Work:");
-//        lookForCheck("4. For this HCA, has corrosion been found and a root cause determined at other locations?", " Only if Y");
-//        lookForCheck("5. For this HCA, are similar occurrences of the root cause being determined at other locations?", "7C - Remaining Strength Calculation");
-//        lookForCheck("Date calculation completed:", "Section");
-//
-//        label("#   Section 8                                                 #");
-//        lookForUntil("nspector’s Comments", "Section");
-//
-//        label("#   Section 9                                                 #");
-//        lookForCheck("Required?", " Reference Work Request No.");
-//        lookForUntil(" Reference Work Request No.", "Check one:");//535-536
-//        lookForCheck(" Repair was", " Remediation Comments:");
-//        lookForUntil(" Remediation Comments:", "Section");//535-536
-//
-//        label("#   Section 10                                                #");
-//        label("#   Section 11                                                #");
-    }
-
-    /***
-     * Find the strings inside a specific table of 3 Rows
-     * begining  with the cell containing lab1 and ending with cell containing
-     * lab2, display the fond value
-     * @param lab1 begining of the value inside the first cell
-     * @param lab2 begining of the value inside the last cell
-     */
-    private void readTableInfo(String lab1, String lab2) {
-        try {
-            String name = findName(lab1);
-            if (name.equalsIgnoreCase("")) {
-                System.out.println("*** Cannot find name: " + lab1);
-                return;
-            }
-            String nextLine = null, val;
-            String[] labs = {"[R1]", "[R2]", "[R3]"};
-            int lineCounter = startLine, labIndex = 0, offset = 7;
-            int master = startLine;
-            do {
-                for (int i = 0; i < 6; i++) {
-                    name = extractData.get(lineCounter).get(1).trim();
-                    val = extractData.get(lineCounter++ + offset).get(1).trim();
-                    processDisplayName(labs[labIndex] + name.trim(), val);
-                    ++master;
-                    //System.out.println("Master:" + master);
-                }
-                lineCounter = startLine;
-                offset += 6;
-                ++labIndex;
-                nextLine = extractData.get(master + 7).get(1).trim(); // target 319
-            } while (!nextLine.equalsIgnoreCase(lab2));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /***
-     * simple find passed String
-     * @param lab1 
-     */
-    private void lookFor(String lab1) {
-        findName(lab1);
-    }
-
-    /***
-     * Find the string between the "from" string and the "until" string.
-     * display the fond value
-     * @param lab1 from string
-     * @param lab2 until string
-     */
-    private void lookForUntil(String lab1, String lab2) {
-        try {
-            String name = findName(lab1);
-            if (name.equalsIgnoreCase("")) {
-                System.out.println("*** Cannot find name: " + lab1);
-                return;
-            }
-            String val = "";
-            String nextLine = "";
-            int lineCounter = startLine;
-            do {
-                nextLine = extractData.get(++lineCounter).get(1).trim();
-                if (!nextLine.equalsIgnoreCase(lab2)) {
-                    if (val.equalsIgnoreCase("")) {
-                        val = val + nextLine;
-                    } else {
-                        val = val + " " + nextLine;
-                    }
-                }
-            } while (!nextLine.equalsIgnoreCase(lab2));
-
-            processDisplayName(name.trim(), val);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     /***
@@ -495,20 +252,6 @@ public class Extract {
             boolean ErrorCheck = false;
             boolean hasSublab = false, hasLab = false;
             
-            //exception
-            if (name.equalsIgnoreCase("Ground Cover Found:") || name.equalsIgnoreCase("Defects:")) {
-                do {
-                    if (extractData.get(lineCounter).get(2).contains("<w:checked/>")) {
-                        if (first) {
-                            val = val + "," + extractData.get(++lineCounter).get(1);
-                        } else {
-                            val = val + extractData.get(++lineCounter).get(1);
-                        }
-                        first = true;
-                    }
-                    nextLine = extractData.get(++lineCounter).get(1).trim();
-                } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2));
-            } else {
 //-------------------------------------------------------------------------------------                
                 do {
                     
@@ -568,7 +311,7 @@ public class Extract {
                     
                 } while (!nextLine.equalsIgnoreCase(lab2) && !nextLine.equalsIgnoreCase(sublab2) && !TokenizedLab2Detected 
                         && !hasSublab && !hasLab);
-            }
+            
             
             
             //if the checked option has \t, this means that after \t begins another label
@@ -592,7 +335,14 @@ public class Extract {
      */
     //is there a better way? this is risky
     private void lookForCombo(String lab1) {
-        String name = findName(lab1);
+        String name = null;
+        if(lab1 == "next"){
+            name = "next";
+            startLine++;
+        }
+        else{
+            name = findName(lab1);
+        }
         int lineCounter = startLine;
         String value = "";
         List<String> tags = extractData.get(++lineCounter);
@@ -602,30 +352,6 @@ public class Extract {
         } else {
             value = getListEntryValue(tags);
         }
-        processDisplayName(name.trim(), value);
-    }
-
-    // User supplies a name, like a column
-    private void lookForNextCombo(String name) {
-        int lineCounter = startLine;
-        String value = "";
-        List<String> tags = extractData.get(++lineCounter);
-        if (tags.get(1).contains("<w:wResult")) {
-            comboIndex = true;
-            value = getListEntryValue(tags);
-        } else {
-            value = getListEntryValue(tags);
-        }
-        processDisplayName(name.trim(), value);
-    }
-
-    // User supplies a name, like a column
-    private void lookForNext(String lab1) {
-        String name = findName(lab1);
-        int lineCounter = startLine;
-        String value = "";
-        List<String> tags = extractData.get(++lineCounter);
-        value = tags.get(3);
         processDisplayName(name.trim(), value);
     }
 
@@ -678,9 +404,9 @@ public class Extract {
             value = "N/A";
         }
         // exception
-        if (name.trim().contains("Coating)")) {
-            name = "Type of Defect";
-        }
+//        if (name.trim().contains("Coating)")) {
+//            name = "Type of Defect";
+//        }
         //formating
         name = name.trim().replace(":", "");
         name = name.trim().replace("-", "");
@@ -707,7 +433,7 @@ public class Extract {
      * @return 
      */
     private List<String> cleanUpData(List<String> data) {
-        List<String> clean = new ArrayList<String>();
+        List<String> clean = new ArrayList<>();
         for (String d : data) {
             d = d.replace("   ", " ");
             d = d.replace("  ", " ");
@@ -771,29 +497,11 @@ public class Extract {
                 } else {
                     name = name + "_" + args;
                 }
+                
+                extractData = extractData.subList(startLine, extractData.size() -1 );
+                startLine = 0;
+                
                 return name;
-            }
-        }
-        return name;
-    }
-
-    private String findName(String[] args) {
-        // build up the label
-        String name = "";
-        int lineCounter = -1;
-        for (int i = 0; i < args.length; i++) {
-            for (List<String> data : extractData) {
-                data = cleanUpData(data);
-                lineCounter++;
-                if (data.contains(args[i])) {
-                    if (name.isEmpty()) {
-                        name = name + args[i];
-                    } else {
-                        name = name + "_" + args[i];
-                    }
-                    return name;
-                    
-                }
             }
         }
         return name;
@@ -813,46 +521,28 @@ public class Extract {
     //from - untill reader
     private int FindValue(String labl, String nextLabel){
         int begin =0, end=0;
-        String content = mainContent;
         
-        if(!content.contains(labl) || !content.contains(nextLabel)){
+        if(!mainContent.contains(labl) || !mainContent.contains(nextLabel)){
             System.out.println("Could not find the desired labels");
             return -1;
         }
         else{
         
-            TempIndex = content.indexOf(labl);
-            TempIndexEnd = content.indexOf(nextLabel);
+            TempIndex = mainContent.indexOf(labl);
+            TempIndexEnd = mainContent.indexOf(nextLabel);
             
-            //---------------------------- it is Complicated
-            if(LabsList.contains(labl)){
-                content = content.substring(content.indexOf(labl)+labl.length(), content.length());
-
-                    if( content.contains(LabsList.get(LabsList.size()-1))  ){
-                        content = content.substring(content.indexOf(LabsList.get(LabsList.size()-1)), content.length());
-                    }
+            while(TempIndex > TempIndexEnd){
+                mainContent = mainContent.substring(TempIndex);
                 
+                TempIndex = mainContent.indexOf(labl);
+                TempIndexEnd = mainContent.indexOf(nextLabel);
             }
-            
-            
-            LabsList.add(labl);
-            if(LabsList.contains(nextLabel)){
-                content = content.substring(TempIndex, content.length());
-            }
-            else if(NextLabsList.contains(nextLabel) || TempIndex > TempIndexEnd){
-                content = content.substring(TempIndex, content.length() );
-            }
-                            
-            NextLabsList.add(nextLabel);
-            
-            //----------------------------
 
-            begin = content.indexOf(labl)+labl.length();
-            end = content.indexOf(nextLabel);
+            begin = mainContent.indexOf(labl)+labl.length();
+            end = mainContent.indexOf(nextLabel);
 
-            //need to tokenize it--------------------------
             String[] lablTok = labl.split("\\s+");
-            String[] ValTok = content.substring(begin, end).split("\\s+");
+            String[] ValTok = mainContent.substring(begin, end).split("\\s+");
             
             StringBuilder builder = new StringBuilder();
             for (String value : lablTok) {
@@ -868,11 +558,12 @@ public class Extract {
             labels = labels.replace(':', ' ');
             Vals = Vals.replace("|_|", " ");
             
+            mainContent = mainContent.substring(TempIndexEnd);
+            
+
             
             if (props.containsKey(labels)) {
                 String LabelPrime = labels + " 2";
-            //LabelPrime = props.getProperty(labels).replace(" ", "_");
-            //System.out.println(displayName + " = " + displayValue);
                 props.put(df.format(propCounter) + " " + LabelPrime, Vals);
                 propCounter++;
             }
@@ -881,113 +572,106 @@ public class Extract {
                 propCounter++;
             }
             
-            //-----------------------------------------------
-            //System.out.println(labels + " = " + Vals);
+            return 1;
+        }
+    }
+    
+    private int HorizontalTableFindValue(String labl, String nextLabel, int ColNum){
+        
+        int begin =0, end=0;
+        
+        if(!mainContent.contains(labl) || !mainContent.contains(nextLabel)){
+            System.out.println("Could not find the desired labels");
+            return -1;
+        }
+        else{
+        
+            TempIndex = mainContent.indexOf(labl);
+            TempIndexEnd = mainContent.indexOf(nextLabel);
+            
+            while(TempIndex > TempIndexEnd){
+                mainContent = mainContent.substring(TempIndex);
+                
+                TempIndex = mainContent.indexOf(labl);
+                TempIndexEnd = mainContent.indexOf(nextLabel);
+            }
+
+            begin = mainContent.indexOf(labl)+labl.length();
+            end = mainContent.indexOf(nextLabel);
+
+            String[] lablTok = labl.split("\\s+");
+            String[] ValTok = mainContent.substring(begin, end).split("\\s+");
+            
+            StringBuilder builder = new StringBuilder();
+            for (String value : lablTok) {
+                builder.append(value).append(" ");
+            }
+            String labels = builder.toString();
+            
+            mainContent = mainContent.substring(TempIndexEnd);
+            
+            for(int i=1; i< ColNum+1; i++){
+                if (props.containsKey(labels)) {
+                   String LabelPrime = labels + i + " 2";
+                   props.put(df.format(propCounter) + " " + LabelPrime + i, ValTok[i]);
+                   propCounter++;
+               }
+               else{
+                   props.put(df.format(propCounter) + " " + labels + i, ValTok[i]);
+                   propCounter++;
+               }
+            }
             
             return 1;
         }
     }
     
-    private int ReadTable(String StartString, String StopString){
+    private int ReadDropDownOnTable(String StartString, String StopString, int ColNum){
                         
 
-        
-//        int begin =0, end=0;
-//        String content = mainContent;
-//        
-//        if(!content.contains(StartString) || !content.contains(StopString)){
-//            System.out.println("Could not find the desired labels");
-//            return -1;
-//        }
-//        else{
-//            
-//            TempIndex = content.indexOf(StartString);
-//            TempIndexEnd = content.indexOf(StopString);
-//            
-//            while(TempIndexEnd - TempIndex > 1000){
-//                content = content.substring(content.indexOf(StartString)+StartString.length(), content.length());
-//                TempIndex = content.indexOf(StartString);
-//                TempIndexEnd = content.indexOf(StopString);
-//            }
-//            
-//
-//            begin = content.indexOf(StartString)+StartString.length();
-//            end = content.indexOf(StopString);
-//
-//            String WholeTableContent = content.substring(begin, end);
-//            String [] WholeTableContentTok;
-//            
-//            
-//            String temp = StartString;
-//            String val = null;
-//            String TableTest = null;
-//            
-////            for(int k =0; k < WholeTableContent.length(); k++ ){
-////                char c = WholeTableContent.charAt(k);
-////                while(c != '\n' && c != '\r' ){
-////                    TableTest = temp;
-////                    val = val + WholeTableContent.charAt(k);
-////                    k++;
-////                    c = WholeTableContent.charAt(k);
-////                }
-////                c = WholeTableContent.charAt(k);
-////                temp = "";
-////                while(c != '\n' && c != '\t' && c != '\r' &&
-////                        (c != ' ' && c != ' ' && c != ' ') ){
-////                    c = WholeTableContent.charAt(k);
-////                    temp += c;
-////                    k++;
-////                }
-////                
-////                //-----------------------------display
-////                if (props.containsKey(TableTest)) {
-////                    String TableTest2 = TableTest + " 2";
-////
-////                    props.put(df.format(propCounter) + " " + TableTest2, val);
-////                    propCounter++;
-////                }
-////                else{
-////                    props.put(df.format(propCounter) + " " + TableTest, val);
-////                    propCounter++;
-////                }
-////                //-----------------------------end display
-////                    
-////                val = "";
-////                    
-////                
-////                
-////            }
-//            
-//            
-//            
-//            if (props.containsKey(StartString)) {
-//                String TableTest2 = StartString + " 2";
-//            
-//                props.put(df.format(propCounter) + " " + TableTest2, WholeTableContent);
-//                propCounter++;
-//            }
-//            else{
-//                props.put(df.format(propCounter) + " " + StartString, WholeTableContent);
-//                propCounter++;
-//            }
-//            
-//        }
-//        
-//
-        
         List<List<String>> ReadTableList = extractData;
-  
-//        findName(StartString);
-//        ReadTableList.get(lineCounter)
-//        
-//        extractData.get(lineCounter + 1).get(0).contains("<w:t>")
+        int StartXMLParseLine = 0, StopXMLParseLine = 0;
+        boolean hasTextVal = false, hasDropDownVal = false;
         
-//        for(int i=0; i< ReadTableList.)
-//        
-//            
-//            extractData.get(lineCounter + 1).get(0).contains("<w:t>")
-//        ReadTableList.
-       
+        for(List<String> list : ReadTableList){
+            
+            if(list.contains(StartString) && StartXMLParseLine > startLine ){
+                break;
+            }
+            StartXMLParseLine ++;
+        }
+        
+        startLine = StartXMLParseLine;
+        
+        for(List<String> list : ReadTableList){
+            
+            if(list.contains(StopString) && StopXMLParseLine > startLine ){
+                break;
+            }
+            StopXMLParseLine ++;
+        }
+        
+        startLine = StopXMLParseLine;
+        
+        ReadTableList = ReadTableList.subList(StartXMLParseLine, StopXMLParseLine);
+        
+        int breakPoint = ReadTableList.size();
+        StopXMLParseLine = 0;
+        
+        while(!ReadTableList.isEmpty()){
+            if(ReadTableList.get(0).get(0).contains("<w:t>")){
+                if(ReadTableList.get(1).get(0).contains("<w:ddList>")){
+                    lookForCombo(ReadTableList.get(0).get(1));
+                    for(int i=1; i< ColNum; i++ ){
+                        //take the 4 others
+                        lookForCombo("next");
+                    }
+                }
+            }
+            
+            ReadTableList = ReadTableList.subList(1, ReadTableList.size()-1);
+            
+        }        
         
         return 0;
     }
