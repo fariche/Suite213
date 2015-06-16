@@ -23,28 +23,27 @@ public class Extract {
 
     public static Properties props = new Properties();
     private static List<List<String>> extractData;
-    private static Properties xmlProps = new Properties();
-    private static List<String> repeats = new ArrayList();
+    private static final Properties xmlProps = new Properties();
     
     private static final List<String> LabsList = new ArrayList<>();
-    private static final List<String> NextLabsList = new ArrayList<>();
-    private static final int lineTracker = 0;
     
     private static int TempIndex = 0;
     private static int TempIndexEnd =0;
     private static String mainContent = null;
+    
+    private static int useMidTextTableMethod = 0;
+    private static int TableHeaderUse = 0;
+    private static String[] MidTextTableHeader = null;
+    private static String[] MidTextTableContent = null;
 
     private int propCounter;
     //private int lineCounter;
 
     private boolean comboIndex;
-    private boolean checked;
-    private int gpsYcounter;
-    private int multiNameCounter;
 
-    private Map<String, Integer> usedNames = new HashMap<String, Integer>();
+    private Map<String, Integer> usedNames = new HashMap<>();
 
-    private int startLine, endLine;
+    private int startLine;
 
     private DecimalFormat df = new DecimalFormat("0000");
 
@@ -66,8 +65,6 @@ public class Extract {
     public void extract(List<List<String>> data, String content) {
         extractData = data;
         mainContent = content;
-        
-        //--------------------------------------------------------------------------
         
         //------------------------------------------------
         FindValue("This form is used", "DE Location ID");
@@ -132,13 +129,11 @@ public class Extract {
         //----------------------------------------------ERROR
         //--------------------------
         lookForCheck("Ground Cover Found:", "on-C");    //Ground Cover Found: ---> checkbox //problem ...
-        //--------------------------
-        FindValue("Non-Corrosive Disbondment", "Concrete");
-        FindValue("Blistering Due to Corrosion", "pH of Fluid in Blisters"); //problem
-        //--------------------------
         //----------------------------------------------ERROR
         
-        //----------------------------------------------------------------------
+        //------------------------------------------------------
+        MidTextTableRead("Type of Coating Damage", "Ground Cover Found:", 
+                new String[]{"Non-Corrosive Disbondment", "Blistering Due to Corrosion"}, new String[]{"Concrete", "pH of Fluid in Blisters"} ); 
         FindValue("pH of Fluid in Blisters", "I have reviewed the procedures performed and have found them:");
         lookForCheck("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments and copy of WMS-WR to Engineering and Project Support Staff, LVA-581");//Fix this
         FindValue("Inspected By", "Inspection Date");
@@ -158,10 +153,7 @@ public class Extract {
         lookForCheck("Asphalt and/or Tar Wrap samples taken", "Section 4");
         label("#   Section 4                                                 #");
         lookForCheck("Defects:", "All external");
-        //-----------------------------------------------------Checkpoint --> works
-        
-        
-        ReadDropDownOnTable("Number", "See Remediation Design for determination of Repair Category.", 5);
+        ReadDropDownOnHorizontalTable("Number", "See Remediation Design for determination of Repair Category.", 5);
         HorizontalTableFindValue("Number", "Type of Defect", 5);
         HorizontalTableFindValue("Distance from Zero Point (feet)", "O’clock Position", 5);
         HorizontalTableFindValue("O’clock Position", "Length (Axial) (inch)", 5);
@@ -169,8 +161,7 @@ public class Extract {
         HorizontalTableFindValue("Length (Circumferential) (inch)", "Maximum Depth (inch)", 5);
         FindValue("Comments:", "Ultrasonic Thickness Readings");
         label("#   Section 5                                                 #");
-        
-        //!!!!!!!!! Table "Ultrasonic Thickness Readings" !!!!!!!!!!!!
+        VerticalTableFindValues("Distance from Zero Point", "ICDA Scrub #1: Min", 6 );
         FindValue("ICDA Scrub #1: Min", "Max");
         FindValue("Max", "WT ∆%");
         FindValue("WT ∆%", "ICDA Scrub #2: Min");
@@ -186,40 +177,40 @@ public class Extract {
         FindValue("Date of reading", "14th day Interpreted by");
         FindValue("14th day Interpreted by", "Date of reading");
         FindValue("Date of reading", "Cap Color");
+        //-----------------------------------------------------Checkpoint --> works
         //!!!!!!!!!! Table section 6 !!!!!!!!!!!!!! 
-        //section 7 ---> label ---------------------------------------------
-        //Severity of Coating Anomaly Suspected ---> checkbox
-        //Severity of Coating Anomaly Found ---> checkbox
-        //Severity of DE Defect Found on Pipe ---> checkbox
-        //Severity of the coating anomaly found was more / less severe than originally prioritized? ---> checkbox
-        //Is this the initial assessment of this covered segment? ---> checkbox
-        //If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted? ---> checkbox
-        //Was corrosion found? ---> checkbox
-        //Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness? ---> checkbox
-        //Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region? ---> checkbox
-        //Was the Severity Classification Table assessed for adjustments? ---> checkbox
-        //Were changes made to the Severity Classification Table? ---> checkbox
+        label("#   Section 7                                                 #");
+        lookForCheck("Severity of Coating Anomaly Suspected", "Severity of Coating Anomaly Found");
+        lookForCheck("Severity of Coating Anomaly Found", "Severity of DE Defect Found on Pipe");
+        lookForCheck("Severity of DE Defect Found on Pipe", "Severity of the coating anomaly found was more / less severe than originally prioritized?");
+        lookForCheck("Severity of the coating anomaly found was more / less severe than originally prioritized?", "Is this the initial assessment of this covered segment?" );
+        lookForCheck("Is this the initial assessment of this covered segment?", "If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted?" );
+        lookForCheck("If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted?", "Was corrosion found?" );
+        lookForCheck("Was corrosion found?", "Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?" );
+        lookForCheck("Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", "Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?" );
+        lookForCheck("Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?", "NOTE: If 4a" );
+        lookForCheck("Was the Severity Classification Table assessed for adjustments?", "Were changes made to the Severity Classification Table?");
+        lookForCheck("Were changes made to the Severity Classification Table?", "If Yes, document on MOC. If No, explain why not.");
         FindValue("If Yes, document on MOC. If No, explain why not.", "11. Are additional indirect inspection surveys needed on this segment?" );
-        //Are additional indirect inspection surveys needed on this segment? ---> checkbox
-        //Is the corrosion considered significant?  ---> checkbox
+        lookForCheck("Are additional indirect inspection surveys needed on this segment?","Root Cause");
+        lookForCheck("Is the corrosion considered significant?", "Only if Yes");
         //!!!!!!!!!!!!! Table - Check the most likely root cause !!!!!!!!!!!!!!!
         FindValue("Explanation for Other:", "Office Work:");
         //Was the review conducted? ---> checkbox
         //Do alternative methods need to be implemented? ---> checkbox
         //For this HCA, has corrosion been found and a root cause determined at other locations? ---> checkbox
         //For this HCA, are similar occurrences of the root cause being determined at other locations? ---> checkbox
-        FindValue("Date calculation completed:", "|_| N/A");
+        FindValue("Date calculation completed:", "N/A");
         //checkbox ...
-        //section 8 ---> lable -------------------------------------------------
+        label("#   Section 8                                                 #");
         FindValue("Inspector’s Comments:", "Remediation Action Required?");
-        //section 9 ---> label -------------------------------------------------
-        //Remediation Action Required?  ---> checkbox
-        FindValue("Reference Work Request No.", "Check one: Repair was:");
-        //Repair was: ---> checkbox
+        label("#   Section 9                                                 #");
+        //lookForCheck("Remediation Action Required?", "Reference Work Request No.");
+        FindValue("Reference Work Request No.", "Check one: Repair was");
+        //lookForCheck("Check one: Repair was:", "Remediation Comments:");
         FindValue("Remediation Comments:", "ANOMALY SKETCH");
-        //section 10 ---> label ------------------------------------------------
-        //need titles ?
-        //section 11 ---> label ------------------------------------------------
+        label("#   Section 10                                                 #");
+        label("#   Section 11                                                 #");
         
         
         //----------------------------------------------------------------------------
@@ -237,6 +228,34 @@ public class Extract {
         try {
             TempIndexEnd = mainContent.indexOf(lab2);
             String name = findName(lab1);
+            
+//                        boolean QuitLoop = false;
+//            String[] LabTok = lab1.split("\\s+");
+//            
+//            
+//            while(!extractData.isEmpty()){
+//                for(String str: LabTok){
+//                    if(extractData.get(startLine).get(1).contains(str) && extractData.get(startLine+1).get(1).contains(str) ){
+//                        extractData = extractData.subList(startLine, extractData.size() - 1);
+//                        startLine = 0;
+//                        QuitLoop = true;
+//                        break;
+//                    }
+//                }
+//                if(QuitLoop){
+//                    break;
+//                }
+//                else{
+//                    startLine++;
+//                }
+//            }
+//            StringBuilder builder = new StringBuilder();
+//            for (String value : LabTok) {
+//                builder.append(value).append(" ");
+//            }
+//            String name = builder.toString();
+            
+            
             TempIndexEnd = 0;
             if (name.equalsIgnoreCase("")) {
                 System.out.println("*** Cannot find name: " + lab1);
@@ -251,6 +270,7 @@ public class Extract {
             boolean TokenizedLab2Detected = false;
             boolean ErrorCheck = false;
             boolean hasSublab = false, hasLab = false;
+            
             
 //-------------------------------------------------------------------------------------                
                 do {
@@ -428,7 +448,7 @@ public class Extract {
     }
 
     /***
-     * delete the list of String
+     * reformat nicely the string list
      * @param data list of String to be deleted
      * @return 
      */
@@ -450,10 +470,8 @@ public class Extract {
     private String findName(String args) {
         args = args.trim();
         Set<String> keys = this.usedNames.keySet();
-        // build up the label
         int localCounter = 0;
         String name = "";
-        int lineCounter = -1;
         startLine = -1;
         boolean TokenizedArgDetected = false, TokenizedDataDetected = false; 
         int StartIndex =0;
@@ -464,21 +482,16 @@ public class Extract {
         
         for (List<String> data : extractData) {
             data = cleanUpData(data);
-            //            System.out.println("*** Looking for:" + data);
-            lineCounter++;
-            if (lineCounter == 406) {
-                System.out.println("Stop");
-            }
             for(String val : ArgTok){
                 StartIndex = mainContent.indexOf(val);
-                if( data.contains(val) && !data.equals(val) && StartIndex < TempIndexEnd)
+                if( data.contains(val) && StartIndex < TempIndexEnd)
                     TokenizedArgDetected = true;
             }
             for(String dataTok : data){
                 if(dataTok.contains(args))
                     TokenizedDataDetected = true;
             }
-            
+                        
             startLine++;
             if (data.contains(args) || data.contains(subArg) || 
                     TokenizedArgDetected == true || TokenizedDataDetected == true) {
@@ -489,7 +502,6 @@ public class Extract {
                     }
                 } else if (!keys.contains(args)) {
                     usedNames.put(args, ++localCounter);
-                    ++multiNameCounter;
                 }
                 usedNames.put(args, localCounter);
                 if (name.isEmpty()) {
@@ -552,7 +564,12 @@ public class Extract {
             
             StringBuilder builder2 = new StringBuilder();
             for (String value : ValTok) {
-                builder2.append(value).append(" ");
+                if(value.contains("%")){
+                    builder2.append(value);
+                }
+                else{
+                    builder2.append(value).append(" ");
+                }
             }
             String Vals = builder2.toString();
             labels = labels.replace(':', ' ');
@@ -560,18 +577,40 @@ public class Extract {
             
             mainContent = mainContent.substring(TempIndexEnd);
             
-
             
-            if (props.containsKey(labels)) {
-                String LabelPrime = labels + " 2";
-                props.put(df.format(propCounter) + " " + LabelPrime, Vals);
-                propCounter++;
+            if(useMidTextTableMethod == 1 && TableHeaderUse == 1){
+                MidTextTableHeader = Vals.split("\\s+");
+            }
+            else if(useMidTextTableMethod == 1 && TableHeaderUse == 0){
+                    MidTextTableContent = Vals.split("\\s+");
+                    String lab = null;
+                    String Value = null;
+                    
+                    for(int j=1; j < MidTextTableHeader.length; j++){
+                        lab = labels + MidTextTableHeader[j];
+                        Value = MidTextTableContent[j];
+                        if (props.containsKey(lab)) {
+                            String LabelPrime = lab + " 2";
+                            props.put(df.format(propCounter) + " " + LabelPrime, Value);
+                            propCounter++;
+                        }
+                        else{
+                            props.put(df.format(propCounter) + " " + lab, Value);
+                            propCounter++;
+                        }
+                    }
             }
             else{
-                props.put(df.format(propCounter) + " " + labels, Vals);
-                propCounter++;
+                if (props.containsKey(labels)) {
+                    String LabelPrime = labels + " 2";
+                    props.put(df.format(propCounter) + " " + LabelPrime, Vals);
+                    propCounter++;
+                }
+                else{
+                    props.put(df.format(propCounter) + " " + labels, Vals);
+                    propCounter++;
+                }
             }
-            
             return 1;
         }
     }
@@ -626,12 +665,11 @@ public class Extract {
         }
     }
     
-    private int ReadDropDownOnTable(String StartString, String StopString, int ColNum){
+    private int ReadDropDownOnHorizontalTable(String StartString, String StopString, int ColNum){
                         
 
         List<List<String>> ReadTableList = extractData;
         int StartXMLParseLine = 0, StopXMLParseLine = 0;
-        boolean hasTextVal = false, hasDropDownVal = false;
         
         for(List<String> list : ReadTableList){
             
@@ -655,7 +693,6 @@ public class Extract {
         
         ReadTableList = ReadTableList.subList(StartXMLParseLine, StopXMLParseLine);
         
-        int breakPoint = ReadTableList.size();
         StopXMLParseLine = 0;
         
         while(!ReadTableList.isEmpty()){
@@ -673,7 +710,94 @@ public class Extract {
             
         }        
         
+        extractData = extractData.subList(startLine, extractData.size() -1 );
         return 0;
+    }
+
+    private int VerticalTableFindValues(String StartString, String StopString, int ColNum) {
+        
+        
+        List<List<String>> ReadTableList = extractData;
+        int StartXMLParseLine = 0, StopXMLParseLine = 0;
+        String[] Labels = new String[ColNum];
+        
+        for(List<String> list : ReadTableList){
+            
+            if(list.contains(StartString) && StartXMLParseLine > startLine ){
+                break;
+            }
+            StartXMLParseLine ++;
+        }
+        
+        startLine = StartXMLParseLine;
+        
+        for(List<String> list : ReadTableList){
+            
+            if(list.contains(StopString) && StopXMLParseLine > startLine ){
+                break;
+            }
+            StopXMLParseLine ++;
+        }
+        
+        startLine = StopXMLParseLine;
+        
+        ReadTableList = ReadTableList.subList(StartXMLParseLine, StopXMLParseLine);
+        
+        StopXMLParseLine = 0;
+        StartXMLParseLine = 0;
+                
+        for(int i = 0; i < ColNum; i++ ){
+            StartXMLParseLine = 0;
+            if(ReadTableList.get(0).get(0).contains("<w:t>") && ReadTableList.get(1).get(0).contains("<w:t>")
+                && !ReadTableList.get(1).get(1).contains("(") && !ReadTableList.get(1).get(1).contains(")") ){
+                    StartXMLParseLine++;
+            }
+            else if(ReadTableList.get(0).get(0).contains("<w:t>") && ReadTableList.get(1).get(0).contains("<w:t>")
+                && ReadTableList.get(1).get(1).contains("(") && ReadTableList.get(1).get(1).contains(")") ){
+                    StartXMLParseLine += 2;
+            }
+            Labels[i] = ReadTableList.get(0).get(1);
+            ReadTableList = ReadTableList.subList(StartXMLParseLine, ReadTableList.size());
+        }
+        
+        while(!ReadTableList.isEmpty()){
+            for(int i = 0; i< ColNum; i++ ){
+                
+                if (props.containsKey(Labels[i])) {
+                   String LabelPrime = Labels[i] + " 2";
+                   props.put(df.format(propCounter) + " " + LabelPrime, ReadTableList.get(0).get(1));
+                   propCounter++;
+               }
+                else{
+                   props.put(df.format(propCounter) + " " + Labels[i], ReadTableList.get(0).get(1));
+                   propCounter++;
+               }
+                
+               ReadTableList = ReadTableList.subList(1, ReadTableList.size());
+            }
+        }
+        
+        extractData = extractData.subList(startLine, extractData.size() -1 );
+        return 1;
+    }
+    
+    private int MidTextTableRead(String headStart, String headStop, String[] elementsStart, String[] elementsStop){
+        useMidTextTableMethod = 1;
+        TableHeaderUse = 1;
+        FindValue(headStart, headStop);
+        TableHeaderUse = 0;
+        if(elementsStart.length != elementsStop.length){
+            System.out.println("MidTextTableRead ERROR!");
+            return 0;
+        }
+        else{
+            for(int i=0; i < elementsStart.length && i < elementsStop.length ; i++){
+                FindValue(elementsStart[i], elementsStop[i]);
+            }
+
+            useMidTextTableMethod = 0;
+            return 1;
+        }
     }
 
 }
