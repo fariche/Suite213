@@ -124,14 +124,7 @@ public class Extract {
         FindValue("Other", "Coating Condition:");
         lookForCheck("Coating Condition:", "Holiday Detection Volt Setting");
         FindValue("Holiday Detection Volt Setting", "Type of Coating");
-        //-----------------------------------------------------Checkpoint --> works
-
-        //----------------------------------------------ERROR
-        //--------------------------
-        lookForCheck("Ground Cover Found:", "on-C");    //Ground Cover Found: ---> checkbox //problem ...
-        //----------------------------------------------ERROR
-        
-        //------------------------------------------------------
+        lookForCheck("Ground Cover Found:", "Blistering");    //Almost fixed
         MidTextTableRead("Type of Coating Damage", "Ground Cover Found:", 
                 new String[]{"Non-Corrosive Disbondment", "Blistering Due to Corrosion"}, new String[]{"Concrete", "pH of Fluid in Blisters"} ); 
         FindValue("pH of Fluid in Blisters", "I have reviewed the procedures performed and have found them:");
@@ -180,7 +173,7 @@ public class Extract {
         //-----------------------------------------------------Checkpoint --> works
         //!!!!!!!!!! Table section 6 !!!!!!!!!!!!!! 
         label("#   Section 7                                                 #");
-        lookForCheck("Severity of Coating Anomaly Suspected", "Severity of Coating Anomaly Found");
+        lookForCheck("Coating Anomaly Suspected", "Severity of Coating Anomaly Found");
         lookForCheck("Severity of Coating Anomaly Found", "Severity of DE Defect Found on Pipe");
         lookForCheck("Severity of DE Defect Found on Pipe", "Severity of the coating anomaly found was more / less severe than originally prioritized?");
         lookForCheck("Severity of the coating anomaly found was more / less severe than originally prioritized?", "Is this the initial assessment of this covered segment?" );
@@ -269,7 +262,7 @@ public class Extract {
             int lineCounter = startLine;
             boolean TokenizedLab2Detected = false;
             boolean ErrorCheck = false;
-            boolean hasSublab = false, hasLab = false;
+            boolean hasSublab = false, hasLab = false, getOut = false;
             
             
 //-------------------------------------------------------------------------------------                
@@ -317,12 +310,24 @@ public class Extract {
                         }
                         first = true;
                     }
+                    if(val.contains("<w:t/>") && first ){
+                        val = val.replace("<w:t/>", "");
+                        if(val.charAt(val.length()-1) == ','){
+                            val += extractData.get(lineCounter+1).get(1);
+                        }
+                    }
                     if(val.contains("<w:t/>")){
                         val = extractData.get(lineCounter+1).get(1);
                     }
                     
                     nextLine = extractData.get(++lineCounter).get(1);    //goes to next
-                    if(nextLine.contains(lab2))
+                    
+                    for(String str : Lab2Tok){
+                        if(nextLine.contains(str))
+                            getOut = true;
+                    }
+                    
+                    if(nextLine.contains(lab2) || getOut )
                         break;
                     
                     if(nextLine.contains(Lab2Tok[0]) && nextLine.contains(Lab2Tok[1]) )
@@ -423,11 +428,7 @@ public class Extract {
         if (value.equalsIgnoreCase("")) {
             value = "N/A";
         }
-        // exception
-//        if (name.trim().contains("Coating)")) {
-//            name = "Type of Defect";
-//        }
-        //formating
+
         name = name.trim().replace(":", "");
         name = name.trim().replace("-", "");
 
@@ -445,21 +446,6 @@ public class Extract {
             props.put(df.format(propCounter) + "_" + name.trim(), displayValue);
             propCounter++;
         }
-    }
-
-    /***
-     * reformat nicely the string list
-     * @param data list of String to be deleted
-     * @return 
-     */
-    private List<String> cleanUpData(List<String> data) {
-        List<String> clean = new ArrayList<>();
-        for (String d : data) {
-            d = d.replace("   ", " ");
-            d = d.replace("  ", " ");
-            clean.add(d);
-        }
-        return clean;
     }
 
     /***
@@ -481,20 +467,21 @@ public class Extract {
         String[] ArgTok = args.split("\\s+");
         
         for (List<String> data : extractData) {
-            data = cleanUpData(data);
             for(String val : ArgTok){
                 StartIndex = mainContent.indexOf(val);
                 if( data.contains(val) && StartIndex < TempIndexEnd)
                     TokenizedArgDetected = true;
             }
             for(String dataTok : data){
-                if(dataTok.contains(args))
+                if(dataTok.contains(args) || dataTok.contains(subArg))
                     TokenizedDataDetected = true;
             }
-                        
-            startLine++;
+            
+            startLine++;            
             if (data.contains(args) || data.contains(subArg) || 
                     TokenizedArgDetected == true || TokenizedDataDetected == true) {
+                
+                //---------------------------------------need to keep
                 if (keys.contains(args)) {
                     Integer nameReuse = this.usedNames.get(args);
                     if (nameReuse > localCounter++){ 
@@ -509,6 +496,7 @@ public class Extract {
                 } else {
                     name = name + "_" + args;
                 }
+                //----------------------------------------as it is
                 
                 extractData = extractData.subList(startLine, extractData.size() -1 );
                 startLine = 0;
@@ -516,6 +504,7 @@ public class Extract {
                 return name;
             }
         }
+        
         return name;
     }
 
