@@ -35,7 +35,10 @@ public class Extract {
     private static int TableHeaderUse = 0;
     private static String[] MidTextTableHeader = null;
     private static String[] MidTextTableContent = null;
-
+    
+    private static int TwoDimUse = 0;
+    private static String TwoDimContent = null;
+    
     private int propCounter;
     //private int lineCounter;
 
@@ -171,6 +174,8 @@ public class Extract {
         FindValue("14th day Interpreted by", "Date of reading");
         FindValue("Date of reading", "Cap Color");
         //-----------------------------------------------------Checkpoint --> works
+        TwoDimTableRead("LNB", "A positive reaction results in a cloudy appearance or the formation of slime, which appears as sheets or clumps.", "Iron Related Bacteria (IRB)",
+               new String[]{"Cap Color", "Bottle#", "Results Week1", "Results Week2", "Comments" } );
         //!!!!!!!!!! Table section 6 !!!!!!!!!!!!!! 
         label("#   Section 7                                                 #");
         lookForCheck("Coating Anomaly Suspected", "Severity of Coating Anomaly Found");
@@ -589,6 +594,9 @@ public class Extract {
                         }
                     }
             }
+            else if(TwoDimUse == 1){
+                TwoDimContent = Vals;
+            }
             else{
                 if (props.containsKey(labels)) {
                     String LabelPrime = labels + " 2";
@@ -787,6 +795,81 @@ public class Extract {
             useMidTextTableMethod = 0;
             return 1;
         }
+    }
+
+    private void TwoDimTableRead(String title, String StartString, String StopString, String[] Labels) {
+        
+        TwoDimUse = 1;
+        int colNum = Labels.length;
+        int tableIndex =0;
+        
+        FindValue(StartString, StopString);
+        
+        String[] contentTok = TwoDimContent.split("\\s+");
+        
+        List<String> TableContent = new ArrayList<>();
+        System.out.println(TwoDimContent);
+        
+        int j =0;
+        int i = 0;
+        for(String str : contentTok){
+            if(i == 5){
+                while(!str.equals(contentTok[0])){
+                    TableContent.add(str);
+                    
+                    System.out.println(str);
+                }
+                
+                System.out.println(TableContent);
+                
+                j++;
+                i = 0;
+                
+            }
+            i++;
+        }
+        
+//        int i = 0;
+//        int j =0;
+//        String result = "";
+//        while(!TwoDimContent.isEmpty()){
+//            if(i == 5){
+//                
+//            }
+//            
+//            if(TwoDimContent.charAt(j) != ' '){
+//                result = result + TwoDimContent.charAt(j);
+//                j++;
+//                TwoDimContent = TwoDimContent.substring(1);
+//            }
+//            else{
+//                TableContent.add(result);
+//                result = "";
+//                j++;
+//                i++;
+//                TwoDimContent = TwoDimContent.substring(1);
+//            }
+//        }
+        
+
+        
+//        while(!TwoDimContent.isEmpty()){
+//            
+//            
+//            TwoDimContent = TwoDimContent.substring(0,1);
+//        }
+        
+        
+//        while(!TwoDimContent.isEmpty()){
+//            for(int i =0; i< colNum; i++){
+//                TwoDimContent = TwoDimContent.substring(TwoDimContent.indexOf(TableContent[tableIndex]));
+//                tableIndex ++;
+//                System.out.println(TableContent[tableIndex-1]);
+//            }
+//        }
+        
+        TwoDimUse = 0;
+        
     }
 
 }
