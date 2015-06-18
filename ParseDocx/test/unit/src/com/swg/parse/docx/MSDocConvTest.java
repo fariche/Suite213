@@ -29,7 +29,7 @@ public class MSDocConvTest {
     
     void run() throws FileNotFoundException {
         
-        ArrayList<String> content = readTxtFile();
+        String content = readTxtFile();
         
         NewExtract ext = new NewExtract();
         ext.extract(content);
@@ -37,7 +37,7 @@ public class MSDocConvTest {
         
     }
 
-    private ArrayList<String> readTxtFile() throws FileNotFoundException {
+    private String readTxtFile() throws FileNotFoundException {
 
         ArrayList<String> list = new ArrayList<>();
         BufferedReader br = null;
@@ -60,7 +60,13 @@ public class MSDocConvTest {
               }
            }
         }
-        return list;
+        
+        StringBuilder builder = new StringBuilder();
+        for(String str : list){
+            builder.append(str).append("\n");
+        }
+        
+        return builder.toString();
     
     
     
