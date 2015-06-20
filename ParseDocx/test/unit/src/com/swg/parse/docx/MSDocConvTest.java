@@ -7,11 +7,14 @@ package com.swg.parse.docx;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 
 /**
  *
@@ -21,18 +24,20 @@ public class MSDocConvTest {
     
     private static final String path = "H:/CurrentWork/conversion/";
     private static final String pathToFile = path + "CAD_2013_RE-01.txt";
+    private static final String pathToFileDocx = path + "CAD_2013_RE-01.docx";
     private static final File ConvertedDocx = new File(pathToFile);
     
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         new MSDocConvTest().run();
     }
     
-    void run() throws FileNotFoundException {
+    void run() throws FileNotFoundException, IOException {
         
         String content = readTxtFile();
+        String POIContent = getPOI();
         
         NewExtract ext = new NewExtract();
-        ext.extract(content);
+        ext.extract(content, POIContent, pathToFileDocx);
         
         
     }
@@ -70,6 +75,15 @@ public class MSDocConvTest {
     
     
     
+    }
+
+    private String getPOI() throws FileNotFoundException, IOException {
+        
+        FileInputStream inputTest = new FileInputStream(path + "CAD_2013_RE-01.docx");
+        XWPFDocument docxTest = new XWPFDocument(inputTest);
+        XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
+        String contentIn = ContentTest.getText();
+        return contentIn;
     }
     
     
