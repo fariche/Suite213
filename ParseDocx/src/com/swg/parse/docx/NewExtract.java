@@ -32,13 +32,17 @@ public class NewExtract {
     private static int ManualColNum = 0, ManualRowNum = 0;
     private static ArrayList<String> rowLabels = new ArrayList<>();
     private static ArrayList<String> headContent = new ArrayList<>();
+    private static ArrayList<String> tempCheckException = new ArrayList<>();
     private static boolean isHeader = false;
+    private static int version = 0;
     
-    public void extract(String content,String POIContent,String filePath) {
+    public void extract(String content,String POIContent,String filePath, int Ver) {
         
+        version = Ver;
 //        System.out.println("content: " + content);;
 //        System.out.println(POIContent);
-        
+    //        FindTextField("", "", "");
+
          //in case we need to use the entire content, we can re-use "content"
         CopyOfContent = content.toLowerCase();
         //in case we need to use the entire POI content, we can re-use "POI content"
@@ -47,146 +51,177 @@ public class NewExtract {
         File file= new File(filePath);
         extractImages(file.toString());
         
-        //always put at least end of the label and start of end string 
-        SectionMarker(0);
-        FindTextField("This form is used", "DE Location ID", "");     //do we need this?
-        SectionMarker(1);
-        FindTextField("DE Location ID", "HCA Name", "");
-        FindTextField("HCA Name", "Examination Number", "");
-        FindTextField("Examination Number", "Work Request No.", "");
-        FindTextField("Work Request No.", "Division", "");
-        FindTextField("Division", "District Number", "");
-        FindTextField("District Number", "Town or County", "");
-        FindTextField("Town or County", "State", "");
-        FindTextField("State", "Tile Number", "");
-        FindTextField("Tile Number", "Address and/or Location", "");
-        FindTextField("Address and/or Location", "Inspection Company", "");
-        FindTextField("Inspection Company", "Date GPS Synchronized", "");
-        FindTextField("Date GPS Synchronized", "Field Location (from Top of Pipe)", "");
-        FindTextField("Start: GPS X", "Y", "");
-        FindTextField("Y", "End: GPS X", "");
-        FindTextField("End: GPS X", "Y", "");
-        FindTextField("Y", "GPS File Name", "");
-        FindTextField("GPS File Name", "Region", "");
-        FindTextField("Region", "Planned Examination Length", "");
-        FindTextField("Planned Examination Length", "Actual Examination Length", "");
-        FindTextField("Actual Examination Length", "Foreign Pipe in Excavation", "");
-        SectionMarker(2);
-        FindTextField("Foreign Pipe in Excavation", "Size", "");
-        FindTextField("Size", "Material", "");
-        FindTextField("Material", "Foreign Current", "");
-        FindTextField("Foreign Current", "Bond Present", "");
-        FindTextField("Bond Present", "If Current Flow", "");
-        FindTextField("If Current Flow, To:", "From:", "");
-        FindTextField("From:", "CP Present", "");
-        FindTextField("CP Present", "Anode Present", "");
-        FindTextField("Anode Present", "% consumed", "");
-        FindTextField("% consumed", "Environmental Conditions:", "");
-        FindTextField("Temp", "Time 24-hr", "");
-        FindTextField("Time 24-hr", "Weather Conditions", "");
-        FindTextField("Weather Conditions", "Soil Conditions:", "");
-        FindTextField("Soil Conditions:", "Bedding/Shading Type", "");
-        FindTextField("Bedding/Shading Type", "Rockshield Used", "");
-        FindTextField("Rockshield Used", "Soil Type:", "");
-        FindTextField("Soil Type:", "Depth of Cover", "");
-        FindTextField("Depth of Cover", "Pipe Data (as found in EMRS):", "");
-        FindTextField("Nominal Size", "InDiam", "");
-        FindTextField("InDiam", "Wthick", "");
-        FindTextField("Wthick", "Grade", "");
-        FindTextField("Grade", "Yield", "");
-        FindTextField("Yield", "WkReqNo", "");
-        FindTextField("WkReqNo", "Installation Month", "");
-        FindTextField("Installation Month", "Installation Year", "");
-        FindTextField("Installation Year", "OpsSysName", "");
-        FindTextField("OpsSysName", "Weld Seam:", "");
-        FindTextField("Weld Seam:", "Coating Types:", "");
-        FindTextField("Coating Types:", "Coating Condition:", "");
-        FindTextField("Coating Condition:", "Holiday Detection Volt Setting", "");
-        FindTextField("Holiday Detection Volt Setting", "Type of Coating Damage", "");
-        //--------------------------------
-        FindTextField("Type of Coating Damage", "Ground Cover Found:", "exception tableText");
-        //reserved for InTextTable & ground cover --> check box midle of text
-        //--------------------------------
-        FindTextField("pH of Fluid in Blisters", "I have reviewed", "");
-        FindTextField("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments", "");
-        FindTextField("Inspected By", "Inspection Date", "");
-        FindTextField("Inspection Date", "Print or type name", "");
-        FindTextField("Reviewed By", "Date Reviewed", "");
-        FindTextField("Date Reviewed", "Print or type name", "");
-        SectionMarker(3);
-        FindTextField("Soil pH at Pipe Depth", "(using Antimony half cell)", "");
-        FindTextField("Soil Resistivity at Pipe Depth", "cm", "");      //strange charachters ...
-        FindTextField("soil chemistry performed", "method used", "");
-        FindTextField("method used - ", "results:", "");
-        FindTextField("chlorides", "ppm", "");
-        FindTextField("nitrates", "ppm", "");
-        FindTextField("sulfates", "ppm", "");
-        FindTextField("6 o'clock", "bacterial samples taken", "");
-        FindTextField("bacterial samples taken", "if yes, see section 6", "");
-        FindTextField("asphalt and/or tar wrap samples taken", "defects:", "");
-        SectionMarker(4);
-        FindTextField("defects:", "all external defects shall", "");
-        FindTextField("on the field sketch.", "see remediation", "");
-        FindTextField("Comments:", "Ultrasonic Thickness Readings", "");
-        SectionMarker(5);
-        FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
-        FindTextField("ICDA Scrub #1: Min", "Max", "");
-        FindTextField("Max", "WT ?%", "");
-        FindTextField("WT ?%", "ICDA Scrub #2: Min", "");
-        FindTextField("ICDA Scrub #2: Min", "Max", "");
-        FindTextField("Max", "WT ?%", "");
-        FindTextField("WT ?%", "Comments:", "");
-        FindTextField("Comments:", "Culture Results", "");
-        SectionMarker(6);
-        FindTextField("Location of samples", "Collected by", "");
-        FindTextField("Collected by", "Date collected", "");
-        FindTextField("Date collected", "7th day Interpreted by", "");
-        FindTextField("7th day Interpreted by", "Date of reading", "");
-        FindTextField("Date of reading", "14th day Interpreted by", "");
-        FindTextField("14th day Interpreted by", "Date of reading", "");
-        FindTextField("Date of reading", "Cap Color", "");
-        FindTextField("Cap Color", "Low-Nutrient Bacteria (LNB)", "isHeader");
-        FindTextField("A positive reaction results in a cloudy appearance or the formation of slime, which appears as sheets or clumps.", "Iron Related Bacteria (IRB)", "TableTitle = LNB");
-        FindTextField("A cloudy appearance or slime DO NOT constitute a positive reaction.", "Anaerobic or Facultatively Anaerobic (ANA)", "TableTitle = IRB");
-        FindTextField("A positive reaction results in cloudy appearance.", "Acid Producing Bacteria (APB)", "TableTitle = ANA");
-        FindTextField("A positive reaction will turn media from red to cloudy orange or cloudy yellow.", "Sulfate Reducing Bacteria (SRB)", "TableTitle = APB");
-        FindTextField("gray flecks does not constitute a positive reaction.", "In-Process Evaluation", "TableTitle = SRB");
-        SectionMarker(7);
-        //---------------------------------------CHECK POINT
-        FindTextField("Severity of Coating Anomaly Suspected", "Severity of Coating Anomaly Found ", "");
-        FindTextField("Severity of Coating Anomaly Found", "Severity of DE Defect Found on Pipe", "");
-        FindTextField("Severity of DE Defect Found on Pipe", "3. Severity of the coating anomaly found was more", "");
-        FindTextField("3. Severity of the coating anomaly found was more / less severe than originally prioritized?", "4. Is this the initial assessment of this covered segment?", "");
-        FindTextField("4. Is this the initial assessment of this covered segment?", "5. If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted?", "");
-        FindTextField("5. If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted?", "6. Was corrosion found?", "");
-        FindTextField("6. Was corrosion found?", "7. Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", "");
-        FindTextField("7. Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", "8. Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?", "");
-        FindTextField("8. Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?", "NOTE:  If 4a, 7 and 8 are all true, then two additional", "");
-        FindTextField("  9. Was the Severity Classification Table assessed for adjustments?", "10. Were changes made to the Severity Classification Table?", "");
-        FindTextField("10. Were changes made to the Severity Classification Table?", "If Yes, document on MOC.  If No, explain why not.", "");
-        FindTextField("If Yes, document on MOC.  If No, explain why not.", "11. Are additional indirect inspection surveys needed on this segment?", "");
-        FindTextField("11. Are additional indirect inspection surveys needed on this segment?", "7B ? Root Cause", "");
-        FindTextField("1. Is the corrosion considered significant?", "Only if Yes, proceed to 2,", "");
-        FindTextField("2. Check the most likely root cause", "Inadequate CP current", "isHeader");
-        //FindTextField("Inadequate CP current", "Explanation for Other:", ""); //reserved for table section 7
-        FindTextField("Explanation for Other:", "Office Work:", "");
-        FindTextField("a. Was the review conducted?", "b. Do alternative methods need to be implemented?", "");
-        FindTextField("b. Do alternative methods need to be implemented?", "Field Work:", "");
-        FindTextField("4. For this HCA, has corrosion been found and a root cause determined at other locations?", "Only if Yes, proceed.", "");
-        FindTextField("5. For this HCA, are similar occurrences of the root cause being determined at other locations?", "7C - Remaining Strength Calculation", "");
-        FindTextField("Date calculation completed:", "Inspector?s Comments:", "");
-        SectionMarker(8);
-        FindTextField("Inspector?s Comments:", "Remediation Action Required?", "");
-        SectionMarker(9);
-        FindTextField("Remediation Action Required?", "Reference Work Request No.", "");
-        FindTextField("Reference Work Request No.", "Check one: Repair was:", "");
-        FindTextField("Check one: Repair was:", "Remediation Comments: ", "");
-        FindTextField("Remediation Comments:", "ANOMALY SKETCH", "");
-        SectionMarker(10);
-        SectionMarker(11);
+//        if(version == 0){
+//            SectionMarker(0);
+//            FindTextField("This form is used", "DE Location ID", "textField");
+//            SectionMarker(1);
+//            FindTextField("DE Location ID", "HCA Name", "textField");
+//            FindTextField("HCA Name", "Examination Number", "textField");
+//            FindTextField("Examination Number", "Work Request No.", "textField");
+//            FindTextField("Work Request No.", "Division", "textField");
+//            FindTextField("Division", "District Number", "DropDown");
+//            FindTextField("District Number", "Town or County", "textField");
+//            FindTextField("Town or County", "State", "textField");
+//            FindTextField("State", "Tile Number", "DropDown");
+//            FindTextField("Tile Number", "Address and/or Location", "textField");
+//            FindTextField("Address and/or Location", "Inspection Company", "textField");
+//            FindTextField("Inspection Company", "Date GPS Synchronized", "textField");
+//            FindTextField("Date GPS Synchronized", "Field Location (from Top of Pipe)", "textField");
+//            FindTextField("Start: GPS X", "Y", "textField");
+//            FindTextField("Y", "End: GPS X", "textField");
+//            FindTextField("End: GPS X", "Y", "textField");
+//            FindTextField("Y", "GPS File Name", "textField");
+//            FindTextField("GPS File Name", "Region", "textField");
+//            FindTextField("Region", "Planned Examination Length", "DropDown");
+//            FindTextField("Planned Examination Length", "Actual Examination Length", "textField");
+//            FindTextField("Actual Examination Length", "Foreign Pipe in Excavation", "textField");
+//            SectionMarker(2);
+//            
+//        }
+        if(version == 2){
+            System.out.println("TESTTTTTTTTTTTTTT");
+        }
         
-//        FindTextField("", "", "");
-
+        if(version == 0){
+            //always put at least end of the label and start of end string 
+            SectionMarker(0);
+            FindTextField("This form is used", "DE Location ID", "");
+            SectionMarker(1);
+            FindTextField("DE Location ID", "HCA Name", "");
+            FindTextField("HCA Name", "Examination Number", "");
+            FindTextField("Examination Number", "Work Request No.", "");
+            FindTextField("Work Request No.", "Division", "");
+            FindTextField("Division", "District Number", "");
+            FindTextField("District Number", "Town or County", "");
+            FindTextField("Town or County", "State", "");
+            FindTextField("State", "Tile Number", "DropDown");
+            FindTextField("Tile Number", "Address and/or Location", "");
+            FindTextField("Address and/or Location", "Inspection Company", "");
+            FindTextField("Inspection Company", "Date GPS Synchronized", "");
+            FindTextField("Date GPS Synchronized", "Field Location (from Top of Pipe)", "");
+            FindTextField("Start: GPS X", "Y", "");
+            FindTextField("Y", "End: GPS X", "");
+            FindTextField("End: GPS X", "Y", "");
+            FindTextField("Y", "GPS File Name", "");
+            FindTextField("GPS File Name", "Region", "");
+            FindTextField("Region", "Planned Examination Length", "");
+            FindTextField("Planned Examination Length", "Actual Examination Length", "");
+            FindTextField("Actual Examination Length", "Foreign Pipe in Excavation", "");
+            SectionMarker(2);
+            FindTextField("Foreign Pipe in Excavation", "Size", "");
+            FindTextField("Size", "Material", "");
+            FindTextField("Material", "Foreign Current", "");
+            FindTextField("Foreign Current", "Bond Present", "");
+            FindTextField("Bond Present", "If Current Flow", "");
+            FindTextField("If Current Flow, To:", "From:", "");
+            FindTextField("From:", "CP Present", "");
+            FindTextField("CP Present", "Anode Present", "");
+            FindTextField("Anode Present", "% consumed", "");
+            FindTextField("% consumed", "Environmental Conditions:", "");
+            FindTextField("Temp", "Time 24-hr", "");
+            FindTextField("Time 24-hr", "Weather Conditions", "");
+            FindTextField("Weather Conditions", "Soil Conditions:", "");
+            FindTextField("Soil Conditions:", "Bedding/Shading Type", "");
+            FindTextField("Bedding/Shading Type", "Rockshield Used", "");
+            FindTextField("Rockshield Used", "Soil Type:", "");
+            FindTextField("Soil Type:", "Depth of Cover", "");
+            FindTextField("Depth of Cover", "Pipe Data (as found in EMRS):", "");
+            FindTextField("Nominal Size", "InDiam", "");
+            FindTextField("InDiam", "Wthick", "");
+            FindTextField("Wthick", "Grade", "");
+            FindTextField("Grade", "Yield", "");
+            FindTextField("Yield", "WkReqNo", "");
+            FindTextField("WkReqNo", "Installation Month", "");
+            FindTextField("Installation Month", "Installation Year", "");
+            FindTextField("Installation Year", "OpsSysName", "");
+            FindTextField("OpsSysName", "Weld Seam:", "");
+            FindTextField("Weld Seam:", "Coating Types:", "");
+            FindTextField("Coating Types:", "Coating Condition:", "");
+            FindTextField("Coating Condition:", "Holiday Detection Volt Setting", "");
+            FindTextField("Holiday Detection Volt Setting", "Type of Coating Damage", "");
+            //----------------------------------------------------------------------------
+            FindTextField("Type of Coating Damage", "Ground Cover Found:", "exception tableTextHeader");
+            FindTextField("Ground Cover Found:", "Non-Corrosive Disbondment", "CheckBoxConflict");
+            FindTextField("Non-Corrosive Disbondment", "Blistering Due to Corrosion", "tableTexBody");
+            FindTextField("Blistering Due to Corrosion", "pH of Fluid in Blisters", "tableTexBody");
+            DisplayCheckException();
+            FindTextField("pH of Fluid in Blisters", "I have reviewed", "");
+            FindTextField("I have reviewed the procedures performed and have found them:", "*If Inadequate, send comments", "");
+            FindTextField("Inspected By", "Inspection Date", "");
+            FindTextField("Inspection Date", "Print or type name", "");
+            FindTextField("Reviewed By", "Date Reviewed", "");
+            FindTextField("Date Reviewed", "Print or type name", "");
+            SectionMarker(3);
+            FindTextField("Soil pH at Pipe Depth", "(using Antimony half cell)", "");
+            FindTextField("Soil Resistivity at Pipe Depth", "cm", "");      //strange charachters ...
+            FindTextField("soil chemistry performed", "method used", "");
+            FindTextField("method used - ", "results:", "");
+            FindTextField("chlorides", "ppm", "");
+            FindTextField("nitrates", "ppm", "");
+            FindTextField("sulfates", "ppm", "");
+            FindTextField("6 o'clock", "bacterial samples taken", "");
+            FindTextField("bacterial samples taken", "if yes, see section 6", "");
+            FindTextField("asphalt and/or tar wrap samples taken", "defects:", "");
+            SectionMarker(4);
+            FindTextField("defects:", "all external defects shall", "");
+            FindTextField("on the field sketch.", "see remediation", "");
+            FindTextField("Comments:", "Ultrasonic Thickness Readings", "");
+            SectionMarker(5);
+            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
+            FindTextField("ICDA Scrub #1: Min", "Max", "");
+            FindTextField("Max", "WT ?%", "");
+            FindTextField("WT ?%", "ICDA Scrub #2: Min", "");
+            FindTextField("ICDA Scrub #2: Min", "Max", "");
+            FindTextField("Max", "WT ?%", "");
+            FindTextField("WT ?%", "Comments:", "");
+            FindTextField("Comments:", "Culture Results", "");
+            SectionMarker(6);
+            FindTextField("Location of samples", "Collected by", "");
+            FindTextField("Collected by", "Date collected", "");
+            FindTextField("Date collected", "7th day Interpreted by", "");
+            FindTextField("7th day Interpreted by", "Date of reading", "");
+            FindTextField("Date of reading", "14th day Interpreted by", "");
+            FindTextField("14th day Interpreted by", "Date of reading", "");
+            FindTextField("Date of reading", "Cap Color", "");
+            FindTextField("Cap Color", "Low-Nutrient Bacteria (LNB)", "isHeader");
+            FindTextField("A positive reaction results in a cloudy appearance or the formation of slime, which appears as sheets or clumps.", "Iron Related Bacteria (IRB)", "TableTitle = LNB");
+            FindTextField("A cloudy appearance or slime DO NOT constitute a positive reaction.", "Anaerobic or Facultatively Anaerobic (ANA)", "TableTitle = IRB");
+            FindTextField("A positive reaction results in cloudy appearance.", "Acid Producing Bacteria (APB)", "TableTitle = ANA");
+            FindTextField("A positive reaction will turn media from red to cloudy orange or cloudy yellow.", "Sulfate Reducing Bacteria (SRB)", "TableTitle = APB");
+            FindTextField("gray flecks does not constitute a positive reaction.", "In-Process Evaluation", "TableTitle = SRB");
+            SectionMarker(7);
+            FindTextField("Severity of Coating Anomaly Suspected", "Severity of Coating Anomaly Found ", "");
+            FindTextField("Severity of Coating Anomaly Found", "Severity of DE Defect Found on Pipe", "");
+            FindTextField("Severity of DE Defect Found on Pipe", "3. Severity of the coating anomaly found was more", "");
+            FindTextField("3. Severity of the coating anomaly found was more / less severe than originally prioritized?", "4. Is this the initial assessment of this covered segment?", "");
+            FindTextField("4. Is this the initial assessment of this covered segment?", "5. If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted?", "");
+            FindTextField("5. If both 3a & 4b, then should the criteria in the Severity Classification Table be adjusted?", "6. Was corrosion found?", "");
+            FindTextField("6. Was corrosion found?", "7. Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", "");
+            FindTextField("7. Was this a B or C priority in which the corrosion found was deeper than 20% of the original wall thickness?", "8. Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?", "");
+            FindTextField("8. Was this corrosion deeper or more severe than corrosion found on any A-priority examination in this same region?", "NOTE:  If 4a, 7 and 8 are all true, then two additional", "");
+            FindTextField("  9. Was the Severity Classification Table assessed for adjustments?", "10. Were changes made to the Severity Classification Table?", "");
+            FindTextField("10. Were changes made to the Severity Classification Table?", "If Yes, document on MOC.  If No, explain why not.", "");
+            FindTextField("If Yes, document on MOC.  If No, explain why not.", "11. Are additional indirect inspection surveys needed on this segment?", "");
+            FindTextField("11. Are additional indirect inspection surveys needed on this segment?", "7B ? Root Cause", "");
+            FindTextField("1. Is the corrosion considered significant?", "Only if Yes, proceed to 2,", "");
+            FindTextField("2. Check the most likely root cause", "Inadequate CP current", "SkipFirstTableHeader");
+            FindTextField("Inadequate CP current", "Explanation for Other:", "2DimVersion1Expection"); //reserved for table section 7
+            FindTextField("Explanation for Other:", "Office Work:", "");
+            FindTextField("a. Was the review conducted?", "b. Do alternative methods need to be implemented?", "");
+            FindTextField("b. Do alternative methods need to be implemented?", "Field Work:", "");
+            FindTextField("4. For this HCA, has corrosion been found and a root cause determined at other locations?", "Only if Yes, proceed.", "");
+            FindTextField("5. For this HCA, are similar occurrences of the root cause being determined at other locations?", "7C - Remaining Strength Calculation", "");
+            FindTextField("Date calculation completed:", "Inspector Comments:", "");
+            SectionMarker(8);
+            FindTextField("Inspector?s Comments:", "Remediation Action Required?", "");
+            SectionMarker(9);
+            FindTextField("Remediation Action Required?", "Reference Work Request No.", "");
+            FindTextField("Reference Work Request No.", "Check one: Repair was:", "");
+            FindTextField("Check one: Repair was:", "Remediation Comments: ", "");
+            FindTextField("Remediation Comments:", "ANOMALY SKETCH", "");
+            SectionMarker(10);
+            SectionMarker(11);
+        }
         
     }
 
@@ -194,7 +229,6 @@ public class NewExtract {
     //"headContent = [x], [y], [z], .... (x,y,z are strings), "isHeader", "TableTitle = x (x is a string)
     //
     private int FindTextField(String StartString, String StopString, String comment) {
-        
         StartString = StartString.toLowerCase();
         StopString = StopString.toLowerCase();
         begin = 0;
@@ -210,18 +244,27 @@ public class NewExtract {
         if(end != 0 && begin != 0){
             
             commentHandeler(comment);
-            String ValType = DetermineTypeOfValue(value).toLowerCase();
+            String ValType = DetermineTypeOfValue(value, comment).toLowerCase();
             
-            //-------------------------------------------Work in progress ...
-            if(comment.contains("tableText")){
-                System.out.println("TESTTTTTTTTTT");
-                String valueTok[] = value.split("\n");
-                for(String str:valueTok){
-                    if(!str.contains("%"))
-                        System.out.println(str);
-                }
+            //this first if is a huge exception only for the first version ...
+            if(comment.equals("2DimVersion1Expection")){
+                process2DimVersion1Expection(StartString, value);
             }
-            //-------------------------------------------Work in progress ...
+            else if(comment.equals("CheckBoxConflict")){
+                tempCheckException.clear();
+                tempCheckException.add(StartString);
+                String temp = FindCheckValue(value);
+                tempCheckException.add(temp);
+            }
+            else if(comment.equals("exception tableTextHeader")){
+                processInTextTableHeader(value);
+            }
+            else if(comment.contains("tableTexBody")){
+                processInTextBody(value, StartString);
+            }
+            else if(comment.equals("SkipFirstTableHeader")){
+                setHeadOfTable(value);
+            }
             else if(ValType.contains("table header")){
                 setHeadOfTable(value, StartString);
             }
@@ -243,24 +286,29 @@ public class NewExtract {
                 }
             }
             
-            if(!ValType.contains("table") && !isHeader){
-                //----------------------------------------------- see if you can make a function
-                if(value.contains("0  n/a") && ValType.contains("text")){
-                    String temp ="";
-                    int j=0;
-                    for(int i= 0; i< value.length(); i++){
-                        if(value.charAt(i) != '\n'){
-                            temp =  temp + value.charAt(i);
-                            if(j == 2){
-                                value = temp;
-                            }
-                        }
-                        else{
-                            j ++;
-                        }
-                    }
+            //-------------------------------------------------
+            if(!ValType.contains("table") && !isHeader && !comment.contains("tableText")            //simplify this
+                    && !comment.contains("tableTexBody") && !comment.equals("CheckBoxConflict")
+                    && !comment.equals("SkipFirstTableHeader") && !comment.equals("2DimVersion1Expection")){
+                
+                //----------------------------------------------- see if you can make a function: clean out output!
+                if(value.contains("0  n/a") && ValType.contains("text field")){
+                    value = value.replace("0  n/a", "");
+                }
+                if(value.contains("1  n/a") && ValType.contains("text field")){
+                    value = value.replace("1  n/a", "");
+                }
+                String valueTok[] = value.split("\\s+");
+                StringBuilder builder = new StringBuilder();
+                for (String str : valueTok) {
+                    builder.append(str).append(" ");
+                }
+                value = builder.toString();
+                if(value.contains("section")){
+                    value = value.replace(value.subSequence(value.indexOf("section"), value.indexOf("section") + "section".length() + 2), "");                    
                 }
                 //-----------------------------------------------
+                
                 DisplayInfo(label, value);
             }
             return 1;
@@ -280,7 +328,7 @@ public class NewExtract {
         System.out.println("Section" + sectionNum + "-----------------------------------------------");   
     }
 
-    private String DetermineTypeOfValue(String value) {
+    private String DetermineTypeOfValue(String value, String comment) {
         
         
         boolean IsCheckBox = false;
@@ -291,8 +339,11 @@ public class NewExtract {
         String Type = "text field or drop down";
         
         IsCheckBox = DetermineCheck(value);
-        IsTable = DetermineTable(value);
+        IsTable = DetermineTable(value, comment);
         
+        if(comment.equals("SkipFirstTableHeader")){
+            Type = "table header(skip 1)";
+        }
         if(IsCheckBox ){
             Type = "CHECKBOX!!!!!!!!!!!!";
         }
@@ -411,7 +462,7 @@ public class NewExtract {
         return value;
     }
 
-    private boolean DetermineTable(String value) {
+    private boolean DetermineTable(String value, String comment) {
         
         boolean IsTable = false;
         
@@ -613,21 +664,45 @@ public class NewExtract {
         for(int i=1; i < value.length(); i++){
             if(value.charAt(i) != '\n'){
                 temp = temp + value.charAt(i);
-                if(temp.equals("results")){
+                if(temp.equals("results")){         //exception ... a better way?
                     temp = temp + " ";
                     i++;
                 }
-                if(temp.equals("A")){
+                if(temp.equals("a") || temp.equals(" ") ){  //exceptions
                     temp = "";
                     i++;
                 }
             }
-            else {
+            else if(!temp.equals(" ") && !temp.equals("") ) {
                 headContent.add(temp);
                 temp = "";
 
             }
         }
+        
+    }
+    
+    private void setHeadOfTable(String value) {
+        
+        headContent.clear();
+        String temp = "";
+        for(int i=1; i < value.length(); i++){
+            if(value.charAt(i) != '\n'){
+                temp = temp + value.charAt(i);
+                if(temp.equals("results")){         //exception ... a better way?
+                    temp = temp + " ";
+                    i++;
+                }
+                if(temp.equals("a") || temp.equals(" ") ){  //exceptions
+                    temp = "";
+                    i++;
+                }
+            }
+            else if(!temp.equals(" ") && !temp.equals("") && value.charAt(i+1) != '(' ) {
+                headContent.add(temp);
+                temp = "";
+            }
+        }        
         
     }
     
@@ -682,6 +757,94 @@ public class NewExtract {
         }catch(Exception e){System.exit(-1);}
         
     }
-    
+
+    private void processInTextTableHeader(String value) {
+        
+        headContent.clear();
+        String valueTok[] = value.split("\n");
+        for(String str:valueTok){
+            if(!str.equals("")){
+                headContent.add(str);
+            }
+        }
+        
+    }
+
+    private void processInTextBody(String value, String StartString) {
+        
+        String valueTok[] = value.split("\n");
+        int i = 0;
+        boolean IsCheckBox = false;
+        for(String str:valueTok){
+            //see if there is a checkbox value to save it for checkboxConflict
+            IsCheckBox = DetermineCheck(str);           
+            if(IsCheckBox){
+                String temp = FindCheckValue(str);
+                tempCheckException.add(temp);
+            }
+            
+            if(!str.equals("") && i < headContent.size()){
+                System.out.println(StartString + " " + headContent.get(i) + " = " + 
+                        str);
+                i++;
+            }
+        }
+                
+    }
+
+    private void DisplayCheckException() {
+        
+        String temp = tempCheckException.get(0) + " = ";
+        
+        for(int i = 1;i < tempCheckException.size(); i++){
+            temp += tempCheckException.get(i);
+        }
+        String valueTok[] = temp.split("\\s+");
+        
+        System.out.println("");
+        for(String str:valueTok){
+            System.out.print(str + " ");
+        }
+        System.out.println("");
+        
+        
+    }
+
+    private void process2DimVersion1Expection(String StartString, String value) {
+        
+                String temp = "a \n";
+                temp += StartString;
+                temp += value;
+                
+                String tempTok[] = temp.split("\n");
+                String temp1 = headContent.get(0);
+                int j = 0;
+                int i = 0;
+                for(String str : tempTok){
+                    if(j == 2 && i == 2 ){
+                        System.out.println(temp1);
+                        temp1 = headContent.get(0);
+                        j = 0;
+                        i = 0;
+                    }
+                    if(j < 2){
+                        temp1 += " " + str;
+                        j++;
+                    }
+                    else if(i < 2){
+                        if(i == 0){
+                            temp1 += " = ";
+                        }
+                        if(i == 0 && !str.equals("     ")){
+                            temp1 += "," + headContent.get(1);
+                        }
+                        if(i == 1 && !str.equals("     ")){
+                            temp1 += "," + headContent.get(2);
+                        }
+                        i++;
+                    } 
+                }                
+                        
+    }
     
 }

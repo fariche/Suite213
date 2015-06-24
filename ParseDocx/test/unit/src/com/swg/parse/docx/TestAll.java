@@ -30,8 +30,8 @@ public class TestAll {
     // mike's win7-64 path
     //private static final String path = "C:/Users/Supercode/Documents/SwgDocs/CAD_2013_ReSurvey_Dig_Reports/";
 
-    private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
-    private static final File docx = new File(path + "CAD_2013_RS-01.docx");
+    private static final String path = "H:/CurrentWork/No_Touch/";
+    private static final File docx = new File(path + "11.15.10 PPC_2010_E-01.docx");
 
     /**
      * @param args the command line arguments
@@ -66,7 +66,7 @@ public class TestAll {
      */
     private void parseXML(File f) throws SAXException, IOException {
         
-        FileInputStream inputTest = new FileInputStream(path + "CAD_2013_RS-01.docx");
+        FileInputStream inputTest = new FileInputStream(path + "11.15.10 PPC_2010_E-01.docx");
         XWPFDocument docxTest = new XWPFDocument(inputTest);
         XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
         

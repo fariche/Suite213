@@ -5,13 +5,29 @@
  */
 package com.swg.parse.docx;
 
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
@@ -28,6 +44,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.xmlgraphics.java2d.TextHandler;
 
 
 @ActionID(
@@ -42,46 +59,87 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 @Messages("CTL_OpenWord=Select Form213")
 public final class OpenWord implements ActionListener {
 
-    public static File selectedFile;
-    private static final String path = "H:/CurrentWork/CAD_2013_ReSurvey_Dig_Reports/";
+    public static File selectedFile, TxtFile;
+    public static String pathToTxtFile;
     private static final InputOutput io = IOProvider.getDefault().getIO("XML", true);
-    private static InputOutput ioProps;
     private static final String newline = System.getProperty("line.separator");
-
+    private static String version = "";
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
         io.getOut().println("Selecting a MSWord file...");
         JFileChooser fc = new JFileChooser();
         fc.setAcceptAllFileFilterUsed(false);
-        fc.addChoosableFileFilter(new DocxFileFilter());
+        fc.addChoosableFileFilter(new DocxFileFilter());        //this can be commented out
         if (selectedFile != null) {
             fc.setSelectedFile(selectedFile);
         }
         int returnVal = fc.showDialog(WindowManager.getDefault().getMainWindow(), "Parse");
+
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            
+            //------------------------------------------------------
+
+            JFrame jf = new JFrame("Please Enter the Version number");
+            JTextField tf = new JTextField(10);
+            JButton jbnButton1 = new JButton("Button 1");
+            
+            jf.getContentPane().setLayout(new FlowLayout());
+            jf.getContentPane().add(tf);
+            jf.add(jbnButton1);
+            jf.pack();
+            jf.setLocationRelativeTo(null);
+            jf.setSize(500, 150);
+            tf.setVisible(true);
+            jf.setVisible(true);
+            
+            jbnButton1.setMnemonic(KeyEvent.VK_I); //Set ShortCut Keys
+            jbnButton1.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+			version = tf.getText();
+                    }
+            });
+
+                            
+            
+            
+            //----------------------------------------------------------
+            
+            
             File file = fc.getSelectedFile();
             selectedFile = file;
             io.getOut().append("Opening: " + file.getName() + newline);
             
-            try {
-                File zip = new File(selectedFile.getAbsolutePath().substring(0, selectedFile.getAbsolutePath().length() - 4) + "zip");
-                copyDocxToZip(selectedFile, zip);
-                UnZipIt.unZip(zip.getAbsolutePath(), path + "temp");
-                parseXML(new File(path + "temp/word/document.xml"));
-                FileUtils.deleteDirectory(new File(path + "temp"));
-                zip.delete();
-                System.out.println("\n*** Done ***");
-                
-                
-                
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (SAXException ex) {
-                Exceptions.printStackTrace(ex);
+            pathToTxtFile = selectedFile.getAbsolutePath().replace(".docx", ".txt");
+            TxtFile = new File(pathToTxtFile);
+            
+            if(!TxtFile.exists()){
+                pathToTxtFile = selectedFile.getAbsolutePath().replace(".docx", "");
+                TxtFile = new File(pathToTxtFile);
+                pathToTxtFile += ".txt";
+                TxtFile.renameTo(new File(pathToTxtFile));
+                TxtFile = new File(pathToTxtFile);
             }
             
-            //parseFile();
+            String content;
+            String POIContent;
+            
+            try {
+                content = readTxtFile();
+                POIContent = getPOI();
+                NewExtract ext = new NewExtract();
+                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), Integer.parseInt(version));
+
+            }
+            catch (FileNotFoundException ex) {
+                Exceptions.printStackTrace(ex);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+                        
         } else {
             io.getOut().append("Open command cancelled by user" + newline);
         }
@@ -90,73 +148,49 @@ public final class OpenWord implements ActionListener {
 
     }
     
-    private void parseXML(File f) throws SAXException, IOException {
-        FileInputStream inputTest = new FileInputStream(path);
-        XWPFDocument docxTest = new XWPFDocument(inputTest);
-        XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
+        private String readTxtFile() throws FileNotFoundException {
+
+        ArrayList<String> list = new ArrayList<>();
+        BufferedReader br = null;
+        try {
+           br = new BufferedReader(new FileReader(TxtFile));
+           String availalbe;
+           while((availalbe = br.readLine()) != null) {
+               list.add(availalbe.toLowerCase());            
+           }
+        } catch (FileNotFoundException e) {
+           e.printStackTrace();
+        } catch (IOException e) {
+           e.printStackTrace();
+        } finally {
+           if (br != null) {
+              try {
+                 br.close();
+              } catch (IOException e) {
+                 e.printStackTrace();
+              }
+           }
+        }
         
-        String contentIn = ContentTest.getText();
-        String[] contentTok = contentIn.split("\\s+");
         StringBuilder builder = new StringBuilder();
-        for (String value : contentTok) {
-            builder.append(value).append(" ");
+        for(String str : list){
+            builder.append(str).append("\n");
         }
-        String content = builder.toString();
         
-        
-        
-        XMLReader parser = XMLReaderFactory.createXMLReader();
-        XmlHandler xml = new XmlHandler();  //only look at document.xml
-        parser.setContentHandler((ContentHandler) xml);
-        parser.parse(f.getAbsolutePath());
-        System.out.println(" *** STORED DATA ***");
-        int i = 0;
-        for (List<String> s : XmlHandler.dataList) {
-            System.out.printf("%d %s\n", i++, s.toString());
-        }
-        Extract ext = new Extract();
-        ext.extract(XmlHandler.dataList, content);
-        System.out.println("\n*** PROPERTIES ***");
-        System.out.println(ext.toString());
+        return builder.toString();
+    
+    
+    
     }
 
-    
-    private void copyDocxToZip(File docx, File zip) {
-        try {
-            Files.copy(docx, zip);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        }
+    private String getPOI() throws FileNotFoundException, IOException {
+        
+        FileInputStream inputTest = new FileInputStream(selectedFile.getAbsolutePath());
+        XWPFDocument docxTest = new XWPFDocument(inputTest);
+        XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
+        String contentIn = ContentTest.getText();
+        return contentIn;
     }
     
-    /*
-    private void parseFile() {
-        try {
-            File f = selectedFile;
-            XMLReader parser = XMLReaderFactory.createXMLReader();
-            XmlHandler xml = new XmlHandler();
-            parser.setContentHandler((ContentHandler)xml);
-            parser.parse(f.getAbsolutePath());
-            //System.out.println(" *** STORED DATA ***");
-            io.getOut().println(" *** STORED DATA ***");
-            int i = 0;
-            for (List<String> s : XmlHandler.dataList) {
-                //System.out.printf("%d %s\n", i++, s.toString());
-                io.getOut().printf("%d %s\n", i++, s.toString());
-            }
-            Extract ext = new Extract();
-            ext.extract(XmlHandler.dataList);
-            //System.out.println("\n*** PROPERTIES ***");
-            ioProps = IOProvider.getDefault().getIO(selectedFile.getName(), true);
-            ioProps.getOut().println("\n*** PROPERTIES ***");
-            ioProps.getOut().println(ext.toString());
-            ioProps.getOut().close();
-            //System.out.println(ext.toString());
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (SAXException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-    }
-    */
+
 }
