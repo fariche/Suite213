@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Scene;
@@ -27,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -63,11 +66,13 @@ public final class OpenWord implements ActionListener {
     public static String pathToTxtFile;
     private static final InputOutput io = IOProvider.getDefault().getIO("XML", true);
     private static final String newline = System.getProperty("line.separator");
-    private static String version = "";
+    private static int version = 0;
+    final ImageIcon icon = new ImageIcon();
+
     
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
         io.getOut().println("Selecting a MSWord file...");
         JFileChooser fc = new JFileChooser();
         fc.setAcceptAllFileFilterUsed(false);
@@ -76,39 +81,11 @@ public final class OpenWord implements ActionListener {
             fc.setSelectedFile(selectedFile);
         }
         int returnVal = fc.showDialog(WindowManager.getDefault().getMainWindow(), "Parse");
-
+         
+        VersionSlector();
+               
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            
-            //------------------------------------------------------
-
-            JFrame jf = new JFrame("Please Enter the Version number");
-            JTextField tf = new JTextField(10);
-            JButton jbnButton1 = new JButton("Button 1");
-            
-            jf.getContentPane().setLayout(new FlowLayout());
-            jf.getContentPane().add(tf);
-            jf.add(jbnButton1);
-            jf.pack();
-            jf.setLocationRelativeTo(null);
-            jf.setSize(500, 150);
-            tf.setVisible(true);
-            jf.setVisible(true);
-            
-            jbnButton1.setMnemonic(KeyEvent.VK_I); //Set ShortCut Keys
-            jbnButton1.addActionListener(new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-			version = tf.getText();
-                    }
-            });
-
-                            
-            
-            
-            //----------------------------------------------------------
-            
-            
+                        
             File file = fc.getSelectedFile();
             selectedFile = file;
             io.getOut().append("Opening: " + file.getName() + newline);
@@ -131,7 +108,7 @@ public final class OpenWord implements ActionListener {
                 content = readTxtFile();
                 POIContent = getPOI();
                 NewExtract ext = new NewExtract();
-                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), Integer.parseInt(version));
+                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), version);
 
             }
             catch (FileNotFoundException ex) {
@@ -190,6 +167,21 @@ public final class OpenWord implements ActionListener {
         XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
         String contentIn = ContentTest.getText();
         return contentIn;
+    }
+
+    private void VersionSlector() {
+        
+        Object[] possibilities = {0, 1, 2};
+
+
+        version =  (int) JOptionPane.showInputDialog(WindowManager.getDefault().getMainWindow(),
+                    "please select the version of the form",
+                    "Form Version",
+                    JOptionPane.PLAIN_MESSAGE,
+                    icon,
+                    possibilities,
+                    0);
+        
     }
     
 
