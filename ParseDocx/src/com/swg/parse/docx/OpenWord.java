@@ -80,9 +80,9 @@ public final class OpenWord implements ActionListener {
         if (selectedFile != null) {
             fc.setSelectedFile(selectedFile);
         }
-        int returnVal = fc.showDialog(WindowManager.getDefault().getMainWindow(), "Parse");
+        int returnVal = fc.showDialog(WindowManager.getDefault().getMainWindow(), "Extract Data");
          
-        VersionSlector();
+        //VersionSlector();   //alow user to enter the version of selected document
                
         if (returnVal == JFileChooser.APPROVE_OPTION) {
                         
@@ -107,6 +107,20 @@ public final class OpenWord implements ActionListener {
             try {
                 content = readTxtFile();
                 POIContent = getPOI();
+                
+                if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
+                    System.out.println("V0");
+                    version = 0;
+                }
+                else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase())){
+                    System.out.println("V1");
+                    version = 1;
+                }
+                else{
+                    System.out.println("V2");
+                    version = 2;
+                }
+               
                 NewExtract ext = new NewExtract();
                 ext.extract(content, POIContent, selectedFile.getAbsolutePath(), version);
 
