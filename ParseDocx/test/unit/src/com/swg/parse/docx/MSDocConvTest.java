@@ -44,7 +44,7 @@ public class MSDocConvTest {
      * @throws IOException 
      */
     void run() throws FileNotFoundException, IOException {
-        
+                
         String content = readTxtFile();
         String POIContent = getPOI();
         

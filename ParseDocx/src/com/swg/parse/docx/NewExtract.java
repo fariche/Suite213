@@ -35,7 +35,15 @@ public class NewExtract {
     private static ArrayList<String> tempCheckException = new ArrayList<>();
     private static boolean isHeader = false;
     private static int version = 0;
+    private static int section = 0;
     private static String TempLab = null;
+    
+    
+    private static ArrayList<String> labelBeforePOJO = new ArrayList<>();
+    private static ArrayList<String> ValueBeforePOJO = new ArrayList<>();
+    private static ArrayList<String> typeBeforePOJO = new ArrayList<>();
+    private static ArrayList<Integer> sectionBeforePOJO = new ArrayList<>();
+    private static ArrayList<ExtractPOJO> ListOfPOJO_Rows = new ArrayList<>();
     
     public void extract(String content,String POIContent,String filePath, int Ver) {
         
@@ -396,6 +404,9 @@ public class NewExtract {
         }
         //FindTextField("", "", "");
         
+        for(int i=0; i< ValueBeforePOJO.size(); i++){
+            System.out.println(labelBeforePOJO.get(i) + " = " + ValueBeforePOJO.get(i));
+        }        //looks like it is working !!!!!! next we can add all this to POJO
         
     }
 
@@ -499,12 +510,16 @@ public class NewExtract {
     private void DisplayInfo(String label, String value) {
         
         System.out.print(label + " = " + value);
+        labelBeforePOJO.add(label);
+        ValueBeforePOJO.add(value);
+        sectionBeforePOJO.add(section);
         System.out.println("");
         
     }
 
     private void SectionMarker(int sectionNum) {
         System.out.println("Section" + sectionNum + "-----------------------------------------------");   
+        section = sectionNum;
     }
 
     private String DetermineTypeOfValue(String value, String comment) {
@@ -748,6 +763,9 @@ public class NewExtract {
                 if(TableRowVal.charAt(j) == '\n'){
                     if(cntTemp > 0){
                         System.out.println(rowLabels.get(i) + cntTemp + " = " + temp);
+                        labelBeforePOJO.add(rowLabels.get(i) + cntTemp);
+                        ValueBeforePOJO.add(temp);
+                        sectionBeforePOJO.add(section);
                         temp = "";
                     }
                 cntTemp ++;
@@ -819,6 +837,9 @@ public class NewExtract {
             }
             else if(temp != " " && temp != "" && temp != "  "){
                     System.out.println(VerticalLabels.get(j) + dataCnt + " = " + temp);
+                    labelBeforePOJO.add(VerticalLabels.get(j) + dataCnt);
+                    ValueBeforePOJO.add(temp);
+                    sectionBeforePOJO.add(section);
                     temp = "";
                     j++;
                     if(j == ManualColNum){
@@ -926,12 +947,18 @@ public class NewExtract {
         String temp = "";
         int j =0, index = 0;
         System.out.println("tile = " + TableTitle);
+        labelBeforePOJO.add("title");
+        ValueBeforePOJO.add(TableTitle);
+        sectionBeforePOJO.add(section);
         for(int i=1;i<value.length(); i++){
             if(value.charAt(i) != '\n'){
                 temp = temp + value.charAt(i);
             }
             else{
                 System.out.println(headContent.get(j) + "(" + index + ")" +" = " + temp);
+                labelBeforePOJO.add(headContent.get(j) + "(" + index + ")");
+                ValueBeforePOJO.add(temp);
+                sectionBeforePOJO.add(section);
                 temp = "";
                             
                 if(j == headContent.size()-1){
@@ -967,6 +994,9 @@ public class NewExtract {
                 ImageIO.write(imag, "jpg", new File("imagefromword"+i+".jpg"));
                 i++;
                 System.out.println("path to image " + i + " = " + CreatedImageFile.getAbsolutePath());
+                labelBeforePOJO.add("path to image " + i);
+                ValueBeforePOJO.add(CreatedImageFile.getAbsolutePath());
+                sectionBeforePOJO.add(section);
             }
         }catch(Exception e){System.exit(-1);}
         
@@ -1000,6 +1030,9 @@ public class NewExtract {
             if(!str.equals("") && i < headContent.size()){
                 System.out.println(StartString + " " + headContent.get(i) + " = " + 
                         str);
+                labelBeforePOJO.add(StartString + " " + headContent.get(i));
+                ValueBeforePOJO.add(str);
+                sectionBeforePOJO.add(section);
                 i++;
             }
         }
@@ -1009,7 +1042,7 @@ public class NewExtract {
     private void DisplayCheckException() {
         
         String temp = tempCheckException.get(0) + " = ";
-        
+        String temp2 = "";
         for(int i = 1;i < tempCheckException.size(); i++){
             temp += tempCheckException.get(i);
         }
@@ -1018,8 +1051,18 @@ public class NewExtract {
         System.out.println("");
         for(String str:valueTok){
             System.out.print(str + " ");
+            if(tempCheckException.get(0).contains(str) || str.contains("=")){
+                //do nothing
+            }
+            else{
+                temp2 += (str + " ");
+            }
         }
         System.out.println("");
+        
+        labelBeforePOJO.add(tempCheckException.get(0));     //flag
+        ValueBeforePOJO.add(temp2);
+        sectionBeforePOJO.add(section);
         
         
     }
@@ -1037,6 +1080,15 @@ public class NewExtract {
                 for(String str : tempTok){
                     if(j == 2 && i == 2 ){
                         System.out.println(temp1);
+                        
+                        String lab = "", val = "";
+                        lab = temp1.substring(0, temp1.indexOf("="));
+                        val = temp1.substring(temp1.indexOf("="));
+                        labelBeforePOJO.add(lab);
+                        ValueBeforePOJO.add(val);
+                        sectionBeforePOJO.add(section);
+                        
+                        
                         temp1 = headContent.get(0);
                         j = 0;
                         i = 0;
