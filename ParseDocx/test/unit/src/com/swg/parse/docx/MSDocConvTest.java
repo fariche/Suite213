@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/**
+ * This testes the extraction of data from a manually entered .docx directory path
+ */
 package com.swg.parse.docx;
 
 import java.io.BufferedReader;
@@ -22,8 +26,11 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  */
 public class MSDocConvTest {
     
+    //enter path of the folder here
     private static final String path = "H:/CurrentWork/temp3/";
+    //enter the name of the .txt file here
     private static final String pathToFile = path + "C System E03 5.8.07.txt";
+    //enter the name of the .docx file here
     private static final String pathToFileDocx = path + "C System E03 5.8.07.docx";
     private static final File ConvertedDocx = new File(pathToFile);
     
@@ -31,6 +38,11 @@ public class MSDocConvTest {
         new MSDocConvTest().run();
     }
     
+    /***
+     * Launches the test
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     void run() throws FileNotFoundException, IOException {
         
         String content = readTxtFile();
@@ -42,6 +54,11 @@ public class MSDocConvTest {
         
     }
 
+    /***
+     * get the content of the .txt file generated from the .docx file previously
+     * @return String containing the content of the .txt file
+     * @throws FileNotFoundException 
+     */
     private String readTxtFile() throws FileNotFoundException {
 
         ArrayList<String> list = new ArrayList<>();
@@ -74,6 +91,11 @@ public class MSDocConvTest {
         return builder.toString();
     }
 
+    /***
+     * @return String containing the content of the .docx file from POI apache
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     private String getPOI() throws FileNotFoundException, IOException {
         
         FileInputStream inputTest = new FileInputStream(path + "C System E03 5.8.07.docx");

@@ -1,19 +1,20 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 /***
- * This allows uses to open one by one single .doc or .docx forms and begin extraction from them
+ * This allows uses to open Folders containing .doc or .docx forms and begin Extraction
+ * Instead of opening one by one single .doc or .docx forms
  */
-
 package com.swg.parse.docx;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
@@ -31,79 +32,89 @@ import org.openide.windows.WindowManager;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-
+/***
+ * ID of the action
+ * @author KXK3
+ */
 @ActionID(
-        category = "Edit",
-        id = "com.swg.parse.docx.OpenWord"
+        category = "OpenFolder",
+        id = "com.swg.parse.docx.OpenFolderAction"
 )
+/***
+ * setting of the icon of the action
+ */
 @ActionRegistration(
-        iconBase = "com/swg/parse/images/Word.png",
-        displayName = "#CTL_OpenWord"
+        iconBase = "com/swg/parse/images/Untitled.png",
+        displayName = "#CTL_OpenFolderAction"
 )
-@ActionReference(path = "Toolbars/File", position = 300)
-@Messages("CTL_OpenWord=Extract data from a .docx file")
-public final class OpenWord implements ActionListener {
-
+/***
+ * positioning and other setting of action
+ */
+@ActionReference(path = "Toolbars/File", position = 1300, separatorBefore = 1250, separatorAfter = 1350)
+@Messages("CTL_OpenFolderAction=Extract data from all .docx in the directory")
+public final class OpenFolderAction implements ActionListener {
+    
     public static File selectedFile, TxtFile;
     public static String pathToTxtFile;
     private static int version = 0;
     final ImageIcon icon = new ImageIcon();
 
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("C:/"));
-        fc.setAcceptAllFileFilterUsed(false);
-        //this authorize only .docx selection
-        fc.addChoosableFileFilter(new DocxFileFilter());
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (selectedFile != null) {
             fc.setSelectedFile(selectedFile);
         }
         int returnVal = fc.showDialog(WindowManager.getDefault().getMainWindow(), "Extract Data");
-         
+                        
         if (returnVal == JFileChooser.APPROVE_OPTION) {
                         
             File file = fc.getSelectedFile();
             selectedFile = file;
             
-            pathToTxtFile = selectedFile.getAbsolutePath().replace(".docx", ".txt");
-            TxtFile = new File(pathToTxtFile);
-            
-            //if the txt file doesn't exist, it tries to convert whatever 
-            //can be the txt into the actual txt.
-            if(!TxtFile.exists()){
-                pathToTxtFile = selectedFile.getAbsolutePath().replace(".docx", "");
+            FileFilter fileFilter = new WildcardFileFilter("*.docx");
+            File[] files = selectedFile.listFiles(fileFilter);
+            for(File f:files){
+                
+                pathToTxtFile = f.getAbsolutePath().replace(".docx", ".txt");
                 TxtFile = new File(pathToTxtFile);
-                pathToTxtFile += ".txt";
-                TxtFile.renameTo(new File(pathToTxtFile));
-                TxtFile = new File(pathToTxtFile);
-            }
-            
-            String content;
-            String POIContent;
-            
-            try {
-                content = readTxtFile();
-                POIContent = getPOI();
-               version = DetermineVersion(content);
-                NewExtract ext = new NewExtract();
-                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), version);
+                
+                //if the txt file doesn't exist, it tries to convert whatever 
+                //can be the txt into the actual txt.
+                if(!TxtFile.exists()){
+                    pathToTxtFile = f.getAbsolutePath().replace(".docx", "");
+                    TxtFile = new File(pathToTxtFile);
+                    pathToTxtFile += ".txt";
+                    TxtFile.renameTo(new File(pathToTxtFile));
+                    TxtFile = new File(pathToTxtFile);
+                }
 
-            }
-            catch (FileNotFoundException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
+                String content = "";
+                String POIContent = "";
+
+                try {
+                    content = readTxtFile();
+                    POIContent = getPOI(f);
+                    version = DetermineVersion(content);
+                    NewExtract ext = new NewExtract();
+                    ext.extract(content, POIContent, f.getAbsolutePath(), version);
+
+                }
+                catch (FileNotFoundException ex) {
+                    Exceptions.printStackTrace(ex);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+                
             }
                         
         } else {
             //do nothing
-        }
-
-
+        }        
+        
     }
     
     /***
@@ -145,7 +156,7 @@ public final class OpenWord implements ActionListener {
     
     
     }
-        
+    
     /***
      * Simply grab the content of a .docx file using Apache POI and put it into a string
      * This String may have missing part due to POI library
@@ -154,14 +165,14 @@ public final class OpenWord implements ActionListener {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    private String getPOI() throws FileNotFoundException, IOException {
+    private String getPOI(File f) throws FileNotFoundException, IOException {
         
-        FileInputStream inputTest = new FileInputStream(selectedFile.getAbsolutePath());
+        FileInputStream inputTest = new FileInputStream(f.getAbsolutePath());
         XWPFDocument docxTest = new XWPFDocument(inputTest);
         XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
         String contentIn = ContentTest.getText();
         return contentIn;
-    }
+    } 
     
     /***
      * Automatically decides on what version of the form is handled using its .txt content 
@@ -184,23 +195,4 @@ public final class OpenWord implements ActionListener {
                 }
     }
     
-    /***
-     * Allows the user to enter the version of the document in question
-     */
-    private void VersionSlector() {
-        
-        Object[] possibilities = {0, 1, 2};
-
-
-        version =  (int) JOptionPane.showInputDialog(WindowManager.getDefault().getMainWindow(),
-                    "please select the version of the form",
-                    "Form Version",
-                    JOptionPane.PLAIN_MESSAGE,
-                    icon,
-                    possibilities,
-                    0);
-        
-    }
-    
-
 }
