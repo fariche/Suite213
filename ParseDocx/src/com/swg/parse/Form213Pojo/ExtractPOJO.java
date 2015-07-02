@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.swg.parse.docx;
+package com.swg.parse.Form213Pojo;
 
 /**
  * This is the pojo to be populated by the NewExtract.java 
@@ -11,18 +11,16 @@ package com.swg.parse.docx;
  */
 public class ExtractPOJO {
     
-    public int id;
+    public Integer id;
     public String label;
     public String value;
-    public String type;
-    public int version;
-    public int section;
+    public Integer version;
+    public Integer section;
     
     //constructor
     public ExtractPOJO(){
         label = "undefined";
         value = "undefined";
-        type = "undefined";
         version = 0;
         section = 0;
     }
@@ -33,7 +31,7 @@ public class ExtractPOJO {
      * getter for ID column of this row
      * @return 
      */
-    public int getID(){
+    public Integer getID(){
         return id;
     }
     
@@ -41,7 +39,7 @@ public class ExtractPOJO {
      * Setter for ID column of this row
      * @param num 
      */
-    public void setID(int num){
+    public void setID(Integer num){
         this.id = num;
     }
     
@@ -78,26 +76,10 @@ public class ExtractPOJO {
     }
     
     /**
-     * getter for type column of this row
-     * @return type 
-     */
-    public String getType(){
-        return type;
-    }
-    
-    /**
-     * Setter for type column of this row
-     * @param ty 
-     */
-    public void setType(String ty){
-        this.type = ty;
-    }
-    
-    /**
      * getter for version column of this row
      * @return version
      */
-    public int getVersion(){
+    public Integer getVersion(){
         return version;
     }
     
@@ -105,7 +87,7 @@ public class ExtractPOJO {
      * Setter for version column of this row
      * @param ver 
      */
-    public void setVersion(int ver){
+    public void setVersion(Integer ver){
         this.version = ver;
     }
     
@@ -113,7 +95,7 @@ public class ExtractPOJO {
      * getter for section column of this row
      * @return section 
      */
-    public int getSection(){
+    public Integer getSection(){
         return section;
     }
     
@@ -121,9 +103,8 @@ public class ExtractPOJO {
      * Setter for section column of this row
      * @param sec 
      */
-    public void setSection(int sec){
+    public void setSection(Integer sec){
         this.section = sec;
     }
-    
     
 }

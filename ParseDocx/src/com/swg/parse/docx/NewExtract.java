@@ -5,6 +5,9 @@
  */
 package com.swg.parse.docx;
 
+import com.swg.parse.data.Form213Factory;
+import com.swg.parse.Form213Pojo.ExtractPOJO;
+import com.swg.parse.Form213Pojo.Form213Pojo;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -21,7 +24,7 @@ import org.apache.poi.xwpf.usermodel.XWPFPictureData;
 
 
 /**
- *
+ * Extract all data from the .txt and .docx file, format them nicely and set the values of the first POJO
  * @author KXK3
  */
 public class NewExtract {
@@ -44,21 +47,26 @@ public class NewExtract {
     private static ArrayList<String> typeBeforePOJO = new ArrayList<>();
     private static ArrayList<Integer> sectionBeforePOJO = new ArrayList<>();
     private static ArrayList<ExtractPOJO> ListOfPOJO_Rows = new ArrayList<>();
+    private static ArrayList<Form213Pojo> ListOfPOJO2_Rows2 = new ArrayList<>();
     
-    public void extract(String content,String POIContent,String filePath, int Ver) {
-        
-        version = Ver;
-//        System.out.println("content: " + content);;
-        //System.out.println(POIContent);
-    //        FindTextField("", "", "");
+    /**
+     * object that can be used to extract all necessary data from .docx or .txt
+     * @param content .txt string content
+     * @param POIContent .docx string content
+     * @param filePath the path to the file .docx file
+     * @param Ver the version of the document
+     * @param FileCnt the current value of the counter used specially when there are multiple .docx files in a directory
+     */
+    public void extract(String content,String POIContent,String filePath, int Ver, int FileCnt) {
 
+        version = Ver;
          //in case we need to use the entire content, we can re-use "content"
         CopyOfContent = content.toLowerCase();
         //in case we need to use the entire POI content, we can re-use "POI content"
         CopyOfPOIContent = POIContent.toLowerCase();
         
         File file= new File(filePath);
-        extractImages(file.toString());
+        extractImages(file.toString(), FileCnt);
 
         if(version == 0){
             //always put at least end of the label and start of end string 
@@ -405,14 +413,48 @@ public class NewExtract {
         //FindTextField("", "", "");
         
         for(int i=0; i< ValueBeforePOJO.size(); i++){
-            System.out.println(labelBeforePOJO.get(i) + " = " + ValueBeforePOJO.get(i));
-        }        //looks like it is working !!!!!! next we can add all this to POJO
+            ListOfPOJO_Rows.add(new ExtractPOJO());
+            ListOfPOJO_Rows.get(i).setLabel(labelBeforePOJO.get(i));
+            ListOfPOJO_Rows.get(i).setValue(ValueBeforePOJO.get(i));
+            ListOfPOJO_Rows.get(i).setSection(sectionBeforePOJO.get(i));
+            ListOfPOJO_Rows.get(i).setID(i);
+            ListOfPOJO_Rows.get(i).setVersion(Ver);
+            //type ...
+        }        //looks like it is working !!!!!!
+        
+        for(int i=0; i< ValueBeforePOJO.size(); i++){
+            ListOfPOJO2_Rows2.add(new Form213Pojo());
+            ListOfPOJO2_Rows2.get(i).setCap_color("test");
+            ListOfPOJO2_Rows2.get(i).setBottle_num(5);
+            ListOfPOJO2_Rows2.get(i).setComments("comment test ");
+            ListOfPOJO2_Rows2.get(i).setExamination_number("testing ");
+            ListOfPOJO2_Rows2.get(i).setResults_w1("W1test");
+            ListOfPOJO2_Rows2.get(i).setResults_w2("W2test");
+            //type ...
+        }        //looks like it is working !!!!!!
+        
+        //----------------------------------------
+        Form213Factory test = new Form213Factory();
+        test.insertData(ListOfPOJO2_Rows2.get(0));
+        
+        //-----------------------------------------
         
     }
 
     //comments include: "colNum = x" (x is a int),  "rolNum = x" (x is a int),
     //"headContent = [x], [y], [z], .... (x,y,z are strings), "isHeader", "TableTitle = x (x is a string)
-    //
+    //"manualHeader", "labelException = x" (x is a string), "tableTexBody", "CheckBoxConflict", "exception tableTextHeader"
+    /**
+     * trap the data between the 2 strings. the comment can be used to handle the exceptions
+     * a list of them can be given as the following:
+     * comments include: "colNum = x" (x is a int),  "rolNum = x" (x is a int),
+     * "headContent = [x], [y], [z], .... (x,y,z are strings), "isHeader", "TableTitle = x (x is a string)
+     * "manualHeader", "labelException = x" (x is a string), "tableTexBody", "CheckBoxConflict", "exception tableTextHeader"
+     * @param StartString from this word
+     * @param StopString to this other word
+     * @param comment or exception
+     * @return 
+     */
     private int FindTextField(String StartString, String StopString, String comment) {
         StartString = StartString.toLowerCase();
         StopString = StopString.toLowerCase();
@@ -977,7 +1019,7 @@ public class NewExtract {
                             
     }
 
-    private void extractImages(String src) {
+    private void extractImages(String src, int cnt) {
         
         try{
 
@@ -986,12 +1028,13 @@ public class NewExtract {
             List<XWPFPictureData> piclist=docx.getAllPictures();
             Iterator<XWPFPictureData> iterator=piclist.iterator();
             int i=0;
+            new File("C:\\Users\\KXK3\\Documents\\NetBeansProjects\\ParseSuite2\\ParseDocx\\build\\test\\unit\\results\\NewPicFolder"+cnt).mkdir();
             while(iterator.hasNext()){
                 XWPFPictureData pic=iterator.next();
                 byte[] bytepic=pic.getData();
                 BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytepic));
-                File CreatedImageFile = new File("imagefromword"+i+".jpg");
-                ImageIO.write(imag, "jpg", new File("imagefromword"+i+".jpg"));
+                File CreatedImageFile = new File("C:\\Users\\KXK3\\Documents\\NetBeansProjects\\ParseSuite2\\ParseDocx\\build\\test\\unit\\results\\NewPicFolder"+cnt+"\\imagefromword"+i+".jpg");
+                ImageIO.write(imag, "jpg", new File("C:\\Users\\KXK3\\Documents\\NetBeansProjects\\ParseSuite2\\ParseDocx\\build\\test\\unit\\results\\NewPicFolder"+cnt+"\\imagefromword"+i+".jpg"));
                 i++;
                 System.out.println("path to image " + i + " = " + CreatedImageFile.getAbsolutePath());
                 labelBeforePOJO.add("path to image " + i);

@@ -49,7 +49,7 @@ public class MSDocConvTest {
         String POIContent = getPOI();
         
         NewExtract ext = new NewExtract();
-        ext.extract(content, POIContent, pathToFileDocx, 2);
+        ext.extract(content, POIContent, pathToFileDocx, 2, 1);
         
         
     }

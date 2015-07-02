@@ -9,7 +9,7 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
+ * make sure that the file in question is a .docx
  * @author michaelmann
  */
 public class DocxFileFilter extends FileFilter {

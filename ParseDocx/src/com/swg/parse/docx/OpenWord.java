@@ -90,7 +90,7 @@ public final class OpenWord implements ActionListener {
                 POIContent = getPOI();
                version = DetermineVersion(content);
                 NewExtract ext = new NewExtract();
-                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), version);
+                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), version, 1);
 
             }
             catch (FileNotFoundException ex) {

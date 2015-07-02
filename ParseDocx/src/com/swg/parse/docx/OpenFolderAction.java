@@ -77,8 +77,9 @@ public final class OpenFolderAction implements ActionListener {
             
             FileFilter fileFilter = new WildcardFileFilter("*.docx");
             File[] files = selectedFile.listFiles(fileFilter);
+            int cnt = 0;     //number of how many .docx is in the folder
             for(File f:files){
-                
+                cnt ++;
                 pathToTxtFile = f.getAbsolutePath().replace(".docx", ".txt");
                 TxtFile = new File(pathToTxtFile);
                 
@@ -100,7 +101,7 @@ public final class OpenFolderAction implements ActionListener {
                     POIContent = getPOI(f);
                     version = DetermineVersion(content);
                     NewExtract ext = new NewExtract();
-                    ext.extract(content, POIContent, f.getAbsolutePath(), version);
+                    ext.extract(content, POIContent, f.getAbsolutePath(), version, cnt);
 
                 }
                 catch (FileNotFoundException ex) {

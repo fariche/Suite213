@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swg.parse.interfaces.IXmlMapper">
+    
+    <insert id="insertData" parameterType="Form213Pojo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO TEST
+            (id, temp1, temp2, temp3)
+	VALUES
+            (#{Examination_number}, #{cap_color}, #{comments}, #{bottle_num})
+    </insert>
+    
+    
+<!--    <insert id="insertData" keyProperty="id">
+        INSERT INTO test
+            (id, temp1, temp2, temp3 )
+	VALUES
+            ('$12','$10','$10',10)
+    </insert>
+    -->
+    
+</mapper>
