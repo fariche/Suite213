@@ -5,12 +5,13 @@
  */
 package com.swg.parse.data;
 
+import com.swg.parse.Form213Pojo.ExtractPOJO;
 import com.swg.parse.interfaces.IXmlMapper;
-import com.swg.parse.Form213Pojo.Form213Pojo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -52,7 +53,7 @@ public class Form213Factory implements IXmlMapper {
     protected void init() {
         try {
             reader = Resources.getResourceAsReader(ServerConfig);
-            this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, "uat");
+            this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader, configProperties);
             //SqlSession testSession = sqlSessionFactory.openSession();
         
         } catch (IOException e) {
@@ -62,7 +63,7 @@ public class Form213Factory implements IXmlMapper {
     }
     
     @Override
-    public void insertData(Form213Pojo pojo) {
+    public void insertData(ExtractPOJO pojo) {
         
         try(SqlSession session = sqlSessionFactory.openSession()){
             IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
@@ -74,6 +75,86 @@ public class Form213Factory implements IXmlMapper {
             System.exit(1);
         }
         
+    }
+
+    @Override
+    public void deleteDataById(Integer idNum) {
+        
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            xmlMapper.deleteDataById(idNum);        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        
+    }
+
+    @Override
+    public List<ExtractPOJO> getAll() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            return xmlMapper.getAll();        //only change this
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteAll() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            xmlMapper.deleteAll();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    @Override
+    public ExtractPOJO getById(Integer idNum) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            return xmlMapper.getById(idNum);        //only change this
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return null;
+    }
+
+    @Override
+    public void updateData(ExtractPOJO ExtractPOJO) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            xmlMapper.updateData(ExtractPOJO);//only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    @Override
+    public void deleteData(ExtractPOJO ExtractPOJO) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            xmlMapper.deleteData(ExtractPOJO);//only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
     
 }

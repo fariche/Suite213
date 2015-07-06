@@ -107,4 +107,10 @@ public class ExtractPOJO {
         this.section = sec;
     }
     
+    @Override
+    public String toString() {
+        return "\n-----------------------------------------\nid = " + id + "\nlabel = " + label + "\nvalue = "+ value
+                + "\nversion = "+ version + "\nsection = "+section + "\n-----------------------------------------";
+    }
+    
 }

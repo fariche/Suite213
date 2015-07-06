@@ -3,20 +3,42 @@
 
 <mapper namespace="com.swg.parse.interfaces.IXmlMapper">
     
-    <insert id="insertData" parameterType="Form213Pojo" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO TEST
-            (id, temp1, temp2, temp3)
+    <insert id="insertData" parameterType="ExtractPOJO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO EXTRACTTEST
+            (id, label, value, version, section)
 	VALUES
-            (#{Examination_number}, #{cap_color}, #{comments}, #{bottle_num})
+            (#{id}, #{label}, #{value}, #{version}, #{section})
     </insert>
     
+    <delete id="deleteDataById" parameterType="int" >
+        DELETE FROM EXTRACTTEST WHERE ID = #{idNum}
+    </delete>
     
-<!--    <insert id="insertData" keyProperty="id">
-        INSERT INTO test
-            (id, temp1, temp2, temp3 )
-	VALUES
-            ('$12','$10','$10',10)
-    </insert>
-    -->
+    <delete id="deleteAll" >
+        DELETE FROM EXTRACTTEST
+    </delete>
+    
+    <delete id="deleteData" >
+        DELETE FROM EXTRACTTEST WHERE ID = #{id}
+    </delete>
+    
+    <select id="getAll" resultType="ExtractPOJO">
+        SELECT * FROM EXTRACTTEST
+    </select>
+    
+    <select id="getById" parameterType="int" resultType="ExtractPOJO">
+        SELECT * FROM EXTRACTTEST WHERE ID = #{idNum}
+    </select>
+    
+    <update id="updateData" parameterType="ExtractPOJO">
+        UPDATE EXTRACTTEST 
+        SET
+        label = #{label},
+        value = #{value},
+        version = #{version},
+        section = #{section}
+        WHERE id = #{id}
+    </update>
+
     
 </mapper>

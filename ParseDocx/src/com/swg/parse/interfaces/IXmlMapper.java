@@ -5,14 +5,20 @@
  */
 package com.swg.parse.interfaces;
 
-import com.swg.parse.Form213Pojo.Form213Pojo;
+import com.swg.parse.Form213Pojo.ExtractPOJO;
+import java.util.List;
 
 /**
  *
  * @author KXK3
  */
 public interface IXmlMapper {
-    public void insertData(Form213Pojo form213Pojo);
-    
+    public void insertData(ExtractPOJO ExtractPOJO);
+    public void deleteDataById(Integer idNum);
+    public List<ExtractPOJO> getAll();
+    public void deleteAll();
+    public ExtractPOJO getById(Integer idNum);
+    public void updateData(ExtractPOJO ExtractPOJO);
+    public void deleteData(ExtractPOJO ExtractPOJO);
     
 }

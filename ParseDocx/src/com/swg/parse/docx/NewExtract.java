@@ -412,6 +412,7 @@ public class NewExtract {
         }
         //FindTextField("", "", "");
         
+//------------------------------------        
         for(int i=0; i< ValueBeforePOJO.size(); i++){
             ListOfPOJO_Rows.add(new ExtractPOJO());
             ListOfPOJO_Rows.get(i).setLabel(labelBeforePOJO.get(i));
@@ -422,28 +423,54 @@ public class NewExtract {
             //type ...
         }        //looks like it is working !!!!!!
         
-        for(int i=0; i< ValueBeforePOJO.size(); i++){
-            ListOfPOJO2_Rows2.add(new Form213Pojo());
-            ListOfPOJO2_Rows2.get(i).setCap_color("test");
-            ListOfPOJO2_Rows2.get(i).setBottle_num(5);
-            ListOfPOJO2_Rows2.get(i).setComments("comment test ");
-            ListOfPOJO2_Rows2.get(i).setExamination_number("testing ");
-            ListOfPOJO2_Rows2.get(i).setResults_w1("W1test");
-            ListOfPOJO2_Rows2.get(i).setResults_w2("W2test");
-            //type ...
-        }        //looks like it is working !!!!!!
+//        for(int i=0; i< ValueBeforePOJO.size(); i++){
+//            ListOfPOJO2_Rows2.add(new Form213Pojo());
+//            ListOfPOJO2_Rows2.get(i).setCap_color("test");
+//            ListOfPOJO2_Rows2.get(i).setBottle_num(5);
+//            ListOfPOJO2_Rows2.get(i).setComments("comment test ");
+//            ListOfPOJO2_Rows2.get(i).setExamination_number("testing ");
+//            ListOfPOJO2_Rows2.get(i).setResults_w1("W1test");
+//            ListOfPOJO2_Rows2.get(i).setResults_w2("W2test");
+//            //type ...
+//        }        //looks like it is working !!!!!!
         
         //----------------------------------------
-        Form213Factory test = new Form213Factory();
-        test.insertData(ListOfPOJO2_Rows2.get(0));
         
+        
+        Form213Factory test = new Form213Factory();
+        test.deleteAll();
+        for(int i=0; i< ValueBeforePOJO.size(); i++){
+            test.insertData(ListOfPOJO_Rows.get(i));
+        }
+        //test.deleteDataById(1);
+//        List<ExtractPOJO> objects = test.getAll();
+//        for (ExtractPOJO object : objects) 
+//        {
+//            System.out.println(object.toString());
+//        }
+
+        
+        ExtractPOJO obj1 = test.getById(25);
+        
+        
+        ListOfPOJO_Rows.get(25).setLabel("test lab");
+        ListOfPOJO_Rows.get(25).setValue("val test");
+        ListOfPOJO_Rows.get(25).setSection(0);
+        ListOfPOJO_Rows.get(25).setVersion(0);
+        test.updateData(ListOfPOJO_Rows.get(25));
+        
+        System.out.println(obj1.toString());
+        
+        obj1 = test.getById(25);
+        ExtractPOJO obj2 = test.getById(10);
+        System.out.println(obj1.toString() + obj2.toString());
+        
+        //test.deleteData(obj2);
+        //test.deleteAll();
         //-----------------------------------------
         
     }
 
-    //comments include: "colNum = x" (x is a int),  "rolNum = x" (x is a int),
-    //"headContent = [x], [y], [z], .... (x,y,z are strings), "isHeader", "TableTitle = x (x is a string)
-    //"manualHeader", "labelException = x" (x is a string), "tableTexBody", "CheckBoxConflict", "exception tableTextHeader"
     /**
      * trap the data between the 2 strings. the comment can be used to handle the exceptions
      * a list of them can be given as the following:
