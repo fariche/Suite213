@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -107,6 +108,8 @@ public final class OpenFolderAction implements ActionListener {
                 catch (FileNotFoundException ex) {
                     Exceptions.printStackTrace(ex);
                 } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                } catch (ParseException ex) {
                     Exceptions.printStackTrace(ex);
                 }
                 

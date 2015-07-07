@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -34,7 +35,7 @@ public class MSDocConvTest {
     private static final String pathToFileDocx = path + "C System E03 5.8.07.docx";
     private static final File ConvertedDocx = new File(pathToFile);
     
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
         new MSDocConvTest().run();
     }
     
@@ -43,7 +44,7 @@ public class MSDocConvTest {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    void run() throws FileNotFoundException, IOException {
+    void run() throws FileNotFoundException, IOException, ParseException {
                 
         String content = readTxtFile();
         String POIContent = getPOI();

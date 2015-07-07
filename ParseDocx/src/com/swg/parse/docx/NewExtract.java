@@ -7,13 +7,14 @@ package com.swg.parse.docx;
 
 import com.swg.parse.data.Form213Factory;
 import com.swg.parse.Form213Pojo.ExtractPOJO;
-import com.swg.parse.Form213Pojo.Form213Pojo;
+import com.swg.parse.populate.populatePOJOs;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,7 +48,6 @@ public class NewExtract {
     private static ArrayList<String> typeBeforePOJO = new ArrayList<>();
     private static ArrayList<Integer> sectionBeforePOJO = new ArrayList<>();
     private static ArrayList<ExtractPOJO> ListOfPOJO_Rows = new ArrayList<>();
-    private static ArrayList<Form213Pojo> ListOfPOJO2_Rows2 = new ArrayList<>();
     
     /**
      * object that can be used to extract all necessary data from .docx or .txt
@@ -57,7 +57,7 @@ public class NewExtract {
      * @param Ver the version of the document
      * @param FileCnt the current value of the counter used specially when there are multiple .docx files in a directory
      */
-    public void extract(String content,String POIContent,String filePath, int Ver, int FileCnt) {
+    public void extract(String content,String POIContent,String filePath, int Ver, int FileCnt) throws ParseException {
 
         version = Ver;
          //in case we need to use the entire content, we can re-use "content"
@@ -412,34 +412,14 @@ public class NewExtract {
         }
         //FindTextField("", "", "");
         
-//------------------------------------        
-        for(int i=0; i< ValueBeforePOJO.size(); i++){
-            ListOfPOJO_Rows.add(new ExtractPOJO());
-            ListOfPOJO_Rows.get(i).setLabel(labelBeforePOJO.get(i));
-            ListOfPOJO_Rows.get(i).setValue(ValueBeforePOJO.get(i));
-            ListOfPOJO_Rows.get(i).setSection(sectionBeforePOJO.get(i));
-            ListOfPOJO_Rows.get(i).setID(i);
-            ListOfPOJO_Rows.get(i).setVersion(Ver);
-            //type ...
-        }        //looks like it is working !!!!!!
-        
-//        for(int i=0; i< ValueBeforePOJO.size(); i++){
-//            ListOfPOJO2_Rows2.add(new Form213Pojo());
-//            ListOfPOJO2_Rows2.get(i).setCap_color("test");
-//            ListOfPOJO2_Rows2.get(i).setBottle_num(5);
-//            ListOfPOJO2_Rows2.get(i).setComments("comment test ");
-//            ListOfPOJO2_Rows2.get(i).setExamination_number("testing ");
-//            ListOfPOJO2_Rows2.get(i).setResults_w1("W1test");
-//            ListOfPOJO2_Rows2.get(i).setResults_w2("W2test");
-//            //type ...
-//        }        //looks like it is working !!!!!!
-        
-        //----------------------------------------
+        PopulatePOJOAlpha();
+        //populate the main pojo with the help of the previous pojo
+        populatePOJOs PojoPop = new populatePOJOs(ListOfPOJO_Rows);
         
         
         Form213Factory test = new Form213Factory();
         test.deleteAll();
-        for(int i=0; i< ValueBeforePOJO.size(); i++){
+        for(int i=0; i< ListOfPOJO_Rows.size()-1; i++){
             test.insertData(ListOfPOJO_Rows.get(i));
         }
         //test.deleteDataById(1);
@@ -467,7 +447,7 @@ public class NewExtract {
         
         //test.deleteData(obj2);
         //test.deleteAll();
-        //-----------------------------------------
+//-----------------------------------------------------------------------------------------------        
         
     }
 
@@ -1181,6 +1161,22 @@ public class NewExtract {
                     } 
                 }                
                         
+    }
+
+    /**
+     * Populate the first POJO, this includes only the label, the value associated to the label
+     * the section of label and version of the document
+     */
+    private void PopulatePOJOAlpha() {
+        ListOfPOJO_Rows.clear();
+            for(int i=0; i< ValueBeforePOJO.size(); i++){
+                ListOfPOJO_Rows.add(new ExtractPOJO());
+                ListOfPOJO_Rows.get(i).setLabel(labelBeforePOJO.get(i));
+                ListOfPOJO_Rows.get(i).setValue(ValueBeforePOJO.get(i));
+                ListOfPOJO_Rows.get(i).setSection(sectionBeforePOJO.get(i));
+                ListOfPOJO_Rows.get(i).setID(i);
+                ListOfPOJO_Rows.get(i).setVersion(version);
+            }        //looks like it is working !!!!!!
     }
     
 }

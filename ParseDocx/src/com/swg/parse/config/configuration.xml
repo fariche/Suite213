@@ -6,8 +6,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
     
     <typeAliases>
-        <typeAlias alias="Form213Pojo"                  
-                   type="com.swg.parse.Form213Pojo.Form213Pojo"/>
         <typeAlias alias="ExtractPOJO"                  
                    type="com.swg.parse.Form213Pojo.ExtractPOJO"/>
     </typeAliases> 
