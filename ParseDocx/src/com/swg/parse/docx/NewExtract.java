@@ -5,8 +5,8 @@
  */
 package com.swg.parse.docx;
 
-import com.swg.parse.data.Form213Factory;
 import com.swg.parse.Form213Pojo.ExtractPOJO;
+import com.swg.parse.data.Form213FactoryMain;
 import com.swg.parse.populate.populatePOJOs;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -148,9 +148,9 @@ public class NewExtract {
             FindTextField("bacterial samples taken", "if yes, see section 6", "");
             FindTextField("asphalt and/or tar wrap samples taken", "defects:", "");
             SectionMarker(4);
-            FindTextField("defects:", "all external defects shall", "");
+            FindTextField("defects:", "all external defects shall", "labelException = Anomaly:  Coating Defect,");
             FindTextField("on the field sketch.", "see remediation", "");
-            FindTextField("Comments:", "Ultrasonic Thickness Readings", "");
+            FindTextField("Comments:", "Ultrasonic Thickness Readings", "labelException = defects comments:,");
             SectionMarker(5);
             FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
             FindTextField("ICDA Scrub #1: Min", "Max", "");
@@ -159,7 +159,7 @@ public class NewExtract {
             FindTextField("ICDA Scrub #2: Min", "Max", "");
             FindTextField("Max", "WT ?%", "");
             FindTextField("WT ?%", "Comments:", "");
-            FindTextField("Comments:", "Culture Results", "");
+            FindTextField("Comments:", "Culture Results", "labelException = ultrasonic comments:,");
             SectionMarker(6);
             FindTextField("Location of samples", "Collected by", "");
             FindTextField("Collected by", "Date collected", "");
@@ -286,7 +286,7 @@ public class NewExtract {
             FindTextField("date of incubation", "asphalt and/or tar wrap samples taken", "");
             FindTextField("asphalt and/or tar wrap samples taken", "Anomaly:  Coating Defect", "");
             SectionMarker(4);
-            FindTextField("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)", "Cause of Corrosion:", "");
+            FindTextField("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)", "Cause of Corrosion:", "labelException = Anomaly:  Coating Defect,");
             FindTextField("Cause of Corrosion:", "All external corrosion anomalies shall be identified and quantified below", "");
             FindTextField("sketch in Section 6 of this inspection report.", "Ultrasonic Thickness Testing", "colNum = 8, manualHeader");
             SectionMarker(5);
@@ -391,13 +391,13 @@ public class NewExtract {
             FindTextField("Nitrates", "ppm", "");
             FindTextField("Sulfates", "ppm", "");
             FindTextField("Pipe to Soil from Start of Excavation: 12 O'clock", "3 O'clock", "");
-            FindTextField("3 O'clock", "6 O'clock", "labelException = Pipe to Soil from Start of Excavation: 3 O'clock,");
-            FindTextField("6 O'clock", "9 O'clock", "labelException = Pipe to Soil from Start of Excavation: 6 O'clock,");
-            FindTextField("9 O'clock", "Bacterial Samples Taken", "labelException = Pipe to Soil from Start of Excavation: 9 O'clock,");
+            FindTextField("3 O'clock", "6 O'clock", "labelException = Pipe to Soil from Start of Excavation: 3 o'clock,");
+            FindTextField("6 O'clock", "9 O'clock", "labelException = Pipe to Soil from Start of Excavation: 6 o'clock,");
+            FindTextField("9 O'clock", "Bacterial Samples Taken", "labelException = Pipe to Soil from Start of Excavation: 9 o'clock,");
             FindTextField("Bacterial Samples Taken", "Date of Incubation", "");
             FindTextField("Date of Incubation", "Bacterial Results:", "");
             SectionMarker(4);
-            FindTextField("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)", "Cause of Corrosion:", "");
+            FindTextField("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)", "Cause of Corrosion:", "labelException = Anomaly:  Coating Defect,");
             FindTextField("Cause of Corrosion:", "All external corrosion anomalies shall be identified and quantified below", "");
             FindTextField("sketch in Section 6 of this inspection report.", "Ultrasonic Thickness Testing", "colNum = 8, manualHeader");
             SectionMarker(5);
@@ -416,37 +416,14 @@ public class NewExtract {
         //populate the main pojo with the help of the previous pojo
         populatePOJOs PojoPop = new populatePOJOs(ListOfPOJO_Rows);
         
+        Form213FactoryMain test1 = new Form213FactoryMain();
         
-        Form213Factory test = new Form213Factory();
-        test.deleteAll();
-        for(int i=0; i< ListOfPOJO_Rows.size()-1; i++){
-            test.insertData(ListOfPOJO_Rows.get(i));
-        }
-        //test.deleteDataById(1);
-//        List<ExtractPOJO> objects = test.getAll();
-//        for (ExtractPOJO object : objects) 
-//        {
-//            System.out.println(object.toString());
-//        }
-
+        test1.deleteAllSpecificDetails();
+        test1.deleteAllDirectDetails();
+        test1.insertData2DirectDetails(PojoPop.mainPojo);
         
-        ExtractPOJO obj1 = test.getById(25);
+        test1.insertData2SpecificDetails(PojoPop.mainPojo);
         
-        
-        ListOfPOJO_Rows.get(25).setLabel("test lab");
-        ListOfPOJO_Rows.get(25).setValue("val test");
-        ListOfPOJO_Rows.get(25).setSection(0);
-        ListOfPOJO_Rows.get(25).setVersion(0);
-        test.updateData(ListOfPOJO_Rows.get(25));
-        
-        System.out.println(obj1.toString());
-        
-        obj1 = test.getById(25);
-        ExtractPOJO obj2 = test.getById(10);
-        System.out.println(obj1.toString() + obj2.toString());
-        
-        //test.deleteData(obj2);
-        //test.deleteAll();
 //-----------------------------------------------------------------------------------------------        
         
     }

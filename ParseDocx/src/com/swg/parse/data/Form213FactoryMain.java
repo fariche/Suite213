@@ -5,8 +5,8 @@
  */
 package com.swg.parse.data;
 
-import com.swg.parse.Form213Pojo.ExtractPOJO;
-import com.swg.parse.interfaces.IXmlMapper;
+import com.swg.parse.Form213Pojo.MainPOJO;
+import com.swg.parse.interfaces.IXmlMapperMain;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -24,7 +24,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  *
  * @author KXK3
  */
-public class Form213Factory implements IXmlMapper {
+public class Form213FactoryMain implements IXmlMapperMain {
     
     protected SqlSessionFactory sqlSessionFactory;
     private final static String ConfigProps = "/com/swg/parse/config/configuration.properties";
@@ -34,7 +34,7 @@ public class Form213Factory implements IXmlMapper {
         
     static {
         try {
-            InputStream in = new FindMe().getClass().getResourceAsStream(ConfigProps);
+            InputStream in = new FindMeMain().getClass().getResourceAsStream(ConfigProps);
             configProperties.load(in);
             Enumeration keys = configProperties.keys();
             while (keys.hasMoreElements()) {
@@ -46,7 +46,7 @@ public class Form213Factory implements IXmlMapper {
         }
     }
     
-    public Form213Factory() {
+    public Form213FactoryMain() {
         init();
     }
 
@@ -63,11 +63,11 @@ public class Form213Factory implements IXmlMapper {
     }
     
     @Override
-    public void insertData(ExtractPOJO pojo) {
+    public void insertData2DirectDetails(MainPOJO pojo) {
         
         try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
-            xmlMapper.insertData(pojo);
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2DirectDetails(pojo);
             session.commit();
 
         } catch (Exception e) {
@@ -76,12 +76,51 @@ public class Form213Factory implements IXmlMapper {
         }
         
     }
+    
+    @Override
+    public void deleteAllDirectDetails() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllDirectDetails();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+    
+        @Override
+    public void insertData2SpecificDetails(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2SpecificDetails(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    @Override
+    public void deleteAllSpecificDetails() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllSpecificDetails();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
     @Override
     public void deleteDataById(Integer idNum) {
         
         try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
             xmlMapper.deleteDataById(idNum);        //only change this
             session.commit();
 
@@ -93,9 +132,9 @@ public class Form213Factory implements IXmlMapper {
     }
 
     @Override
-    public List<ExtractPOJO> getAll() {
+    public List<MainPOJO> getAll() {
         try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
             return xmlMapper.getAll();        //only change this
 
         } catch (Exception e) {
@@ -106,22 +145,9 @@ public class Form213Factory implements IXmlMapper {
     }
 
     @Override
-    public void deleteAll() {
+    public MainPOJO getById(Integer idNum) {
         try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
-            xmlMapper.deleteAll();        //only change this
-            session.commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    @Override
-    public ExtractPOJO getById(Integer idNum) {
-        try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
             return xmlMapper.getById(idNum);        //only change this
 
         } catch (Exception e) {
@@ -132,9 +158,9 @@ public class Form213Factory implements IXmlMapper {
     }
 
     @Override
-    public void updateData(ExtractPOJO ExtractPOJO) {
+    public void updateData(MainPOJO ExtractPOJO) {
         try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
             xmlMapper.updateData(ExtractPOJO);//only change this
             session.commit();
 
@@ -145,9 +171,9 @@ public class Form213Factory implements IXmlMapper {
     }
 
     @Override
-    public void deleteData(ExtractPOJO ExtractPOJO) {
+    public void deleteData(MainPOJO ExtractPOJO) {
         try(SqlSession session = sqlSessionFactory.openSession()){
-            IXmlMapper xmlMapper = session.getMapper(IXmlMapper.class);
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
             xmlMapper.deleteData(ExtractPOJO);//only change this
             session.commit();
 
@@ -158,5 +184,5 @@ public class Form213Factory implements IXmlMapper {
     }
     
 }
-class FindMe {
+class FindMeMain {
 }

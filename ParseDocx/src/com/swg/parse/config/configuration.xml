@@ -8,6 +8,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <typeAliases>
         <typeAlias alias="ExtractPOJO"                  
                    type="com.swg.parse.Form213Pojo.ExtractPOJO"/>
+        <typeAlias alias="MainPOJO"                  
+                   type="com.swg.parse.Form213Pojo.MainPOJO"/>
     </typeAliases> 
     
     <environments default="uat">
@@ -23,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     </environments>
 
     <mappers>
-        <mapper resource="com/swg/parse/sqlmapper/XmlMapper.xml"/>
+        <mapper resource="com/swg/parse/sqlmapper/XmlMapperMain.xml"/>
     </mappers>
     
     

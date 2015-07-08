@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.swg.parse.interfaces.IXmlMapperMain">
+    
+    <insert id="insertData2DirectDetails" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO direct_examination_details
+            (de_location_id, 
+        HCA_Name, 
+        Examination_number, 
+        work_request_no, 
+        division,
+        district_number, 
+        town_or_county, 
+        state, 
+        Tile_Number, 
+        Address, 
+        Inspection_company, 
+        GPS_synchronized_date,
+        field_location_start_x,
+        field_location_strat_y, 
+        field_location_end_x, 
+        field_location_end_y,
+        gps_file_name, 
+        region, 
+        planned_exam_len_ft, 
+        actual_exam_len_ft,
+        foreign_pipe_in_excava,
+        size,
+        material,
+        foreign_current,
+        cp_present,
+        bond_present,
+        current_flow_to,
+        current_flow_from,
+        anode_present,
+        percent_consumed,
+        temperature,
+        time_24,
+        weather_conditions,
+        soil_conditions,
+        bedding_shading_type,
+        rockshield_used,
+        soil_type,
+        depth_of_cover,
+        nominal_size,
+        in_diam,
+        wthick,
+        grade,
+        yield,
+        coating,
+        wk_req_no,
+        installation_month,
+        installation_year,
+        ops_sys_name,
+        weld_seam,
+        coating_types,
+        coating_condition,
+        holiday_detec_volt_setting,
+        per_dam_ncorros_disbond,
+        o_clock_ncorros_disbond,
+        percent_damage_blistering,
+        o_clock_damage_blistering,
+        ground_cover_type,
+        blister_fluid_ph,
+        procedure_adequate_flag,
+        inspected_by,
+        inspection_date,
+        reviewed_by,
+        reviewed_date
+        )
+	VALUES
+            (#{DE_Location_ID}, 
+        #{HCA_Name}, 
+        #{Examination_number}, 
+        #{work_request_no}, 
+        #{division},
+        #{district_number}, 
+        #{town_or_county}, 
+        #{state}, 
+        #{Tile_Number}, 
+        #{Address}, 
+        #{Inspection_company}, 
+        #{GPS_synchronized_date},
+        #{field_location_start_x}, 
+        #{field_location_start_y}, 
+        #{field_location_end_x}, 
+        #{field_location_end_y},
+        #{gps_file_name}, 
+        #{region}, 
+        #{planned_exam_len_ft}, 
+        #{actual_exam_len_ft}, 
+        #{foreign_pipe_in_excava}, 
+        #{size}, 
+        #{material},
+        #{foreign_current},
+        #{cp_present}, 
+        #{bond_present}, 
+        #{current_flow_to},
+        #{current_flow_from},
+        #{anode_present},
+        #{percent_consumed},
+        #{temperature},
+        #{time_24},
+        #{weather_conditions},
+        #{soil_conditions},
+        #{bedding_shading_type},
+        #{rockshield_used},
+        #{soil_type},
+        #{depth_of_cover},
+        #{nominal_size},
+        #{in_diam},
+        #{wthick},
+        #{grade},
+        #{yield},
+        #{coating},
+        #{wk_req_no},
+        #{installation_month},
+        #{installation_year},
+        #{ops_sys_name},
+        #{weld_seam},
+        #{coating_types},
+        #{coating_condition},
+        #{holiday_detec_colt_setting},
+        #{per_dam_ncorros_disbond},
+        #{o_clock_ncorros_disbond},
+        #{percent_damage_blistering},
+        #{o_clock_damage_blistering},
+        #{ground_cover_type},
+        #{blister_fluid_ph},
+        #{procedure_adequate_flag},
+        #{inspected_by},
+        #{inspection_date},
+        #{reviewed_by},
+        #{reviewed_date}
+        )
+    </insert>
+    
+    
+    
+    <delete id="deleteAllDirectDetails">
+        DELETE FROM direct_examination_details
+    </delete>
+    
+    <insert id="insertData2SpecificDetails" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
+        
+        INSERT INTO examination_specific_details ( 
+        
+        Examination_number,
+        soilph_at_pipe_depth,
+        soil_resistivity_at_pipe_depth,
+        soil_chem_performed_flag,
+        method_used,
+        chlorides_ppm,
+        nitrates_ppm,
+        sulfates_ppm,
+        pipe_to_soil_frm_exc_6_oclock,
+        pipe_to_soil_frm_exc_3_oclock,
+        pipe_to_soil_frm_exc_9_oclock,
+        pipe_to_soil_frm_exc_12_oclock,
+        bacterial_samples_taken,
+        asphalt_tar_samples_taken,
+        defects_found,
+        defects_comments,
+        cause_of_corrosion,
+        date_of_incubation,
+        suspec_severity_coating_anom,
+        found_severity_coating_anomaly,
+        DE_defect_severity,
+        severity_coatinganomaly2xpctd,
+        initial_assessment_covered_seg,
+        need_to_adjust_sct_flag,
+        corrosion_found,
+        b_or_c_priority_flag,
+        more_severe_than_A_priority,
+        sct_assessed_for_adjustment,
+        changes_made_to_sct_flag,
+        add_indirect_surveys_needed,
+        significant_corrosion_flag,
+        review_conducted_flag,
+        alt_methods_requirement_flag,
+        corros_other_location_sameHCA,
+        similar_rootcause_same_HCA,
+        crt_date_calc_completed,
+        inspector_comments,
+        remed_action_requirement_flag,
+        reference_request_number,
+        repair_quickness,
+        remediation_comments,
+        if_no_moc_explain_why,
+        explanation_for_other,
+        ultrasonicthickness_comments,
+        min_ICDA_scrub_1,
+        max_ICDA_scrub_1,
+        wt_percentage_scrub1,
+        min_ICDA_scrub_2,
+        max_ICDA_scrub_2,
+        wt_percentage_scrub2
+        
+        )
+        VALUES (
+        ( SELECT Examination_number FROM direct_examination_details WHERE Examination_number = #{Examination_number} ),
+        #{soilph_at_pipe_depth},
+        #{soil_resistivity_at_pipe_depth},
+        #{soil_chem_performed_flag},
+        #{method_used},
+        #{chlorides_ppm},
+        #{nitrates_ppm},
+        #{sulfates_ppm},
+        #{pipe_to_soil_frm_exc_6_oclock},
+        #{pipe_to_soil_frm_exc_3_oclock},
+        #{pipe_to_soil_frm_exc_9_oclock},
+        #{pipe_to_soil_frm_exc_12_oclock},
+        #{bacterial_samples_taken},
+        #{asphalt_tar_samples_taken},
+        #{defects_found},
+        #{defects_comments},
+        #{cause_of_corrosion},
+        #{date_of_incubation},
+        #{suspec_severity_coating_anom},
+        #{found_severity_coating_anomaly},
+        #{DE_defect_severity},
+        #{severity_coatinganomaly2xpctd},
+        #{initial_assessment_covered_seg},
+        #{need_to_adjust_sct_flag},
+        #{corrosion_found},
+        #{b_or_c_priority_flag},
+        #{more_severe_than_A_priority},
+        #{sct_assessed_for_adjustment},
+        #{changes_made_to_sct_flag},
+        #{add_indirect_surveys_needed},
+        #{significant_corrosion_flag},
+        #{review_conducted_flag},
+        #{alt_methods_requirement_flag},
+        #{corros_other_location_sameHCA},
+        #{similar_rootcause_same_HCA},
+        #{crt_date_calc_completed},
+        #{inspector_comments},
+        #{remed_action_requirement_flag},
+        #{reference_request_number},
+        #{repair_quickness},
+        #{remediation_comments},
+        #{if_no_moc_explain_why},
+        #{explanation_for_other},
+        #{ultrasonicthickness_comments},
+        #{min_ICDA_scrub_1},
+        #{max_ICDA_scrub_1},
+        #{wt_percentage_scrub1},
+        #{min_ICDA_scrub_2},
+        #{max_ICDA_scrub_2},
+        #{wt_percentage_scrub2}
+        
+        )
+        
+    </insert>
+    
+    <delete id="deleteAllSpecificDetails">
+        DELETE FROM examination_specific_details
+    </delete>
+    
+    
+    <delete id="deleteDataById" parameterType="int" >
+        DELETE FROM EXTRACTTEST WHERE ID = #{idNum}
+    </delete>
+    
+    <delete id="deleteData" >
+        DELETE FROM EXTRACTTEST WHERE ID = #{id}
+    </delete>
+    
+    <select id="getAll" resultType="ExtractPOJO">
+        SELECT * FROM direct_examination_details
+    </select>
+    
+    <select id="getById" parameterType="int" resultType="ExtractPOJO">
+        SELECT * FROM EXTRACTTEST WHERE ID = #{idNum}
+    </select>
+    
+    <update id="updateData" parameterType="ExtractPOJO">
+        UPDATE EXTRACTTEST 
+        SET
+        label = #{label},
+        value = #{value},
+        version = #{version},
+        section = #{section}
+        WHERE id = #{id}
+    </update>
+
+    
+</mapper>
