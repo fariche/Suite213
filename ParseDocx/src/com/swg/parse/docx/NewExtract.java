@@ -6,6 +6,7 @@
 package com.swg.parse.docx;
 
 import com.swg.parse.Form213Pojo.ExtractPOJO;
+import com.swg.parse.Form213Pojo.MainPOJO;
 import com.swg.parse.data.Form213FactoryMain;
 import com.swg.parse.populate.populatePOJOs;
 import java.awt.image.BufferedImage;
@@ -171,7 +172,7 @@ public class NewExtract {
             FindTextField("Cap Color", "Low-Nutrient Bacteria (LNB)", "isHeader");
             FindTextField("A positive reaction results in a cloudy appearance or the formation of slime, which appears as sheets or clumps.", "Iron Related Bacteria (IRB)", "TableTitle = LNB");
             FindTextField("A cloudy appearance or slime DO NOT constitute a positive reaction.", "Anaerobic or Facultatively Anaerobic (ANA)", "TableTitle = IRB");
-            FindTextField("A positive reaction results in cloudy appearance.", "Acid Producing Bacteria (APB)", "TableTitle = ANA");
+            FindTextField("A positive reaction results in cloudy appearance. ", "Acid Producing Bacteria (APB)", "TableTitle = ANA");
             FindTextField("A positive reaction will turn media from red to cloudy orange or cloudy yellow.", "Sulfate Reducing Bacteria (SRB)", "TableTitle = APB");
             FindTextField("gray flecks does not constitute a positive reaction.", "In-Process Evaluation", "TableTitle = SRB");
             SectionMarker(7);
@@ -412,17 +413,93 @@ public class NewExtract {
         }
         //FindTextField("", "", "");
         
+//----------------------------------------------------------
         PopulatePOJOAlpha();
         //populate the main pojo with the help of the previous pojo
         populatePOJOs PojoPop = new populatePOJOs(ListOfPOJO_Rows);
         
         Form213FactoryMain test1 = new Form213FactoryMain();
         
-        test1.deleteAllSpecificDetails();
-        test1.deleteAllDirectDetails();
+        //test1.deleteAllSpecificDetails();
+        //test1.deleteAllDirectDetails();
         test1.insertData2DirectDetails(PojoPop.mainPojo);
-        
         test1.insertData2SpecificDetails(PojoPop.mainPojo);
+        test1.insertData2BacterialSample(PojoPop.mainPojo);
+        
+//---------------------------------------------------------------------------------------------------------------        
+        //-------------------------------
+        int k =0;
+        for(int i=0; i< ValueBeforePOJO.size(); i++){
+            //-------------------------------
+            
+            if(ListOfPOJO_Rows.get(i).getLabel().contains("distance from zero point")){
+                MainPOJO pojo = new MainPOJO();
+                pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("point") + "point".length());
+                Integer TableRowNum = Integer.parseInt(tempStr);
+                pojo.setUltraRowNum(TableRowNum);
+                
+                test1.insertData2Ultra(pojo);
+            }
+            
+            //-------------------------------
+            if(k>1){
+                i--;
+            }
+            
+            else if(ListOfPOJO_Rows.get(i).getLabel().equals("title") && ListOfPOJO_Rows.get(i).getValue() != null ){
+                    MainPOJO pojo = new MainPOJO();
+                    pojo.setTitle(ListOfPOJO_Rows.get(i).getValue());
+                    pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                    test1.insertData2BacterialSampleDetail(pojo);
+                    
+                    int j = 0;
+                    i++;
+                    //--------------------------------
+                    while(!ListOfPOJO_Rows.get(i).getLabel().equals("title") && !ListOfPOJO_Rows.get(i).getLabel().equals("severity of coating anomaly suspected") &&
+                            !ListOfPOJO_Rows.get(i).getLabel().equals("inspector?s comments:")){
+                        
+                        if(ListOfPOJO_Rows.get(i).getLabel().contains("cap color(")){
+                            j++;
+                            //String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("(") + 1, ListOfPOJO_Rows.get(i).getLabel().indexOf(")"));
+                            //we get the number of row
+                            //Integer TableRowNum = Integer.parseInt(tempStr);
+                            //set pojo BSD1id = TableRowNum
+                            //set pojo.capcolor ....
+                            pojo.setBSD1id(k++);
+                            pojo.setCap_color(ListOfPOJO_Rows.get(i).getValue());
+                        }
+                        if(ListOfPOJO_Rows.get(i).getLabel().contains("bottle #(")){
+                            j++;
+                            Integer temp = Integer.parseInt(ListOfPOJO_Rows.get(i).getValue());
+                            pojo.setBottle_num(temp);
+                        }
+                        if(ListOfPOJO_Rows.get(i).getLabel().contains("results week 1(")){
+                            j++;
+                            pojo.setResults_w1(ListOfPOJO_Rows.get(i).getValue());
+                        }
+                        if(ListOfPOJO_Rows.get(i).getLabel().contains("results week 2(")){
+                            j++;
+                            pojo.setResults_w2(ListOfPOJO_Rows.get(i).getValue());
+                        }
+                        if(ListOfPOJO_Rows.get(i).getLabel().contains("comments(")){
+                            j++;
+                            pojo.setComments(ListOfPOJO_Rows.get(i).getValue());
+                        }
+                        
+                        if(j == 5){
+                            j = 0;
+                            //pojo is populated
+                            //now insert the thing.
+                            test1.insertData2BacterialSampleDetail1(pojo);
+                        }
+                        i++;
+                    }
+                    //--------------------------------
+                }
+            //-------------------------------
+        }
+//---------------------------------------------------------------------------------------------------------
         
 //-----------------------------------------------------------------------------------------------        
         
@@ -976,9 +1053,14 @@ public class NewExtract {
         labelBeforePOJO.add("title");
         ValueBeforePOJO.add(TableTitle);
         sectionBeforePOJO.add(section);
-        for(int i=1;i<value.length(); i++){
+        int k =0;
+        for(int i=1; i<value.length(); i++){
             if(value.charAt(i) != '\n'){
                 temp = temp + value.charAt(i);
+            }
+            else if(value.charAt(i) == '\n' && headContent.get(k).contains("cap color") && TableTitle.equals("ANA") ){
+                k++;
+                //do nothing
             }
             else{
                 System.out.println(headContent.get(j) + "(" + index + ")" +" = " + temp);

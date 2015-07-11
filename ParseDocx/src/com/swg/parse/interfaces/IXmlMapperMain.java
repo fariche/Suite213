@@ -19,6 +19,20 @@ public interface IXmlMapperMain {
     public void insertData2SpecificDetails(MainPOJO ExtractPOJO);
     public void deleteAllSpecificDetails();
     
+    public void insertData2BacterialSample(MainPOJO ExtractPOJO);
+    public void deleteAllBacterialSample();
+    
+    public void insertData2BacterialSampleDetail(MainPOJO ExtractPOJO);
+    public void deleteAllBacterialSampleDetail();
+    
+    public void insertData2BacterialSampleDetail1(MainPOJO ExtractPOJO);
+    public void deleteAllBacterialSampleDetail1();
+    
+    public void insertData2Ultra(MainPOJO ExtractPOJO);
+    public void deleteAllUltra();
+    
+    //=========================================================================
+    
     public void deleteDataById(Integer idNum);
     public List<MainPOJO> getAll();
     public MainPOJO getById(Integer idNum);

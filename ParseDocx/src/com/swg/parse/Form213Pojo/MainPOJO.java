@@ -134,6 +134,43 @@ public class MainPOJO {
     
     //---------------------------------- ~some of section 5
     
+    public String location_of_samples;
+    public String collected_by;
+    public Date date_collected;
+    public String seven_day_interpreted_by;
+    public Date seven_day_date_of_reading;
+    public String fourteen_day_interpreted_by;
+    public Date fourteen_day_date_of_reading;
+    
+    //---------------------------------- ~some of section 6
+
+    public String title;
+    
+    //--------------------------------- ~beginning of bacterial table handling
+    
+    public Integer BSD1id;
+    public String cap_color;
+    public Integer bottle_num;
+    public String results_w1;
+    public String results_w2;
+    public String comments;
+    
+    //---------------------------------- ~end of bacterial table handling
+    
+    public Integer UltraRowNum;
+    
+    //---------------------------------- ~beginning of ultrasonic table handling
+    
+    public Integer UltraId;
+    public String Dist_from_zero_point;
+    public Float clock_12;
+    public Float clock_3;
+    public Float clock_6;
+    public Float clock_9;
+    public Float wt_percentage;
+    
+    //---------------------------------- ~end of ultrasonic table handling
+    
     
     /**
      * @return the DE_Location_ID
@@ -1704,6 +1741,314 @@ public class MainPOJO {
      */
     public void setWt_percentage_scrub2(Float wt_percentage_scrub2) {
         this.wt_percentage_scrub2 = wt_percentage_scrub2;
+    }
+
+    /**
+     * @return the location_of_samples
+     */
+    public String getLocation_of_samples() {
+        return location_of_samples;
+    }
+
+    /**
+     * @param location_of_samples the location_of_samples to set
+     */
+    public void setLocation_of_samples(String location_of_samples) {
+        this.location_of_samples = location_of_samples;
+    }
+
+    /**
+     * @return the collected_by
+     */
+    public String getCollected_by() {
+        return collected_by;
+    }
+
+    /**
+     * @param collected_by the collected_by to set
+     */
+    public void setCollected_by(String collected_by) {
+        this.collected_by = collected_by;
+    }
+
+    /**
+     * @return the date_collected
+     */
+    public Date getDate_collected() {
+        return date_collected;
+    }
+
+    /**
+     * @param date_collected the date_collected to set
+     */
+    public void setDate_collected(Date date_collected) {
+        this.date_collected = date_collected;
+    }
+
+    /**
+     * @return the seven_day_interpreted_by
+     */
+    public String getSeven_day_interpreted_by() {
+        return seven_day_interpreted_by;
+    }
+
+    /**
+     * @param seven_day_interpreted_by the seven_day_interpreted_by to set
+     */
+    public void setSeven_day_interpreted_by(String seven_day_interpreted_by) {
+        this.seven_day_interpreted_by = seven_day_interpreted_by;
+    }
+
+    /**
+     * @return the seven_day_date_of_reading
+     */
+    public Date getSeven_day_date_of_reading() {
+        return seven_day_date_of_reading;
+    }
+
+    /**
+     * @param seven_day_date_of_reading the seven_day_date_of_reading to set
+     */
+    public void setSeven_day_date_of_reading(Date seven_day_date_of_reading) {
+        this.seven_day_date_of_reading = seven_day_date_of_reading;
+    }
+
+    /**
+     * @return the fourteen_day_interpreted_by
+     */
+    public String getFourteen_day_interpreted_by() {
+        return fourteen_day_interpreted_by;
+    }
+
+    /**
+     * @param fourteen_day_interpreted_by the fourteen_day_interpreted_by to set
+     */
+    public void setFourteen_day_interpreted_by(String fourteen_day_interpreted_by) {
+        this.fourteen_day_interpreted_by = fourteen_day_interpreted_by;
+    }
+
+    /**
+     * @return the fourteen_day_date_of_reading
+     */
+    public Date getFourteen_day_date_of_reading() {
+        return fourteen_day_date_of_reading;
+    }
+
+    /**
+     * @param fourteen_day_date_of_reading the fourteen_day_date_of_reading to set
+     */
+    public void setFourteen_day_date_of_reading(Date fourteen_day_date_of_reading) {
+        this.fourteen_day_date_of_reading = fourteen_day_date_of_reading;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * @return the BSD1id
+     */
+    public Integer getBSD1id() {
+        return BSD1id;
+    }
+
+    /**
+     * @param BSD1id the BSD1id to set
+     */
+    public void setBSD1id(Integer BSD1id) {
+        this.BSD1id = BSD1id;
+    }
+
+    /**
+     * @return the cap_color
+     */
+    public String getCap_color() {
+        return cap_color;
+    }
+
+    /**
+     * @param cap_color the cap_color to set
+     */
+    public void setCap_color(String cap_color) {
+        this.cap_color = cap_color;
+    }
+
+    /**
+     * @return the bottle_num
+     */
+    public Integer getBottle_num() {
+        return bottle_num;
+    }
+
+    /**
+     * @param bottle_num the bottle_num to set
+     */
+    public void setBottle_num(Integer bottle_num) {
+        this.bottle_num = bottle_num;
+    }
+
+    /**
+     * @return the results_w1
+     */
+    public String getResults_w1() {
+        return results_w1;
+    }
+
+    /**
+     * @param results_w1 the results_w1 to set
+     */
+    public void setResults_w1(String results_w1) {
+        this.results_w1 = results_w1;
+    }
+
+    /**
+     * @return the results_w2
+     */
+    public String getResults_w2() {
+        return results_w2;
+    }
+
+    /**
+     * @param results_w2 the results_w2 to set
+     */
+    public void setResults_w2(String results_w2) {
+        this.results_w2 = results_w2;
+    }
+
+    /**
+     * @return the comments
+     */
+    public String getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments the comments to set
+     */
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    /**
+     * @return the UltraRowNum
+     */
+    public Integer getUltraRowNum() {
+        return UltraRowNum;
+    }
+
+    /**
+     * @param UltraRowNum the UltraRowNum to set
+     */
+    public void setUltraRowNum(Integer UltraRowNum) {
+        this.UltraRowNum = UltraRowNum;
+    }
+
+    /**
+     * @return the UltraId
+     */
+    public Integer getUltraId() {
+        return UltraId;
+    }
+
+    /**
+     * @param UltraId the UltraId to set
+     */
+    public void setUltraId(Integer UltraId) {
+        this.UltraId = UltraId;
+    }
+
+    /**
+     * @return the Dist_from_zero_point
+     */
+    public String getDist_from_zero_point() {
+        return Dist_from_zero_point;
+    }
+
+    /**
+     * @param Dist_from_zero_point the Dist_from_zero_point to set
+     */
+    public void setDist_from_zero_point(String Dist_from_zero_point) {
+        this.Dist_from_zero_point = Dist_from_zero_point;
+    }
+
+    /**
+     * @return the clock_12
+     */
+    public Float getClock_12() {
+        return clock_12;
+    }
+
+    /**
+     * @param clock_12 the clock_12 to set
+     */
+    public void setClock_12(Float clock_12) {
+        this.clock_12 = clock_12;
+    }
+
+    /**
+     * @return the clock_3
+     */
+    public Float getClock_3() {
+        return clock_3;
+    }
+
+    /**
+     * @param clock_3 the clock_3 to set
+     */
+    public void setClock_3(Float clock_3) {
+        this.clock_3 = clock_3;
+    }
+
+    /**
+     * @return the clock_6
+     */
+    public Float getClock_6() {
+        return clock_6;
+    }
+
+    /**
+     * @param clock_6 the clock_6 to set
+     */
+    public void setClock_6(Float clock_6) {
+        this.clock_6 = clock_6;
+    }
+
+    /**
+     * @return the clock_9
+     */
+    public Float getClock_9() {
+        return clock_9;
+    }
+
+    /**
+     * @param clock_9 the clock_9 to set
+     */
+    public void setClock_9(Float clock_9) {
+        this.clock_9 = clock_9;
+    }
+
+    /**
+     * @return the wt_percentage
+     */
+    public Float getWt_percentage() {
+        return wt_percentage;
+    }
+
+    /**
+     * @param wt_percentage the wt_percentage to set
+     */
+    public void setWt_percentage(Float wt_percentage) {
+        this.wt_percentage = wt_percentage;
     }
     
     
