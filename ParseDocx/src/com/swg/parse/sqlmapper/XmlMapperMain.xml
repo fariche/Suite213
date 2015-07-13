@@ -318,7 +318,6 @@
         
         INSERT INTO bacterial_samples_details1 ( 
         title,
-        id,
         cap_color,
         bottle_num,
         results_w1,
@@ -328,7 +327,6 @@
         )
         VALUES (
         ( SELECT title FROM bacterial_samples_details WHERE title = #{title} ),
-        #{BSD1id},
         #{cap_color},
         #{bottle_num},
         #{results_w1},
@@ -349,12 +347,14 @@
         
         INSERT INTO ultra_sonic_thickness_reading ( 
         Examination_number,
-        row_num
+        row_num,
+        TablePkey
 
         )
         VALUES (
         ( SELECT Examination_number FROM examination_specific_details WHERE Examination_number = #{Examination_number} ),
-        #{UltraRowNum}
+        #{UltraRowNum},
+        #{UltraRowPkey}
 
         ) ON DUPLICATE KEY UPDATE Examination_number=#{Examination_number}
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
@@ -364,6 +364,61 @@
     <delete id="deleteAllUltra">
         DELETE FROM ultra_sonic_thickness_reading
     </delete>
+    
+    
+    
+    <insert id="insertData2UltraDetails" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
+        
+        INSERT INTO ultra_sonic_details ( 
+        ultra_pkey,
+        Dist_from_zero_point,
+        clock_12,
+        clock_3,
+        clock_6,
+        clock_9,
+        wt_percentage
+
+        )
+        VALUES (
+        (SELECT TablePkey FROM ultra_sonic_thickness_reading WHERE TablePkey = #{UltraRowPkey} ),
+        #{Dist_from_zero_point},
+        #{clock_12},
+        #{clock_3},
+        #{clock_6},
+        #{clock_9},
+        #{wt_percentage}
+
+        ) ON DUPLICATE KEY UPDATE wt_percentage=#{wt_percentage}
+<!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
+<!--    This one doesn't need multiple row for same foreign key-->
+    </insert>
+    
+    <delete id="deleteAllUltraDetails">
+        DELETE FROM ultra_sonic_details
+    </delete>
+    
+    
+    <insert id="insertData2DefectDetails" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
+        
+        INSERT INTO defect_details ( 
+        Examination_number,
+        table_Pkey
+
+        )
+        VALUES (
+        ( SELECT Examination_number FROM examination_specific_details WHERE Examination_number = #{Examination_number} ),
+        #{defect_title}
+
+        ) ON DUPLICATE KEY UPDATE Examination_number=#{Examination_number}
+<!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
+<!--    This one doesn't need multiple row for same foreign key-->
+    </insert>
+    
+    <delete id="deleteAllDefectDetails">
+        DELETE FROM defect_details
+    </delete>
+    
+    
     
     
 <!--    ===========================================================-->

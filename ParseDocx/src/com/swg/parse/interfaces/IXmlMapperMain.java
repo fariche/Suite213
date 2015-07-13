@@ -31,6 +31,15 @@ public interface IXmlMapperMain {
     public void insertData2Ultra(MainPOJO ExtractPOJO);
     public void deleteAllUltra();
     
+    public void insertData2UltraDetails(MainPOJO ExtractPOJO);
+    public void deleteAllUltraDetails();
+    
+    public void insertData2DefectDetails(MainPOJO ExtractPOJO);
+    public void deleteAllDefectDetails();
+    
+    public void insertData2DefectDetails1(MainPOJO ExtractPOJO);
+    public void deleteAllDefectDetails1();
+    
     //=========================================================================
     
     public void deleteDataById(Integer idNum);

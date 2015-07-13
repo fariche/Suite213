@@ -148,7 +148,6 @@ public class MainPOJO {
     
     //--------------------------------- ~beginning of bacterial table handling
     
-    public Integer BSD1id;
     public String cap_color;
     public Integer bottle_num;
     public String results_w1;
@@ -158,10 +157,10 @@ public class MainPOJO {
     //---------------------------------- ~end of bacterial table handling
     
     public Integer UltraRowNum;
+    public String UltraRowPkey;
     
     //---------------------------------- ~beginning of ultrasonic table handling
     
-    public Integer UltraId;
     public String Dist_from_zero_point;
     public Float clock_12;
     public Float clock_3;
@@ -171,6 +170,22 @@ public class MainPOJO {
     
     //---------------------------------- ~end of ultrasonic table handling
     
+    public String defect_title;
+    
+    //---------------------------------- ~beginning of defect table handling
+    
+    public Integer defect_number;
+    public String defect_type;
+    public Float distance_from_zero;
+    public Float o_clock_position;
+    public Float axial_length;
+    public Float circumferential_length;
+    public Float max_depth;
+    public String repair_category;
+    public String corrosion_interactivity;
+    public Float remaining_wall_thickness_in;
+    
+    //---------------------------------- ~end of defect table handling
     
     /**
      * @return the DE_Location_ID
@@ -1856,20 +1871,6 @@ public class MainPOJO {
     }
 
     /**
-     * @return the BSD1id
-     */
-    public Integer getBSD1id() {
-        return BSD1id;
-    }
-
-    /**
-     * @param BSD1id the BSD1id to set
-     */
-    public void setBSD1id(Integer BSD1id) {
-        this.BSD1id = BSD1id;
-    }
-
-    /**
      * @return the cap_color
      */
     public String getCap_color() {
@@ -1951,20 +1952,6 @@ public class MainPOJO {
      */
     public void setUltraRowNum(Integer UltraRowNum) {
         this.UltraRowNum = UltraRowNum;
-    }
-
-    /**
-     * @return the UltraId
-     */
-    public Integer getUltraId() {
-        return UltraId;
-    }
-
-    /**
-     * @param UltraId the UltraId to set
-     */
-    public void setUltraId(Integer UltraId) {
-        this.UltraId = UltraId;
     }
 
     /**
@@ -2050,6 +2037,174 @@ public class MainPOJO {
     public void setWt_percentage(Float wt_percentage) {
         this.wt_percentage = wt_percentage;
     }
-    
+
+    /**
+     * @return the UltraRowPkey
+     */
+    public String getUltraRowPkey() {
+        return UltraRowPkey;
+    }
+
+    /**
+     * @param UltraRowPkey the UltraRowPkey to set
+     */
+    public void setUltraRowPkey(String UltraRowPkey) {
+        this.UltraRowPkey = UltraRowPkey;
+    }
+
+    /**
+     * @return the defect_title
+     */
+    public String getDefect_title() {
+        return defect_title;
+    }
+
+    /**
+     * @param defect_title the defect_title to set
+     */
+    public void setDefect_title(String defect_title) {
+        this.defect_title = defect_title;
+    }
+
+    /**
+     * @return the defect_number
+     */
+    public Integer getDefect_number() {
+        return defect_number;
+    }
+
+    /**
+     * @param defect_number the defect_number to set
+     */
+    public void setDefect_number(Integer defect_number) {
+        this.defect_number = defect_number;
+    }
+
+    /**
+     * @return the defect_type
+     */
+    public String getDefect_type() {
+        return defect_type;
+    }
+
+    /**
+     * @param defect_type the defect_type to set
+     */
+    public void setDefect_type(String defect_type) {
+        this.defect_type = defect_type;
+    }
+
+    /**
+     * @return the distance_from_zero
+     */
+    public Float getDistance_from_zero() {
+        return distance_from_zero;
+    }
+
+    /**
+     * @param distance_from_zero the distance_from_zero to set
+     */
+    public void setDistance_from_zero(Float distance_from_zero) {
+        this.distance_from_zero = distance_from_zero;
+    }
+
+    /**
+     * @return the o_clock_position
+     */
+    public Float getO_clock_position() {
+        return o_clock_position;
+    }
+
+    /**
+     * @param o_clock_position the o_clock_position to set
+     */
+    public void setO_clock_position(Float o_clock_position) {
+        this.o_clock_position = o_clock_position;
+    }
+
+    /**
+     * @return the axial_length
+     */
+    public Float getAxial_length() {
+        return axial_length;
+    }
+
+    /**
+     * @param axial_length the axial_length to set
+     */
+    public void setAxial_length(Float axial_length) {
+        this.axial_length = axial_length;
+    }
+
+    /**
+     * @return the circumferential_length
+     */
+    public Float getCircumferential_length() {
+        return circumferential_length;
+    }
+
+    /**
+     * @param circumferential_length the circumferential_length to set
+     */
+    public void setCircumferential_length(Float circumferential_length) {
+        this.circumferential_length = circumferential_length;
+    }
+
+    /**
+     * @return the max_depth
+     */
+    public Float getMax_depth() {
+        return max_depth;
+    }
+
+    /**
+     * @param max_depth the max_depth to set
+     */
+    public void setMax_depth(Float max_depth) {
+        this.max_depth = max_depth;
+    }
+
+    /**
+     * @return the repair_category
+     */
+    public String getRepair_category() {
+        return repair_category;
+    }
+
+    /**
+     * @param repair_category the repair_category to set
+     */
+    public void setRepair_category(String repair_category) {
+        this.repair_category = repair_category;
+    }
+
+    /**
+     * @return the corrosion_interactivity
+     */
+    public String getCorrosion_interactivity() {
+        return corrosion_interactivity;
+    }
+
+    /**
+     * @param corrosion_interactivity the corrosion_interactivity to set
+     */
+    public void setCorrosion_interactivity(String corrosion_interactivity) {
+        this.corrosion_interactivity = corrosion_interactivity;
+    }
+
+    /**
+     * @return the remaining_wall_thickness_in
+     */
+    public Float getRemaining_wall_thickness_in() {
+        return remaining_wall_thickness_in;
+    }
+
+    /**
+     * @param remaining_wall_thickness_in the remaining_wall_thickness_in to set
+     */
+    public void setRemaining_wall_thickness_in(Float remaining_wall_thickness_in) {
+        this.remaining_wall_thickness_in = remaining_wall_thickness_in;
+    }
+
     
 }

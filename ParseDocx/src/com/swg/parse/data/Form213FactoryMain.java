@@ -226,6 +226,89 @@ public class Form213FactoryMain implements IXmlMapperMain {
     }
     
     
+    @Override
+    public void insertData2UltraDetails(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2UltraDetails(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    @Override
+    public void deleteAllUltraDetails() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllUltraDetails();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+    
+    
+    @Override
+    public void insertData2DefectDetails(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2DefectDetails(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    
+    }
+
+    @Override
+    public void deleteAllDefectDetails() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllDefectDetails();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+    
+    @Override
+    public void insertData2DefectDetails1(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2DefectDetails1(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    @Override
+    public void deleteAllDefectDetails1() {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllDefectDetails1();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    
+    }
+    
+    
+    
 //===============================================================    
     
 
