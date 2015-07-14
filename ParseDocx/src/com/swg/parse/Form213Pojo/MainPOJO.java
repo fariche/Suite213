@@ -46,7 +46,7 @@ public class MainPOJO {
     public Float temperature;
     public Integer time_24;
     public String weather_conditions;
-    private String soil_conditions;
+    public String soil_conditions;
     public String bedding_shading_type;
     public String rockshield_used;
     public String soil_type;
@@ -56,7 +56,7 @@ public class MainPOJO {
     public Float wthick;
     public String grade;
     public Integer yield;
-    private String coating;
+    public String coating;
     public String wk_req_no;
     public Integer installation_month;
     public Integer installation_year;
@@ -186,7 +186,7 @@ public class MainPOJO {
     public Float remaining_wall_thickness_in;
     
     //---------------------------------- ~end of defect table handling
-    
+
     /**
      * @return the DE_Location_ID
      */
@@ -258,6 +258,7 @@ public class MainPOJO {
     }
 
     /**
+     * getter for distric_num
      * @return the district_number
      */
     public Integer getDistrict_number() {
@@ -265,6 +266,7 @@ public class MainPOJO {
     }
 
     /**
+     * setter for distric_num
      * @param district_number the district_number to set
      */
     public void setDistrict_number(Integer district_number) {
@@ -466,9 +468,6 @@ public class MainPOJO {
     public void setActual_exam_len_ft(Float actual_exam_len_ft) {
         this.actual_exam_len_ft = actual_exam_len_ft;
     }
-    
-    
-//=====================================================================Section2
 
     /**
      * @return the foreign_pipe_in_excava
@@ -653,6 +652,20 @@ public class MainPOJO {
     }
 
     /**
+     * @return the soil_conditions
+     */
+    public String getSoil_conditions() {
+        return soil_conditions;
+    }
+
+    /**
+     * @param soil_conditions the soil_conditions to set
+     */
+    public void setSoil_conditions(String soil_conditions) {
+        this.soil_conditions = soil_conditions;
+    }
+
+    /**
      * @return the bedding_shading_type
      */
     public String getBedding_shading_type() {
@@ -776,6 +789,20 @@ public class MainPOJO {
      */
     public void setYield(Integer yield) {
         this.yield = yield;
+    }
+
+    /**
+     * @return the coating
+     */
+    public String getCoating() {
+        return coating;
+    }
+
+    /**
+     * @param coating the coating to set
+     */
+    public void setCoating(String coating) {
+        this.coating = coating;
     }
 
     /**
@@ -1042,34 +1069,6 @@ public class MainPOJO {
      */
     public void setReviewed_date(Date reviewed_date) {
         this.reviewed_date = reviewed_date;
-    }
-
-    /**
-     * @return the soil_conditions
-     */
-    public String getSoil_conditions() {
-        return soil_conditions;
-    }
-
-    /**
-     * @param soil_conditions the soil_conditions to set
-     */
-    public void setSoil_conditions(String soil_conditions) {
-        this.soil_conditions = soil_conditions;
-    }
-
-    /**
-     * @return the coating
-     */
-    public String getCoating() {
-        return coating;
-    }
-
-    /**
-     * @param coating the coating to set
-     */
-    public void setCoating(String coating) {
-        this.coating = coating;
     }
 
     /**
@@ -1955,6 +1954,20 @@ public class MainPOJO {
     }
 
     /**
+     * @return the UltraRowPkey
+     */
+    public String getUltraRowPkey() {
+        return UltraRowPkey;
+    }
+
+    /**
+     * @param UltraRowPkey the UltraRowPkey to set
+     */
+    public void setUltraRowPkey(String UltraRowPkey) {
+        this.UltraRowPkey = UltraRowPkey;
+    }
+
+    /**
      * @return the Dist_from_zero_point
      */
     public String getDist_from_zero_point() {
@@ -2036,20 +2049,6 @@ public class MainPOJO {
      */
     public void setWt_percentage(Float wt_percentage) {
         this.wt_percentage = wt_percentage;
-    }
-
-    /**
-     * @return the UltraRowPkey
-     */
-    public String getUltraRowPkey() {
-        return UltraRowPkey;
-    }
-
-    /**
-     * @param UltraRowPkey the UltraRowPkey to set
-     */
-    public void setUltraRowPkey(String UltraRowPkey) {
-        this.UltraRowPkey = UltraRowPkey;
     }
 
     /**
@@ -2206,5 +2205,4 @@ public class MainPOJO {
         this.remaining_wall_thickness_in = remaining_wall_thickness_in;
     }
 
-    
 }

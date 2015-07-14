@@ -40,6 +40,8 @@ public interface IXmlMapperMain {
     public void insertData2DefectDetails1(MainPOJO ExtractPOJO);
     public void deleteAllDefectDetails1();
     
+
+    
     //=========================================================================
     
     public void deleteDataById(Integer idNum);

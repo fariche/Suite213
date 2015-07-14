@@ -422,6 +422,7 @@ public class NewExtract {
         
         //test1.deleteAllSpecificDetails();
         //test1.deleteAllDirectDetails();
+        
         test1.insertData2DirectDetails(PojoPop.mainPojo);
         test1.insertData2SpecificDetails(PojoPop.mainPojo);
         test1.insertData2BacterialSample(PojoPop.mainPojo);
@@ -460,6 +461,8 @@ public class NewExtract {
 
             }
             else if( ListOfPOJO_Rows.get(i).getLabel().contains("  no.")){
+                String temp1 = ListOfPOJO_Rows.get(i).getValue().replace(" ", "");
+                if(!temp1.equals("")){
                     MainPOJO pojo = new MainPOJO();
                     pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
                     String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf(".") + 1);
@@ -492,11 +495,67 @@ public class NewExtract {
                                 temp =  Float.parseFloat(str);
                              }
                             pojo.setDistance_from_zero(temp);
-                         } 
+                         }
+                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("o'clock position")){
+                            String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
+                            Float temp = null; 
+                            if(str.equals("")){
+                                temp = null;
+                             }
+                             else{
+                                temp =  Float.parseFloat(str);
+                             }
+                            pojo.setO_clock_position(temp);
+                         }
+                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("longitudinal length")){
+                            String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
+                            Float temp = null; 
+                            if(str.equals("")){
+                                temp = null;
+                             }
+                             else{
+                                temp =  Float.parseFloat(str);
+                             }
+                            pojo.setAxial_length(temp);
+                         }
+                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("width")){
+                            String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
+                            Float temp = null; 
+                            if(str.equals("")){
+                                temp = null;
+                             }
+                             else{
+                                temp =  Float.parseFloat(str);
+                             }
+                            pojo.setCircumferential_length(temp);
+                         }
+                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("maximum depth")){
+                            String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
+                            Float temp = null; 
+                            if(str.equals("")){
+                                temp = null;
+                             }
+                             else{
+                                temp =  Float.parseFloat(str);
+                             }
+                            pojo.setMax_depth(temp); 
+                         }
+                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("remaining wall thickness")){
+                            String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
+                            Float temp = null; 
+                            if(str.equals("")){
+                                temp = null;
+                             }
+                             else{
+                                temp =  Float.parseFloat(str);
+                             }
+                            pojo.setRemaining_wall_thickness_in(temp);   
+                         }
                          
                          i++;
                      }
-                   
+                     test1.insertData2DefectDetails1(pojo);
+            }
             }
             
             //-------------------------------

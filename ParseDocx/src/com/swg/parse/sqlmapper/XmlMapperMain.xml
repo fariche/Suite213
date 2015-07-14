@@ -418,8 +418,44 @@
         DELETE FROM defect_details
     </delete>
     
+    <insert id="insertData2DefectDetails1" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
+        
+        INSERT INTO defect_details1 ( 
+        defect_number, 
+        defect_type,
+        distance_from_zero,
+        o_clock_position,
+        axial_length,
+        circumferential_length,
+        max_depth,
+        repair_category,
+        corrosion_interactivity,
+        remaining_wall_thickness_in,
+        table_Pkey
+
+        )
+        VALUES (
+        #{defect_number},
+        #{defect_type},
+        #{distance_from_zero},
+        #{o_clock_position},
+        #{axial_length},
+        #{circumferential_length},
+        #{max_depth},
+        #{repair_category},
+        #{corrosion_interactivity},
+        #{remaining_wall_thickness_in},
+        ( SELECT table_Pkey FROM defect_details WHERE table_Pkey = #{defect_title} )
+        
+
+        ) ON DUPLICATE KEY UPDATE defect_number=#{defect_number}
+<!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
+<!--    This one doesn't need multiple row for same foreign key-->
+    </insert>
     
-    
+    <delete id="deleteAllDefectDetails1">
+        DELETE FROM defect_details1
+    </delete>
     
 <!--    ===========================================================-->
     
