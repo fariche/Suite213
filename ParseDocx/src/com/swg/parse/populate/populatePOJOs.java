@@ -44,7 +44,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setWork_request_no(val);
@@ -60,11 +60,11 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setDistrict_number(null);
+                }else{
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setDistrict_number(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("town or county")){
                 mainPojo.setTown_or_county(ExtractPOJOList.get(i).getValue());
             }
@@ -107,11 +107,11 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setField_location_start_x(null);
+                }else{
                 Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
                 mainPojo.setField_location_start_x(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("y") && 
                     ExtractPOJOList.get(i-1).getLabel().equals("start: gps x")){
                 
@@ -121,11 +121,11 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setField_location_start_y(null);
+                }else{
                 Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
                 mainPojo.setField_location_start_y(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("end: gps x")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -134,11 +134,11 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setField_location_end_x(null);
+                }else{
                 Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
                 mainPojo.setField_location_end_x(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("y") && 
                     ExtractPOJOList.get(i-1).getLabel().equals("end: gps x")){
                 
@@ -148,11 +148,11 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setField_location_end_y(null);
+                }else{
                 Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
                 mainPojo.setField_location_end_y(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("gps file name")){
                 mainPojo.setGps_file_name(ExtractPOJOList.get(i).getValue());
             }
@@ -170,7 +170,7 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", " "));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                     float k = 0;
                     mainPojo.setPlanned_exam_len_ft(k);
                 }
@@ -197,7 +197,7 @@ public class populatePOJOs {
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", " "));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                     float k = 0;
                     mainPojo.setActual_exam_len_ft(k);
                 }
@@ -228,10 +228,13 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
+                    mainPojo.setSize(null);
                 }
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setSize(val);             
+                else{
+                    Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
+                    mainPojo.setSize(val);
+                }
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("material")){
                 mainPojo.setMaterial(ExtractPOJOList.get(i).getValue());
@@ -281,7 +284,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setTemperature(val);
@@ -297,7 +300,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setTime_24(val);
@@ -328,7 +331,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setDepth_of_cover(val);
@@ -344,7 +347,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setNominal_size(val);
@@ -359,12 +362,13 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
+                
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setIn_diam(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setIn_diam(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("wthick")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -376,7 +380,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setWthick(val);
@@ -395,7 +399,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setYield(val);
@@ -417,10 +421,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    mainPojo.setInstallation_month(null);
+                }else{
+                    Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
+                    mainPojo.setInstallation_month(val);
                 }
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setInstallation_month(val);
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("installation year")){
                 
@@ -433,7 +438,7 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
+                    ExtractPOJOList.get(i).setValue(null);
                 }
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setInstallation_year(val);
@@ -461,11 +466,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setHoliday_detec_colt_setting(null);
+                }else{
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setHoliday_detec_colt_setting(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("non-corrosive disbondment % damage")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -477,11 +482,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setPer_dam_ncorros_disbond(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setPer_dam_ncorros_disbond(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("non-corrosive disbondment o'clock/position")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -493,11 +498,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setO_clock_ncorros_disbond(null);
+                }else{
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setO_clock_ncorros_disbond(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("blistering due to corrosion % damage")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -509,11 +514,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setPercent_damage_blistering(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setPercent_damage_blistering(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("blistering due to corrosion o'clock/position")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -525,11 +530,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setO_clock_damage_blistering(null);
+                }else{
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setO_clock_damage_blistering(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("ground cover found:")){
                 mainPojo.setGround_cover_type(ExtractPOJOList.get(i).getValue());
             }
@@ -544,11 +549,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setBlister_fluid_ph(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setBlister_fluid_ph(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("i have reviewed the procedures performed and have found them:")){
                 mainPojo.setProcedure_adequate_flag(ExtractPOJOList.get(i).getValue());
             }
@@ -602,11 +607,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setSoilph_at_pipe_depth(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setSoilph_at_pipe_depth(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("soil resistivity at pipe depth")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -618,11 +623,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setSoil_resistivity_at_pipe_depth(null);
+                }else{
                 Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
                 mainPojo.setSoil_resistivity_at_pipe_depth(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("soil chemistry performed")){
                 mainPojo.setSoil_chem_performed_flag(ExtractPOJOList.get(i).getValue());
             }
@@ -640,11 +645,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setChlorides_ppm(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setChlorides_ppm(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("nitrates")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -656,11 +661,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setNitrates_ppm(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setNitrates_ppm(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("sulfates")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -672,11 +677,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setSulfates_ppm(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setSulfates_ppm(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("6 o'clock") || ExtractPOJOList.get(i).getLabel().equals("Pipe to Soil from Start of Excavation: 6 o'clock") ){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -688,11 +693,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setPipe_to_soil_frm_exc_6_oclock(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setPipe_to_soil_frm_exc_6_oclock(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("Pipe to Soil from Start of Excavation: 3 o'clock") ){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -704,11 +709,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setPipe_to_soil_frm_exc_3_oclock(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setPipe_to_soil_frm_exc_3_oclock(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("Pipe to Soil from Start of Excavation: 9 o'clock") ){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -720,11 +725,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setPipe_to_soil_frm_exc_9_oclock(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setPipe_to_soil_frm_exc_9_oclock(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("pipe to soil from start of excavation: 12 o'clock") ){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -736,11 +741,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setPipe_to_soil_frm_exc_12_oclock(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setPipe_to_soil_frm_exc_12_oclock(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("bacterial samples taken")){
                 mainPojo.setBacterial_samples_taken(ExtractPOJOList.get(i).getValue());
             }
@@ -839,6 +844,8 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknown", ""));
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
+                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("1  n/a", ""));
+                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("0  n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("-", "/"));
@@ -878,11 +885,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setMin_ICDA_scrub_1(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setMin_ICDA_scrub_1(val);
-            }
+            }}
             else if(i>2 && ExtractPOJOList.get(i-1).getLabel().equals("icda scrub #1: min") && ExtractPOJOList.get(i).getLabel().equals("max")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -894,11 +901,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setMax_ICDA_scrub_1(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setMax_ICDA_scrub_1(val);
-            }
+            }}
             else if(i>2 && ExtractPOJOList.get(i-2).getLabel().equals("icda scrub #1: min") && ExtractPOJOList.get(i).getLabel().equals("wt ?%")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -910,11 +917,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setWt_percentage_scrub1(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setWt_percentage_scrub1(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("icda scrub #2: min")){
                 
                 
@@ -927,11 +934,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setMin_ICDA_scrub_2(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setMin_ICDA_scrub_2(val);
-            }
+            }}
             else if(i>2 && ExtractPOJOList.get(i-1).getLabel().equals("icda scrub #2: min") && ExtractPOJOList.get(i).getLabel().equals("max")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -943,11 +950,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setMax_ICDA_scrub_2(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setMax_ICDA_scrub_2(val);
-            }
+            }}
             else if(i>2 && ExtractPOJOList.get(i-2).getLabel().equals("icda scrub #2: min") && ExtractPOJOList.get(i).getLabel().equals("wt ?%")){
                 
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
@@ -959,11 +966,11 @@ public class populatePOJOs {
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                 if(ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue("0");
-                }
+                    mainPojo.setWt_percentage_scrub2(null);
+                }else{
                 Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
                 mainPojo.setWt_percentage_scrub2(val);
-            }
+            }}
             else if(ExtractPOJOList.get(i).getLabel().equals("location of samples")){
                 mainPojo.setLocation_of_samples(ExtractPOJOList.get(i).getValue());
             }
@@ -1029,6 +1036,48 @@ public class populatePOJOs {
                 else{
                     mainPojo.setFourteen_day_date_of_reading(null);
                 }
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("inadequate cp currentfor this hca exam")){
+                mainPojo.setInadequate_CP_current_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("no cp for a known period of timefor this hca exam")){
+                mainPojo.setNo_CP_time_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("no cp with dissimilar metal couplingsfor this hca exam")){
+                mainPojo.setNo_CP_metal_couplings_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("previously unidentified source of interferencefor this hca exam")){
+                mainPojo.setInterference_source_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("shielding occurred by disbonded coatingfor this hca exam")){
+                mainPojo.setShielding_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("mic or biological corrosionfor this hca exam")){
+                mainPojo.setMIC_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("other (specify):for this hca exam")){
+                mainPojo.setOther_root_cause_HCA_exam(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("inadequate cp currentof other exams on this hca")){
+                mainPojo.setOther_root_cause_HCA_examOther(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("no cp for a known period of timeof other exams on this hca")){
+                mainPojo.setNo_CP_time_HCA_examOther(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("no cp with dissimilar metal couplingsof other exams on this hca")){
+                mainPojo.setNo_CP_metal_couplings_HCA_examOther(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("previously unidentified source of interferenceof other exams on this hca")){
+                mainPojo.setInterference_source_HCA_examOther(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("shielding occurred by disbonded coatingof other exams on this hca")){
+                mainPojo.setShielding_HCA_examOther(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("mic or biological corrosionof other exams on this hca")){
+                mainPojo.setMIC_HCA_examOther(ExtractPOJOList.get(i).getValue());
+            }
+            else if(ExtractPOJOList.get(i).getLabel().contains("other (specify):of other exams on this hca")){
+                mainPojo.setOther_root_cause_HCA_examOther(ExtractPOJOList.get(i).getValue());
             }
             
         }

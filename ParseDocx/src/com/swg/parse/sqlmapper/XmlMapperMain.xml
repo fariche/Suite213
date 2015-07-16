@@ -196,7 +196,21 @@
         wt_percentage_scrub1,
         min_ICDA_scrub_2,
         max_ICDA_scrub_2,
-        wt_percentage_scrub2
+        wt_percentage_scrub2,
+        Inadequate_CP_current,
+        No_CP_time,
+        No_CP_metal_couplings,
+        interference_source,
+        shielding,
+        MIC,
+        other_root_cause,
+        Inadequate_CP_current_other,
+        No_CP_time_other,
+        No_CP_metal_couplings_other,
+        interference_source_other,
+        shielding_other,
+        MIC_other,
+        other_root_cause_other
         
         )
         VALUES (
@@ -249,7 +263,22 @@
         #{wt_percentage_scrub1},
         #{min_ICDA_scrub_2},
         #{max_ICDA_scrub_2},
-        #{wt_percentage_scrub2}
+        #{wt_percentage_scrub2},
+        #{Inadequate_CP_current_HCA_exam},
+        #{No_CP_time_HCA_exam},
+        #{No_CP_metal_couplings_HCA_exam},
+        #{interference_source_HCA_exam},
+        #{shielding_HCA_exam},
+        #{MIC_HCA_exam},
+        #{other_root_cause_HCA_exam},
+        #{Inadequate_CP_current_HCA_examOther},
+        #{No_CP_time_HCA_examOther},
+        #{No_CP_metal_couplings_HCA_examOther},
+        #{interference_source_HCA_examOther},
+        #{shielding_HCA_examOther},
+        #{MIC_HCA_examOther},
+        #{other_root_cause_HCA_examOther}
+
         
         ) ON DUPLICATE KEY UPDATE wt_percentage_scrub2=#{wt_percentage_scrub2}
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->

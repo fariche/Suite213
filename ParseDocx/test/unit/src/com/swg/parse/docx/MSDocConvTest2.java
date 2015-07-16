@@ -30,9 +30,9 @@ public class MSDocConvTest2 {
     //enter path of the folder here
     private static final String path = "H:/CurrentWork/conversion/";
     //enter the name of the .txt file here
-    private static final String pathToFile = path + "CAD_2013_RE-01.txt";
+    private static final String pathToFile = path + "CAD_2013_RE-06 - Copy.txt";
     //enter the name of the .docx file here
-    private static final String pathToFileDocx = path + "CAD_2013_RE-01.docx";
+    private static final String pathToFileDocx = path + "CAD_2013_RE-06 - Copy.docx";
     private static final File ConvertedDocx = new File(pathToFile);
     
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
@@ -99,7 +99,7 @@ public class MSDocConvTest2 {
      */
     private String getPOI() throws FileNotFoundException, IOException {
         
-        FileInputStream inputTest = new FileInputStream(path + "CAD_2013_RE-01.docx");
+        FileInputStream inputTest = new FileInputStream(path + "CAD_2013_RE-06 - Copy.docx");
         XWPFDocument docxTest = new XWPFDocument(inputTest);
         XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
         String contentIn = ContentTest.getText();

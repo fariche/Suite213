@@ -18,7 +18,9 @@ import static java.lang.Character.isLetter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import javax.imageio.ImageIO;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFPictureData;
@@ -431,31 +433,139 @@ public class NewExtract {
         //-------------------------------
         int k =0;
         int flag = 0;
-        
+        ArrayList <Integer> qNum = new ArrayList<>();
+        ArrayList <String> qType = new ArrayList<>();
+        ArrayList <Float> qDistance = new ArrayList<>();
+        ArrayList <Float> qOClock = new ArrayList<>();
+        ArrayList <Float> qAxeLength= new ArrayList<>();
+        ArrayList <Float> qCircLengh= new ArrayList<>();
+        ArrayList <Float> qMax = new ArrayList<>();
+        ArrayList <String> qRepair = new ArrayList<>();
+        ArrayList <String> qcorrosion = new ArrayList<>();
+                
         for(int i=0; i< ValueBeforePOJO.size(); i++){
             
             if( (ListOfPOJO_Rows.get(i).getLabel().contains("number(") ) ){
                     MainPOJO pojo = new MainPOJO();
-                    pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
-                    String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("(") + 1, ListOfPOJO_Rows.get(i).getLabel().indexOf(")") );
-                    Integer TableRowNum = Integer.parseInt(tempStr);
-                    String TablePkey = pojo.getExamination_number() + " " + tempStr;
-                    pojo.setDefect_title(TablePkey);
-                    TableRowNum = Integer.parseInt(ListOfPOJO_Rows.get(i).getValue());
-                    pojo.setDefect_number(TableRowNum);
-                    test1.insertData2DefectDetails(pojo);
+                    String tempStr = null;
+                    Integer TableRowNum = null;
                     
-                    i++;
-                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("number(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
-                        
-                        //a lot is going on: it is horizontal not vertical ...!
-//                        if(ListOfPOJO_Rows.get(i).getLabel().contains("9 o'clock")){
-//                            
-//                        }
-                        
-                        
+                                        
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("type of defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate num
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
+                            TableRowNum = null;
+                        }
+                        else{
+                            TableRowNum = Integer.parseInt(ListOfPOJO_Rows.get(i).getValue());
+                        }                        
+                        qNum.add(TableRowNum);
                         i++;
                     }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("distance from zero point defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate type
+                        qType.add(ListOfPOJO_Rows.get(i).getValue());
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("o'clock position defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate distance zero
+                        Float temp = null;
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
+                            temp = null;
+                        }
+                        else{
+                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                        }                        
+                        qDistance.add(temp);
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("length axe defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate position
+                        Float temp = null;
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
+                            temp = null;
+                        }
+                        else{
+                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                        }                        
+                        qOClock.add(temp);
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("length circ defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate axial
+                        Float temp = null;
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
+                            temp = null;
+                        }
+                        else{
+                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                        }                        
+                        qAxeLength.add(temp);                        
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("maximum depth(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate circ
+                        Float temp = null;
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
+                            temp = null;
+                        }
+                        else{
+                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                        }                        
+                        qCircLengh.add(temp);                        
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("repair category(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate max
+                        Float temp = null;
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
+                            temp = null;
+                        }
+                        else{
+                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                        }                        
+                        qMax.add(temp);                        
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("corrosion interactivity(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate repair
+                        qRepair.add(ListOfPOJO_Rows.get(i).getValue());
+                        i++;
+                    }
+                    while(!ListOfPOJO_Rows.get(i).getLabel().contains("number(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
+                        //populate corrosion
+                        qcorrosion.add(ListOfPOJO_Rows.get(i).getValue());
+                        i++;
+                    }
+                    
+                    for(int n = 1; n < qNum.size(); n++ ){
+                        
+                        pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                        //tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("(") + 1, ListOfPOJO_Rows.get(i).getLabel().indexOf(")") );
+                        TableRowNum = n-1;       //Integer.parseInt(tempStr);
+                        String TablePkey = pojo.getExamination_number() + " " + TableRowNum;
+                        pojo.setDefect_title(TablePkey);
+                        test1.insertData2DefectDetails(pojo);
+                                                
+                        
+                        pojo.setDefect_number(qNum.get(n));
+                        pojo.setDefect_type(qType.get(n));
+                        pojo.setDistance_from_zero(qDistance.get(n));
+                        pojo.setO_clock_position(qOClock.get(n));
+                        pojo.setAxial_length(qAxeLength.get(n));
+                        pojo.setCircumferential_length(qCircLengh.get(n));
+                        pojo.setMax_depth(qMax.get(n));
+                        pojo.setRepair_category(qRepair.get(n));
+                        pojo.setCorrosion_interactivity(qcorrosion.get(n));
+                        test1.insertData2DefectDetails1(pojo);
+                    }
+                     
                     
                     
 
@@ -1385,53 +1495,136 @@ public class NewExtract {
 
     private void process2DimVersion1Expection(String StartString, String value) {
         
-                String temp = "a \n";
+                String temp = "a\n";
                 temp += StartString;
                 temp += value;
                 
-                String tempTok[] = temp.split("\n");
-                String temp1 = headContent.get(0);
-                int j = 0;
-                int i = 0;
-                for(String str : tempTok){
-                    if(j == 2 && i == 2 ){
-                        System.out.println(temp1);
-                        
-                        String lab = "", val = "";
-                        lab = temp1.substring(0, temp1.indexOf("="));
-                        val = temp1.substring(temp1.indexOf("="));
-                        labelBeforePOJO.add(lab);
-                        ValueBeforePOJO.add(val);
-                        sectionBeforePOJO.add(section);
-                        
-                        
-                        temp1 = headContent.get(0);
-                        j = 0;
-                        i = 0;
+                
+                String lab0 = null, lab1 = null, lab2 = null;
+                String val1 = null;
+                for(int i = 0; i < 7; i++){
+                    val1 = "";
+                    if(i == 0){
+                        lab0 = temp.substring(temp.indexOf("a"), temp.indexOf("inadequate cp current") + "inadequate cp current".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("inadequate cp current") + "inadequate cp current".length());
                     }
-                    if(j < 2){
-                        temp1 += " " + str;
-                        j++;
+                    else if(i == 1){
+                        lab0 = temp.substring(temp.indexOf("b"), temp.indexOf("no cp for a known period of time") + "no cp for a known period of time".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("no cp for a known period of time") + "no cp for a known period of time".length());
+                        
                     }
-                    else if(i < 2){
-                        if(i == 0){
-                            temp1 += " = ";
-                        }
-                        if(i == 0 && !str.equals("     ")){
-                            temp1 += "," + headContent.get(1);
-                        }
-                        if(i == 1 && !str.equals("     ")){
-                            temp1 += "," + headContent.get(2);
-                        }
-                        i++;
-                    } 
-                }                
+                    else if(i == 2){
+                        lab0 = temp.substring(temp.indexOf("c"), temp.indexOf("no cp with dissimilar metal couplings") + "no cp with dissimilar metal couplings".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("no cp with dissimilar metal couplings") + "no cp with dissimilar metal couplings".length());
+                    }
+                    else if(i == 3){
+                        lab0 = temp.substring(temp.indexOf("d"), temp.indexOf("previously unidentified source of interference") + "previously unidentified source of interference".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("previously unidentified source of interference") + "previously unidentified source of interference".length());
+                    }
+                    else if(i == 4){
+                        lab0 = temp.substring(temp.indexOf("e"), temp.indexOf("shielding occurred by disbonded coating") + "shielding occurred by disbonded coating".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("shielding occurred by disbonded coating") + "shielding occurred by disbonded coating".length());
+                    }
+                    else if(i == 5){
+                        lab0 = temp.substring(temp.indexOf("f"), temp.indexOf("mic or biological corrosion") + "mic or biological corrosion".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("mic or biological corrosion") + "mic or biological corrosion".length());
+                    }
+                    else if(i == 6){
+                        lab0 = temp.substring(temp.indexOf("g"), temp.indexOf("other (specify):") + "other (specify):".length());
+                        lab0 = lab0.replace("\n", " ");
+                        temp = temp.substring(temp.indexOf("other (specify):") + "other (specify):".length());
+                    }
+                    
+                    lab1 = lab0 + headContent.get(1);
+                    lab2 = lab0 + headContent.get(2);
+                    temp = temp.substring(temp.indexOf("\n")+1);
+                    while(!temp.startsWith("\n")){
+                        val1 += temp.charAt(0);
+                        temp = temp.substring(1);
+                    }
+                    val1 = val1.replace("null", "");
+                    System.out.println(lab1 + " = " + val1);
+                    labelBeforePOJO.add(lab1);
+                    ValueBeforePOJO.add(val1);
+                    sectionBeforePOJO.add(section);
+                    temp = temp.substring(1);
+                    val1 = "";
+                    while(!temp.startsWith("\n")){
+                        val1 += temp.charAt(0);
+                        temp = temp.substring(1);
+                    }
+                    if(val1.contains("null"))
+                        val1 = val1.replace("null", "");
+                    System.out.println(lab2 + " = " + val1);
+                    labelBeforePOJO.add(lab2);
+                    ValueBeforePOJO.add(val1);
+                    sectionBeforePOJO.add(section);
+                    
+                }
+                
+//                while(true){
+//                    temp2 += temp.charAt(i);
+//                    
+//                    
+//                    
+//                    
+//                    if(temp.charAt(i) == 'b' && temp.charAt(i) == '\n')
+//                        System.out.println("TESTTTTTTTTTTTTTTTT");
+//                    i++;
+//                    if(i == temp.length() )
+//                        break;
+//                }
+//                
+                
+//                String tempTok[] = temp.split("\n");
+//                String temp1 = headContent.get(0);
+//                int j = 0;
+//                int i = 0;
+//                for(String str : tempTok){
+//                    if(j == 2 && i == 2 ){
+//                        System.out.println(temp1);
+//                        
+//                        String lab = "", val = "";
+//                        lab = temp1.substring(0, temp1.indexOf("="));
+//                        val = temp1.substring(temp1.indexOf("="));
+//                        labelBeforePOJO.add(lab);
+//                        ValueBeforePOJO.add(val);
+//                        sectionBeforePOJO.add(section);
+//                        
+//                        
+//                        temp1 = headContent.get(0);
+//                        j = 0;
+//                        i = 0;
+//                    }
+//                    if(j < 2){
+//                        temp1 += " " + str;
+//                        j++;
+//                    }
+//                    else if(i < 2){
+//                        if(i == 0){
+//                            temp1 += " = ";
+//                        }
+//                        if(i == 0 && !str.contains(" ")){
+//                            temp1 += "," + headContent.get(1);
+//                        }
+//                        if(i == 1 && !str.contains(" ")){
+//                            temp1 += "," + headContent.get(2);
+//                        }
+//                        i++;
+//                    } 
+//                }                
                         
     }
 
     /**
      * Populate the first POJO, this includes only the label, the value associated to the label
-     * the section of label and version of the document
+     * the section of label and version of the document 
      */
     private void PopulatePOJOAlpha() {
         ListOfPOJO_Rows.clear();
@@ -1451,6 +1644,7 @@ public class NewExtract {
             
             int j =0;
             String first = value.substring(value.indexOf("number") + "number".length() , value.indexOf("type of defect"));
+            value = value.substring(value.indexOf("number") + "number".length());
             String[] tok1 = first.split("\n");
             for(String str : tok1){
                 System.out.println("number("+ j + "- " + i + ") = " + str);
@@ -1461,6 +1655,7 @@ public class NewExtract {
             }
             j= 0;
             String second = value.substring(value.indexOf("coating)") + "coating)".length() , value.indexOf("distance from zero point"));
+            value = value.substring(value.indexOf("coating") + "coating".length());
             String[] tok2 = second.split("\n");
             for(String str : tok2){
                 System.out.println("type of defect("+ j + "- " + i + ") = " + str);
@@ -1471,6 +1666,7 @@ public class NewExtract {
             }
             j =0;
             String third = value.substring(value.indexOf("distance from zero point (feet)") + "distance from zero point (feet)".length() , value.indexOf("o'clock position"));
+            value = value.substring(value.indexOf("distance from zero point (feet)") + "distance from zero point (feet)".length());
             String[] tok3 = third.split("\n");
             for(String str : tok3){
                 System.out.println("distance from zero point defect("+ j + "- " + i + ") = " + str);
@@ -1481,6 +1677,7 @@ public class NewExtract {
             }
             j =0;
             String fourth = value.substring(value.indexOf("o'clock position") + "o'clock position".length() , value.indexOf("length (axial) (inch)"));
+            value = value.substring(value.indexOf("o'clock position") + "o'clock position".length());
             String[] tok4 = fourth.split("\n");
             for(String str : tok4){
                 System.out.println("o'clock position defect("+ j + "- " + i + ") = " + str);
@@ -1491,6 +1688,7 @@ public class NewExtract {
             }
             j =0;
             String fifth = value.substring(value.indexOf("length (axial) (inch)") + "length (axial) (inch)".length() , value.indexOf("length (circumferential) (inch)"));
+            value = value.substring(value.indexOf("length (axial) (inch)") + "length (axial) (inch)".length());
             String[] tok5 = fifth.split("\n");
             for(String str : tok5){
                 System.out.println("length axe defect("+ j + "- " + i + ") = " + str);
@@ -1501,6 +1699,7 @@ public class NewExtract {
             }
             j =0;
             String six = value.substring(value.indexOf("length (circumferential) (inch)") + "length (circumferential) (inch)".length() , value.indexOf("maximum depth (inch)"));
+            value = value.substring(value.indexOf("length (circumferential) (inch)") + "length (circumferential) (inch)".length());
             String[] tok6 = six.split("\n");
             for(String str : tok6){
                 System.out.println("length circ defect("+ j + "- " + i + ") = " + str);
@@ -1511,6 +1710,7 @@ public class NewExtract {
             }
             j =0;
             String seven = value.substring(value.indexOf("maximum depth (inch)") + "maximum depth (inch)".length() , value.indexOf("repair category *".toLowerCase()));
+            value = value.substring(value.indexOf("maximum depth (inch)") + "maximum depth (inch)".length());
             String[] tok7 = seven.split("\n");
             for(String str : tok7){
                 System.out.println("maximum depth("+ j + "- " + i + ") = " + str);
@@ -1521,10 +1721,29 @@ public class NewExtract {
             }
             j =0;
             String eight = value.substring(value.indexOf("repair category *") + "repair category *".length() , value.indexOf("Corrosion Interactivity".toLowerCase()));
+            value = value.substring(value.indexOf("repair category *") + "repair category *".length());
             String[] tok8 = eight.split("\n");
-            for(String str : tok7){
+            for(String str : tok8){
                 System.out.println("repair category("+ j + "- " + i + ") = " + str);
                 labelBeforePOJO.add("repair category("+ j + ")");
+                ValueBeforePOJO.add(str);
+                sectionBeforePOJO.add(section);
+                j++;
+            }
+            j =0;
+            String nine = null;
+            if(i == 0){
+                nine = value.substring(value.indexOf("corrosion interactivity") + "corrosion interactivity".length() , value.indexOf("Number".toLowerCase()));
+            }
+            else if(i == 1){
+                nine = value.substring(value.indexOf("corrosion interactivity") + "corrosion interactivity".length() , value.indexOf("*".toLowerCase()));
+            }
+            value = value.substring(value.indexOf("corrosion interactivity") + "corrosion interactivity".length());
+
+            String[] tok9 = nine.split("\n");
+            for(String str : tok9){
+                System.out.println("corrosion interactivity("+ j + "- " + i + ") = " + str);
+                labelBeforePOJO.add("corrosion interactivity("+ j + ")");
                 ValueBeforePOJO.add(str);
                 sectionBeforePOJO.add(section);
                 j++;

@@ -186,6 +186,25 @@ public class MainPOJO {
     public Float remaining_wall_thickness_in;
     
     //---------------------------------- ~end of defect table handling
+    
+    public String Inadequate_CP_current_HCA_exam;
+    public String No_CP_time_HCA_exam;
+    public String No_CP_metal_couplings_HCA_exam;
+    public String interference_source_HCA_exam;
+    public String shielding_HCA_exam;
+    public String MIC_HCA_exam;
+    public String other_root_cause_HCA_exam;
+    
+    public String Inadequate_CP_current_HCA_examOther;
+    public String No_CP_time_HCA_examOther;
+    public String No_CP_metal_couplings_HCA_examOther;
+    public String interference_source_HCA_examOther;
+    public String shielding_HCA_examOther;
+    public String MIC_HCA_examOther;
+    public String other_root_cause_HCA_examOther;
+    
+    //---------------------------------- !special table on Version0
+    
 
     /**
      * @return the DE_Location_ID
@@ -2205,4 +2224,199 @@ public class MainPOJO {
         this.remaining_wall_thickness_in = remaining_wall_thickness_in;
     }
 
+    /**
+     * @return the Inadequate_CP_current_HCA_exam
+     */
+    public String getInadequate_CP_current_HCA_exam() {
+        return Inadequate_CP_current_HCA_exam;
+    }
+
+    /**
+     * @param Inadequate_CP_current_HCA_exam the Inadequate_CP_current_HCA_exam to set
+     */
+    public void setInadequate_CP_current_HCA_exam(String Inadequate_CP_current_HCA_exam) {
+        this.Inadequate_CP_current_HCA_exam = Inadequate_CP_current_HCA_exam;
+    }
+
+    /**
+     * @return the No_CP_time_HCA_exam
+     */
+    public String getNo_CP_time_HCA_exam() {
+        return No_CP_time_HCA_exam;
+    }
+
+    /**
+     * @param No_CP_time_HCA_exam the No_CP_time_HCA_exam to set
+     */
+    public void setNo_CP_time_HCA_exam(String No_CP_time_HCA_exam) {
+        this.No_CP_time_HCA_exam = No_CP_time_HCA_exam;
+    }
+
+    /**
+     * @return the No_CP_metal_couplings_HCA_exam
+     */
+    public String getNo_CP_metal_couplings_HCA_exam() {
+        return No_CP_metal_couplings_HCA_exam;
+    }
+
+    /**
+     * @param No_CP_metal_couplings_HCA_exam the No_CP_metal_couplings_HCA_exam to set
+     */
+    public void setNo_CP_metal_couplings_HCA_exam(String No_CP_metal_couplings_HCA_exam) {
+        this.No_CP_metal_couplings_HCA_exam = No_CP_metal_couplings_HCA_exam;
+    }
+
+    /**
+     * @return the interference_source_HCA_exam
+     */
+    public String getInterference_source_HCA_exam() {
+        return interference_source_HCA_exam;
+    }
+
+    /**
+     * @param interference_source_HCA_exam the interference_source_HCA_exam to set
+     */
+    public void setInterference_source_HCA_exam(String interference_source_HCA_exam) {
+        this.interference_source_HCA_exam = interference_source_HCA_exam;
+    }
+
+    /**
+     * @return the shielding_HCA_exam
+     */
+    public String getShielding_HCA_exam() {
+        return shielding_HCA_exam;
+    }
+
+    /**
+     * @param shielding_HCA_exam the shielding_HCA_exam to set
+     */
+    public void setShielding_HCA_exam(String shielding_HCA_exam) {
+        this.shielding_HCA_exam = shielding_HCA_exam;
+    }
+
+    /**
+     * @return the MIC_HCA_exam
+     */
+    public String getMIC_HCA_exam() {
+        return MIC_HCA_exam;
+    }
+
+    /**
+     * @param MIC_HCA_exam the MIC_HCA_exam to set
+     */
+    public void setMIC_HCA_exam(String MIC_HCA_exam) {
+        this.MIC_HCA_exam = MIC_HCA_exam;
+    }
+
+    /**
+     * @return the other_root_cause_HCA_exam
+     */
+    public String getOther_root_cause_HCA_exam() {
+        return other_root_cause_HCA_exam;
+    }
+
+    /**
+     * @param other_root_cause_HCA_exam the other_root_cause_HCA_exam to set
+     */
+    public void setOther_root_cause_HCA_exam(String other_root_cause_HCA_exam) {
+        this.other_root_cause_HCA_exam = other_root_cause_HCA_exam;
+    }
+
+    /**
+     * @return the Inadequate_CP_current_HCA_examOther
+     */
+    public String getInadequate_CP_current_HCA_examOther() {
+        return Inadequate_CP_current_HCA_examOther;
+    }
+
+    /**
+     * @param Inadequate_CP_current_HCA_examOther the Inadequate_CP_current_HCA_examOther to set
+     */
+    public void setInadequate_CP_current_HCA_examOther(String Inadequate_CP_current_HCA_examOther) {
+        this.Inadequate_CP_current_HCA_examOther = Inadequate_CP_current_HCA_examOther;
+    }
+
+    /**
+     * @return the No_CP_time_HCA_examOther
+     */
+    public String getNo_CP_time_HCA_examOther() {
+        return No_CP_time_HCA_examOther;
+    }
+
+    /**
+     * @param No_CP_time_HCA_examOther the No_CP_time_HCA_examOther to set
+     */
+    public void setNo_CP_time_HCA_examOther(String No_CP_time_HCA_examOther) {
+        this.No_CP_time_HCA_examOther = No_CP_time_HCA_examOther;
+    }
+
+    /**
+     * @return the No_CP_metal_couplings_HCA_examOther
+     */
+    public String getNo_CP_metal_couplings_HCA_examOther() {
+        return No_CP_metal_couplings_HCA_examOther;
+    }
+
+    /**
+     * @param No_CP_metal_couplings_HCA_examOther the No_CP_metal_couplings_HCA_examOther to set
+     */
+    public void setNo_CP_metal_couplings_HCA_examOther(String No_CP_metal_couplings_HCA_examOther) {
+        this.No_CP_metal_couplings_HCA_examOther = No_CP_metal_couplings_HCA_examOther;
+    }
+
+    /**
+     * @return the interference_source_HCA_examOther
+     */
+    public String getInterference_source_HCA_examOther() {
+        return interference_source_HCA_examOther;
+    }
+
+    /**
+     * @param interference_source_HCA_examOther the interference_source_HCA_examOther to set
+     */
+    public void setInterference_source_HCA_examOther(String interference_source_HCA_examOther) {
+        this.interference_source_HCA_examOther = interference_source_HCA_examOther;
+    }
+
+    /**
+     * @return the shielding_HCA_examOther
+     */
+    public String getShielding_HCA_examOther() {
+        return shielding_HCA_examOther;
+    }
+
+    /**
+     * @param shielding_HCA_examOther the shielding_HCA_examOther to set
+     */
+    public void setShielding_HCA_examOther(String shielding_HCA_examOther) {
+        this.shielding_HCA_examOther = shielding_HCA_examOther;
+    }
+
+    /**
+     * @return the MIC_HCA_examOther
+     */
+    public String getMIC_HCA_examOther() {
+        return MIC_HCA_examOther;
+    }
+
+    /**
+     * @param MIC_HCA_examOther the MIC_HCA_examOther to set
+     */
+    public void setMIC_HCA_examOther(String MIC_HCA_examOther) {
+        this.MIC_HCA_examOther = MIC_HCA_examOther;
+    }
+
+    /**
+     * @return the other_root_cause_HCA_examOther
+     */
+    public String getOther_root_cause_HCA_examOther() {
+        return other_root_cause_HCA_examOther;
+    }
+
+    /**
+     * @param other_root_cause_HCA_examOther the other_root_cause_HCA_examOther to set
+     */
+    public void setOther_root_cause_HCA_examOther(String other_root_cause_HCA_examOther) {
+        this.other_root_cause_HCA_examOther = other_root_cause_HCA_examOther;
+    }
 }
