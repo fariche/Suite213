@@ -43,11 +43,11 @@ public interface IXmlMapperMain {
 
     
     //=========================================================================
-    
-    public void deleteDataById(Integer idNum);
-    public List<MainPOJO> getAll();
-    public MainPOJO getById(Integer idNum);
-    public void updateData(MainPOJO ExtractPOJO);
-    public void deleteData(MainPOJO ExtractPOJO);
+//    
+//    public void deleteDataById(Integer idNum);
+//    public List<MainPOJO> getAll();
+//    public MainPOJO getById(Integer idNum);
+//    public void updateData(MainPOJO ExtractPOJO);
+//    public void deleteData(MainPOJO ExtractPOJO);
     
 }

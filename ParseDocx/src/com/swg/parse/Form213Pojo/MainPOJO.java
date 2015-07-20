@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This class is the mainPOJO class. 
+ * It exactly matches all the elements and fields of the database.
  */
 package com.swg.parse.Form213Pojo;
 
@@ -95,7 +94,6 @@ public class MainPOJO {
     public String cause_of_corrosion;
     public Date date_of_incubation;
     //---------------------------------- ~Section 3,4 and 5 without tables
-    
     public String suspec_severity_coating_anom ;
     public String found_severity_coating_anomaly ;
     public String DE_defect_severity;
@@ -121,9 +119,7 @@ public class MainPOJO {
     public String remediation_comments;
     public String if_no_moc_explain_why;    //done
     public String explanation_for_other;
-    
     //---------------------------------- ~end of doc
-    
     public String ultrasonicthickness_comments;
     public Float min_ICDA_scrub_1;
     public Float max_ICDA_scrub_1;
@@ -131,9 +127,7 @@ public class MainPOJO {
     public Float min_ICDA_scrub_2;
     public Float max_ICDA_scrub_2;
     public Float wt_percentage_scrub2;
-    
     //---------------------------------- ~some of section 5
-    
     public String location_of_samples;
     public String collected_by;
     public Date date_collected;
@@ -141,39 +135,27 @@ public class MainPOJO {
     public Date seven_day_date_of_reading;
     public String fourteen_day_interpreted_by;
     public Date fourteen_day_date_of_reading;
-    
     //---------------------------------- ~some of section 6
-
     public String title;
-    
     //--------------------------------- ~beginning of bacterial table handling
-    
     public String cap_color;
     public Integer bottle_num;
     public String results_w1;
     public String results_w2;
     public String comments;
-    
     //---------------------------------- ~end of bacterial table handling
-    
     public Integer UltraRowNum;
     public String UltraRowPkey;
-    
     //---------------------------------- ~beginning of ultrasonic table handling
-    
     public String Dist_from_zero_point;
     public Float clock_12;
     public Float clock_3;
     public Float clock_6;
     public Float clock_9;
     public Float wt_percentage;
-    
     //---------------------------------- ~end of ultrasonic table handling
-    
     public String defect_title;
-    
     //---------------------------------- ~beginning of defect table handling
-    
     public Integer defect_number;
     public String defect_type;
     public Float distance_from_zero;
@@ -184,9 +166,7 @@ public class MainPOJO {
     public String repair_category;
     public String corrosion_interactivity;
     public Float remaining_wall_thickness_in;
-    
     //---------------------------------- ~end of defect table handling
-    
     public String Inadequate_CP_current_HCA_exam;
     public String No_CP_time_HCA_exam;
     public String No_CP_metal_couplings_HCA_exam;
@@ -194,7 +174,6 @@ public class MainPOJO {
     public String shielding_HCA_exam;
     public String MIC_HCA_exam;
     public String other_root_cause_HCA_exam;
-    
     public String Inadequate_CP_current_HCA_examOther;
     public String No_CP_time_HCA_examOther;
     public String No_CP_metal_couplings_HCA_examOther;
@@ -202,10 +181,199 @@ public class MainPOJO {
     public String shielding_HCA_examOther;
     public String MIC_HCA_examOther;
     public String other_root_cause_HCA_examOther;
-    
-    //---------------------------------- !special table on Version0
-    
+    //---------------------------------- ~special table on Version0
+    public Float normal_size_range_from;
+    public Float normal_size_range_to;
+    public Float InDiam_range_from;
+    public Float InDiam_range_to;
+    public Float wthick_range_from;
+    public Float wthick_range_to;
+    public Integer yield_range_from;
+    public Integer yield_range_to;
+    public Integer installation_month_range_from;
+    public Integer installation_month_range_to;
+    public Integer installation_year_range_from;
+    public Integer installation_year_range_to;
+    public Integer holiday_detection_volt_range_from;
+    public Integer holiday_detection_volt_range_to;
+    //------------------------------------- ~ranges
 
+    public void MainPOJOInit(){
+        this.DE_Location_ID = null;
+        this.HCA_Name = null;
+        this.Examination_number = null;
+        this.work_request_no = null;
+        this.division = null;
+        this.district_number = null;
+        this.town_or_county = null;
+        this.state = null;
+        this.Tile_Number = null;
+        this.Address = null;
+        this.Inspection_company = null;
+        this.GPS_synchronized_date = null;
+        this.field_location_start_x = null;
+        this.field_location_start_y = null;
+        this.field_location_end_x = null;
+        this.field_location_end_y = null;
+        this.gps_file_name = null;
+        this.region = null;
+        this.planned_exam_len_ft = null;
+        this.actual_exam_len_ft = null;
+        this.foreign_pipe_in_excava = null;
+        this.size = null;    
+        this.material = null;
+        this.foreign_current = null;
+        this.cp_present = null;
+        this.bond_present = null;
+        this.current_flow_to = null;
+        this.current_flow_from = null;
+        this.anode_present = null;
+        this.percent_consumed = null;
+        this.temperature = null;
+        this.time_24 = null;
+        this.weather_conditions = null;
+        this.soil_conditions = null;
+        this.bedding_shading_type = null;
+        this.rockshield_used = null;
+        this.soil_type = null;
+        this.depth_of_cover = null;
+        this.nominal_size = null;
+        this.in_diam = null;
+        this.wthick = null;
+        this.grade = null;
+        this.yield = null;
+        this.coating = null;
+        this.wk_req_no = null;
+        this.installation_month = null;
+        this.installation_year = null;
+        this.ops_sys_name = null;
+        this.weld_seam = null;
+        this.coating_types= null;
+        this.coating_condition = null;
+        this.holiday_detec_colt_setting = null;
+        this.per_dam_ncorros_disbond = null;
+        this.o_clock_ncorros_disbond = null;
+        this.percent_damage_blistering = null;
+        this.o_clock_damage_blistering = null;
+        this.ground_cover_type = null;
+        this.blister_fluid_ph = null;
+        this.procedure_adequate_flag = null;
+        this.inspected_by = null;
+        this.inspection_date = null;
+        this.reviewed_by = null;
+        this.reviewed_date = null;
+        this.soilph_at_pipe_depth = null;
+        this.soil_resistivity_at_pipe_depth = null;
+        this.soil_chem_performed_flag = null;
+        this.method_used = null;
+        this.chlorides_ppm = null;
+        this.nitrates_ppm = null;
+        this.sulfates_ppm = null;
+        this.pipe_to_soil_frm_exc_6_oclock = null;
+        this.pipe_to_soil_frm_exc_3_oclock = null;
+        this.pipe_to_soil_frm_exc_9_oclock = null;
+        this.pipe_to_soil_frm_exc_12_oclock = null;
+        this.bacterial_samples_taken = null;
+        this.asphalt_tar_samples_taken = null;
+        this.defects_found = null;
+        this.defects_comments = null;
+        this.cause_of_corrosion = null;
+        this.date_of_incubation = null;
+        this.suspec_severity_coating_anom = null;
+        this.found_severity_coating_anomaly = null;
+        this.DE_defect_severity = null;
+        this.severity_coatinganomaly2xpctd = null;
+        this.initial_assessment_covered_seg = null;
+        this.need_to_adjust_sct_flag = null;
+        this.corrosion_found = null;
+        this.b_or_c_priority_flag = null;
+        this.more_severe_than_A_priority = null;
+        this.sct_assessed_for_adjustment = null;
+        this.changes_made_to_sct_flag = null;
+        this.add_indirect_surveys_needed = null;
+        this.significant_corrosion_flag = null;
+        this.review_conducted_flag = null;
+        this.alt_methods_requirement_flag = null;
+        this.corros_other_location_sameHCA = null;
+        this.similar_rootcause_same_HCA = null;
+        this.crt_date_calc_completed = null;
+        this.inspector_comments = null;
+        this.remed_action_requirement_flag = null;
+        this.reference_request_number = null;
+        this.repair_quickness = null;
+        this.remediation_comments = null;
+        this.if_no_moc_explain_why = null;
+        this.explanation_for_other = null;
+        this.ultrasonicthickness_comments = null;
+        this.min_ICDA_scrub_1 = null;
+        this.max_ICDA_scrub_1 = null;
+        this.wt_percentage_scrub1 = null;
+        this.min_ICDA_scrub_2 = null;
+        this.max_ICDA_scrub_2 = null;
+        this.wt_percentage_scrub2 = null;
+        this.location_of_samples = null;
+        this.collected_by = null;
+        this.date_collected = null;
+        this.seven_day_interpreted_by = null;
+        this.seven_day_date_of_reading = null;
+        this.fourteen_day_interpreted_by = null;
+        this.fourteen_day_date_of_reading = null;
+        this.title = null;
+        this.cap_color = null;
+        this.bottle_num = null;
+        this.results_w1 = null;
+        this.results_w2 = null;
+        this.comments = null;
+        this.UltraRowNum = null;
+        this.UltraRowPkey = null;
+        this.Dist_from_zero_point = null;
+        this.clock_12 = null;
+        this.clock_3 = null;
+        this.clock_6 = null;
+        this.clock_9 = null;
+        this.wt_percentage = null;
+        this.defect_title = null;
+        this.defect_number = null;
+        this.defect_type = null;
+        this.distance_from_zero = null;
+        this.o_clock_position = null;
+        this.axial_length = null;
+        this.circumferential_length = null;
+        this.max_depth = null;
+        this.repair_category = null;
+        this.corrosion_interactivity = null;
+        this.remaining_wall_thickness_in = null;
+        this.Inadequate_CP_current_HCA_exam = null;
+        this.No_CP_time_HCA_exam = null;
+        this.No_CP_metal_couplings_HCA_exam = null;
+        this.interference_source_HCA_exam = null;
+        this.shielding_HCA_exam = null;
+        this.MIC_HCA_exam = null;
+        this.other_root_cause_HCA_exam = null;
+        this.Inadequate_CP_current_HCA_examOther = null;
+        this.No_CP_time_HCA_examOther = null;
+        this.No_CP_metal_couplings_HCA_examOther = null;
+        this.interference_source_HCA_examOther = null;
+        this.shielding_HCA_examOther = null;
+        this.MIC_HCA_examOther = null;
+        this.other_root_cause_HCA_examOther = null;
+        this.normal_size_range_from = null;
+        this.normal_size_range_to = null;
+        this.InDiam_range_from = null;
+        this.InDiam_range_to = null;
+        this.wthick_range_from = null;
+        this.wthick_range_to = null;
+        this.yield_range_from = null;
+        this.yield_range_to = null;
+        this.installation_month_range_from = null;
+        this.installation_month_range_to = null;
+        this.installation_year_range_from = null;
+        this.installation_year_range_to = null;
+        this.holiday_detection_volt_range_from = null;
+        this.holiday_detection_volt_range_to = null;
+    }
+    
+    
     /**
      * @return the DE_Location_ID
      */
@@ -2418,5 +2586,201 @@ public class MainPOJO {
      */
     public void setOther_root_cause_HCA_examOther(String other_root_cause_HCA_examOther) {
         this.other_root_cause_HCA_examOther = other_root_cause_HCA_examOther;
+    }
+
+    /**
+     * @return the normal_size_range_from
+     */
+    public Float getNormal_size_range_from() {
+        return normal_size_range_from;
+    }
+
+    /**
+     * @param normal_size_range_from the normal_size_range_from to set
+     */
+    public void setNormal_size_range_from(Float normal_size_range_from) {
+        this.normal_size_range_from = normal_size_range_from;
+    }
+
+    /**
+     * @return the normal_size_range_to
+     */
+    public Float getNormal_size_range_to() {
+        return normal_size_range_to;
+    }
+
+    /**
+     * @param normal_size_range_to the normal_size_range_to to set
+     */
+    public void setNormal_size_range_to(Float normal_size_range_to) {
+        this.normal_size_range_to = normal_size_range_to;
+    }
+
+    /**
+     * @return the InDiam_range_from
+     */
+    public Float getInDiam_range_from() {
+        return InDiam_range_from;
+    }
+
+    /**
+     * @param InDiam_range_from the InDiam_range_from to set
+     */
+    public void setInDiam_range_from(Float InDiam_range_from) {
+        this.InDiam_range_from = InDiam_range_from;
+    }
+
+    /**
+     * @return the InDiam_range_to
+     */
+    public Float getInDiam_range_to() {
+        return InDiam_range_to;
+    }
+
+    /**
+     * @param InDiam_range_to the InDiam_range_to to set
+     */
+    public void setInDiam_range_to(Float InDiam_range_to) {
+        this.InDiam_range_to = InDiam_range_to;
+    }
+
+    /**
+     * @return the wthick_range_from
+     */
+    public Float getWthick_range_from() {
+        return wthick_range_from;
+    }
+
+    /**
+     * @param wthick_range_from the wthick_range_from to set
+     */
+    public void setWthick_range_from(Float wthick_range_from) {
+        this.wthick_range_from = wthick_range_from;
+    }
+
+    /**
+     * @return the wthick_range_to
+     */
+    public Float getWthick_range_to() {
+        return wthick_range_to;
+    }
+
+    /**
+     * @param wthick_range_to the wthick_range_to to set
+     */
+    public void setWthick_range_to(Float wthick_range_to) {
+        this.wthick_range_to = wthick_range_to;
+    }
+
+    /**
+     * @return the yield_range_from
+     */
+    public Integer getYield_range_from() {
+        return yield_range_from;
+    }
+
+    /**
+     * @param yield_range_from the yield_range_from to set
+     */
+    public void setYield_range_from(Integer yield_range_from) {
+        this.yield_range_from = yield_range_from;
+    }
+
+    /**
+     * @return the yield_range_to
+     */
+    public Integer getYield_range_to() {
+        return yield_range_to;
+    }
+
+    /**
+     * @param yield_range_to the yield_range_to to set
+     */
+    public void setYield_range_to(Integer yield_range_to) {
+        this.yield_range_to = yield_range_to;
+    }
+
+    /**
+     * @return the installation_month_range_from
+     */
+    public Integer getInstallation_month_range_from() {
+        return installation_month_range_from;
+    }
+
+    /**
+     * @param installation_month_range_from the installation_month_range_from to set
+     */
+    public void setInstallation_month_range_from(Integer installation_month_range_from) {
+        this.installation_month_range_from = installation_month_range_from;
+    }
+
+    /**
+     * @return the installation_month_range_to
+     */
+    public Integer getInstallation_month_range_to() {
+        return installation_month_range_to;
+    }
+
+    /**
+     * @param installation_month_range_to the installation_month_range_to to set
+     */
+    public void setInstallation_month_range_to(Integer installation_month_range_to) {
+        this.installation_month_range_to = installation_month_range_to;
+    }
+
+    /**
+     * @return the installation_year_range_from
+     */
+    public Integer getInstallation_year_range_from() {
+        return installation_year_range_from;
+    }
+
+    /**
+     * @param installation_year_range_from the installation_year_range_from to set
+     */
+    public void setInstallation_year_range_from(Integer installation_year_range_from) {
+        this.installation_year_range_from = installation_year_range_from;
+    }
+
+    /**
+     * @return the installation_year_range_to
+     */
+    public Integer getInstallation_year_range_to() {
+        return installation_year_range_to;
+    }
+
+    /**
+     * @param installation_year_range_to the installation_year_range_to to set
+     */
+    public void setInstallation_year_range_to(Integer installation_year_range_to) {
+        this.installation_year_range_to = installation_year_range_to;
+    }
+
+    /**
+     * @return the holiday_detection_volt_range_from
+     */
+    public Integer getHoliday_detection_volt_range_from() {
+        return holiday_detection_volt_range_from;
+    }
+
+    /**
+     * @param holiday_detection_volt_range_from the holiday_detection_volt_range_from to set
+     */
+    public void setHoliday_detection_volt_range_from(Integer holiday_detection_volt_range_from) {
+        this.holiday_detection_volt_range_from = holiday_detection_volt_range_from;
+    }
+
+    /**
+     * @return the holiday_detection_volt_range_to
+     */
+    public Integer getHoliday_detection_volt_range_to() {
+        return holiday_detection_volt_range_to;
+    }
+
+    /**
+     * @param holiday_detection_volt_range_to the holiday_detection_volt_range_to to set
+     */
+    public void setHoliday_detection_volt_range_to(Integer holiday_detection_volt_range_to) {
+        this.holiday_detection_volt_range_to = holiday_detection_volt_range_to;
     }
 }

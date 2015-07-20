@@ -67,7 +67,22 @@
         inspected_by,
         inspection_date,
         reviewed_by,
-        reviewed_date
+        reviewed_date,
+        normal_size_range_from,
+        normal_size_range_to,
+        inDiam_range_from, 
+        inDiam_range_to, 
+        wthick_range_from,
+        wthick_range_to, 
+        yield_range_from, 
+        yield_range_to, 
+        installation_month_range_from, 
+        installation_month_range_to, 
+        installation_year_range_from, 
+        installation_year_range_to, 
+        holiday_detection_volt_range_from, 
+        holiday_detection_volt_range_to
+        
         )
 	VALUES
             (#{DE_Location_ID}, 
@@ -132,7 +147,22 @@
         #{inspected_by},
         #{inspection_date},
         #{reviewed_by},
-        #{reviewed_date}
+        #{reviewed_date},
+        #{normal_size_range_from},
+        #{normal_size_range_to},
+        #{InDiam_range_from},
+        #{InDiam_range_to},
+        #{wthick_range_from},
+        #{wthick_range_to},
+        #{yield_range_from},
+        #{yield_range_to},
+        #{installation_month_range_from},
+        #{installation_month_range_to},
+        #{installation_year_range_from},
+        #{installation_year_range_to},
+        #{holiday_detection_volt_range_from},
+        #{holiday_detection_volt_range_to}
+        
         ) ON DUPLICATE KEY UPDATE reviewed_by=#{reviewed_by}
 <!--        The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
     </insert>
@@ -488,7 +518,7 @@
     
 <!--    ===========================================================-->
     
-    <delete id="deleteDataById" parameterType="int" >
+<!--    <delete id="deleteDataById" parameterType="int" >
         DELETE FROM EXTRACTTEST WHERE ID = #{idNum}
     </delete>
     
@@ -512,7 +542,7 @@
         version = #{version},
         section = #{section}
         WHERE id = #{id}
-    </update>
+    </update>-->
 
     
 </mapper>

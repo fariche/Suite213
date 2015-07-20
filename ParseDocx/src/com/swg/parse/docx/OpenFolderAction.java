@@ -189,14 +189,14 @@ public final class OpenFolderAction implements ActionListener {
                     System.out.println("V0");
                     return 0;
                 }
-                else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase())){
+        else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase())){
                     System.out.println("V1");
                     return 1;
                 }
                 else{
-                    System.out.println("V2");
-                    return 2;
-                }
+            System.out.println("V2");
+            return 2;
+        }
     }
     
 }
