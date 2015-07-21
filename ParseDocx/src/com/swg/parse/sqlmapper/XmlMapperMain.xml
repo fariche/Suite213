@@ -81,7 +81,9 @@
         installation_year_range_from, 
         installation_year_range_to, 
         holiday_detection_volt_range_from, 
-        holiday_detection_volt_range_to
+        holiday_detection_volt_range_to,
+        size_range_to,
+        size_range_from
         
         )
 	VALUES
@@ -161,7 +163,9 @@
         #{installation_year_range_from},
         #{installation_year_range_to},
         #{holiday_detection_volt_range_from},
-        #{holiday_detection_volt_range_to}
+        #{holiday_detection_volt_range_to},
+        #{size_range_to},
+        #{size_range_from}
         
         ) ON DUPLICATE KEY UPDATE reviewed_by=#{reviewed_by}
 <!--        The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->

@@ -71,7 +71,7 @@ public class NewExtract {
         CopyOfPOIContent = POIContent.toLowerCase();
         
         File file= new File(filePath);
-        extractImages(file.toString(), FileCnt);
+        //extractImages(file.toString(), FileCnt);
 
         if(version == 0){
             //always put at least end of the label and start of end string 
@@ -576,7 +576,11 @@ public class NewExtract {
                 CopyOfContent = CopyOfContent.substring(begin);
                 
                 if(CopyOfPOIContent.contains(str)){
-                    beginPOI = CopyOfPOIContent.indexOf(str) + str.length();
+                    if(CopyOfPOIContent.indexOf(str) > 1000){
+                        beginPOI = str.length();
+                    }else{
+                        beginPOI = CopyOfPOIContent.indexOf(str) + str.length();
+                    }
                     CopyOfPOIContent = CopyOfPOIContent.substring(beginPOI);
                 }
             }
@@ -731,8 +735,11 @@ public class NewExtract {
         String temp = "";
         int j =0;
         for(int i = 0; i< POIValue.length()-1; i++){
+            if(i > POIValue.length() - 4){break; }
             if(POIValue.charAt(i) == '\n' && isLetter(POIValue.charAt(i+1)) ){
+                if(i > POIValue.length() - 4){break; }
                 while(POIValue.charAt(i+1) != '\t' && POIValue.charAt(i+1) != ' ' && POIValue.charAt(i+2) != ' '){
+                    if(i > POIValue.length() - 4){break; }
                     temp = temp + POIValue.charAt(i+1);
                     i++;
                     j = 0;

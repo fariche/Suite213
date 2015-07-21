@@ -74,6 +74,14 @@ public class DynamicPopulatePOJO {
                             temp = null;
                         }
                         else{
+                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
+                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
+                            }else{
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9]+", ""));
+                            }
+                            ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9]+", ""));
                             temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
                         }                        
                         qDistance.add(temp);
@@ -87,6 +95,13 @@ public class DynamicPopulatePOJO {
                             temp = null;
                         }
                         else{
+                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
+                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
+                            }else{
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
+                            }
                             temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
                         }                        
                         qOClock.add(temp);
@@ -100,6 +115,13 @@ public class DynamicPopulatePOJO {
                             temp = null;
                         }
                         else{
+                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
+                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
+                            }else{
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
+                            }
                             temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
                         }                        
                         qAxeLength.add(temp);                        
@@ -113,6 +135,13 @@ public class DynamicPopulatePOJO {
                             temp = null;
                         }
                         else{
+                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
+                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
+                            }else{
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
+                            }
                             temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
                         }                        
                         qCircLengh.add(temp);                        
@@ -126,6 +155,13 @@ public class DynamicPopulatePOJO {
                             temp = null;
                         }
                         else{
+                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
+                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
+                            }else{
+                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
+                            }
                             temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
                         }                        
                         qMax.add(temp);                        
@@ -382,9 +418,13 @@ public class DynamicPopulatePOJO {
                         }
                         if(ListOfPOJO_Rows.get(i).getLabel().contains("bottle #(")){
                             j++;
+                            ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replace(" ", ""));
+                            if(ListOfPOJO_Rows.get(i).getValue().equals("")){
+                                pojo.setBottle_num(null);
+                            }else{
                             Integer temp = Integer.parseInt(ListOfPOJO_Rows.get(i).getValue());
                             pojo.setBottle_num(temp);
-                        }
+                        }}
                         if(ListOfPOJO_Rows.get(i).getLabel().contains("results week 1(")){
                             j++;
                             pojo.setResults_w1(ListOfPOJO_Rows.get(i).getValue());

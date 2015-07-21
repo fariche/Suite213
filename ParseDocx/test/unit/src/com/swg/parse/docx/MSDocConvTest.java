@@ -28,11 +28,11 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 public class MSDocConvTest {
     
     //enter path of the folder here
-    private static final String path = "H:/CurrentWork/temp3/";
+    private static final String path = "H:/CurrentWork/dig froms/new7/";
     //enter the name of the .txt file here
-    private static final String pathToFile = path + "C System E03 5.8.07.txt";
+    private static final String pathToFile = path + "CAD_2008 E 18.txt";
     //enter the name of the .docx file here
-    private static final String pathToFileDocx = path + "C System E03 5.8.07.docx";
+    private static final String pathToFileDocx = path + "CAD_2008 E 18.docx";
     private static final File ConvertedDocx = new File(pathToFile);
     
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
@@ -50,7 +50,7 @@ public class MSDocConvTest {
         String POIContent = getPOI();
         
         NewExtract ext = new NewExtract();
-        ext.extract(content, POIContent, pathToFileDocx, 2, 1);
+        ext.extract(content, POIContent, pathToFileDocx, 1, 1);
         
         
     }
@@ -99,7 +99,7 @@ public class MSDocConvTest {
      */
     private String getPOI() throws FileNotFoundException, IOException {
         
-        FileInputStream inputTest = new FileInputStream(path + "C System E03 5.8.07.docx");
+        FileInputStream inputTest = new FileInputStream(path + "CAD_2008 E 18.docx");
         XWPFDocument docxTest = new XWPFDocument(inputTest);
         XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
         String contentIn = ContentTest.getText();

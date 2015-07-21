@@ -10,6 +10,8 @@
  */
 package com.swg.parse.docx;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -23,6 +25,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -69,55 +73,80 @@ public final class OpenFolderAction implements ActionListener {
         if (selectedFile != null) {
             fc.setSelectedFile(selectedFile);
         }
+
         int returnVal = fc.showDialog(WindowManager.getDefault().getMainWindow(), "Extract Data");
-                        
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        
-            File file = fc.getSelectedFile();
-            selectedFile = file;
+        
+            JFrame jf = new JFrame("Progress Bar");
+            Container Jcontent = jf.getContentPane();
+            JProgressBar progressBar = new JProgressBar();
+            progressBar.setValue(0);
+            progressBar.setStringPainted(true);
+            Jcontent.add(progressBar, BorderLayout.NORTH);
+            jf.setSize(300, 60);
+            jf.setVisible(true);
             
-            FileFilter fileFilter = new WildcardFileFilter("*.docx");
-            File[] files = selectedFile.listFiles(fileFilter);
-            int cnt = 0;     //number of how many .docx is in the folder
-            for(File f:files){
-                cnt ++;
-                pathToTxtFile = f.getAbsolutePath().replace(".docx", ".txt");
-                TxtFile = new File(pathToTxtFile);
-                
-                //if the txt file doesn't exist, it tries to convert whatever 
-                //can be the txt into the actual txt.
-                if(!TxtFile.exists()){
-                    pathToTxtFile = f.getAbsolutePath().replace(".docx", "");
-                    TxtFile = new File(pathToTxtFile);
-                    pathToTxtFile += ".txt";
-                    TxtFile.renameTo(new File(pathToTxtFile));
-                    TxtFile = new File(pathToTxtFile);
-                }
+            //we needed a new thread for a functional progress bar on the JFrame
+            new Thread(new Runnable() {
+                public void run(){
+                    
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                       
+                        File file = fc.getSelectedFile();
+                        selectedFile = file;
 
-                String content = "";
-                String POIContent = "";
+                        FileFilter fileFilter = new WildcardFileFilter("*.docx");
+                        File[] files = selectedFile.listFiles(fileFilter);
+                        double cnt = 0, cnt2 = 0;     //number of how many .docx is in the folder
+                        for(File f:files){
+                            cnt2 ++;
+                        }
 
-                try {
-                    content = readTxtFile();
-                    POIContent = getPOI(f);
-                    version = DetermineVersion(content);
-                    NewExtract ext = new NewExtract();
-                    ext.extract(content, POIContent, f.getAbsolutePath(), version, cnt);
+                        for(File f:files){
+                            cnt ++;
+                            pathToTxtFile = f.getAbsolutePath().replace(".docx", ".txt");
+                            TxtFile = new File(pathToTxtFile);
 
+                            //if the txt file doesn't exist, it tries to convert whatever 
+                            //can be the txt into the actual txt.
+                            if(!TxtFile.exists()){
+                                pathToTxtFile = f.getAbsolutePath().replace(".docx", "");
+                                TxtFile = new File(pathToTxtFile);
+                                pathToTxtFile += ".txt";
+                                TxtFile.renameTo(new File(pathToTxtFile));
+                                TxtFile = new File(pathToTxtFile);
+                            }
+
+                            String content = "";
+                            String POIContent = "";
+
+                            try {
+                                content = readTxtFile();
+                                POIContent = getPOI(f);
+                                version = DetermineVersion(content);
+                                NewExtract ext = new NewExtract();
+                                ext.extract(content, POIContent, f.getAbsolutePath(), version, (int)cnt);
+
+                            }
+                            catch (FileNotFoundException ex) {
+                                Exceptions.printStackTrace(ex);
+                            } catch (IOException ex) {
+                                Exceptions.printStackTrace(ex);
+                            } catch (ParseException ex) {
+                                Exceptions.printStackTrace(ex);
+                            }
+                            
+                            double tempProg = (cnt/cnt2) * 100;
+                            progressBar.setValue((int)tempProg);
+                            jf.setVisible(true);
+                    }
+
+                    } else {
+                        //do nothing
+                    }  
                 }
-                catch (FileNotFoundException ex) {
-                    Exceptions.printStackTrace(ex);
-                } catch (IOException ex) {
-                    Exceptions.printStackTrace(ex);
-                } catch (ParseException ex) {
-                    Exceptions.printStackTrace(ex);
-                }
-                
-            }
-                        
-        } else {
-            //do nothing
-        }        
+              }).start();
+        
+      
         
     }
     

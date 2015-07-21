@@ -14,7 +14,7 @@ public class MainPOJO {
     public String DE_Location_ID;
     public String HCA_Name;
     public String Examination_number;
-    public Integer work_request_no;
+    public String work_request_no;
     public String division;
     public Integer district_number;
     public String town_or_county;
@@ -196,9 +196,13 @@ public class MainPOJO {
     public Integer installation_year_range_to;
     public Integer holiday_detection_volt_range_from;
     public Integer holiday_detection_volt_range_to;
+    public Integer size_range_to;
+    public Integer size_range_from;
     //------------------------------------- ~ranges
 
     public void MainPOJOInit(){
+        this.size_range_from = null;
+        this.size_range_to = null;
         this.DE_Location_ID = null;
         this.HCA_Name = null;
         this.Examination_number = null;
@@ -419,14 +423,14 @@ public class MainPOJO {
     /**
      * @return the work_request_no
      */
-    public Integer getWork_request_no() {
+    public String getWork_request_no() {
         return work_request_no;
     }
 
     /**
      * @param work_request_no the work_request_no to set
      */
-    public void setWork_request_no(Integer work_request_no) {
+    public void setWork_request_no(String work_request_no) {
         this.work_request_no = work_request_no;
     }
 
@@ -2782,5 +2786,33 @@ public class MainPOJO {
      */
     public void setHoliday_detection_volt_range_to(Integer holiday_detection_volt_range_to) {
         this.holiday_detection_volt_range_to = holiday_detection_volt_range_to;
+    }
+
+    /**
+     * @return the Size_range_to
+     */
+    public Integer getSize_range_to() {
+        return size_range_to;
+    }
+
+    /**
+     * @param Size_range_to the Size_range_to to set
+     */
+    public void setSize_range_to(Integer Size_range_to) {
+        this.size_range_to = Size_range_to;
+    }
+
+    /**
+     * @return the Size_range_from
+     */
+    public Integer getSize_range_from() {
+        return size_range_from;
+    }
+
+    /**
+     * @param Size_range_from the Size_range_from to set
+     */
+    public void setSize_range_from(Integer Size_range_from) {
+        this.size_range_from = Size_range_from;
     }
 }
