@@ -47,10 +47,10 @@ public class MSDocConvTest2 {
     void run() throws FileNotFoundException, IOException, ParseException {
                 
         String content = readTxtFile();
-        String POIContent = getPOI();
+        //String POIContent = getPOI();
         
         NewExtract ext = new NewExtract();
-        ext.extract(content, POIContent, pathToFileDocx, 0, 1);
+        ext.extract(content, pathToFileDocx, 0, 1);
         
         
     }

@@ -21,12 +21,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -98,13 +100,24 @@ public final class OpenFolderAction implements ActionListener {
                         File[] files = selectedFile.listFiles(fileFilter);
                         double cnt = 0, cnt2 = 0;     //number of how many .docx is in the folder
                         for(File f:files){
-                            cnt2 ++;
+                            if(!f.getAbsolutePath().contains("~") )
+                                cnt2 ++;
                         }
 
                         for(File f:files){
                             cnt ++;
                             pathToTxtFile = f.getAbsolutePath().replace(".docx", ".txt");
                             TxtFile = new File(pathToTxtFile);
+                            
+//                            try {
+//                                //may have to change the directory path
+//                                    File zip = new File("H:\\CurrentWork\\test.zip");
+//                                    FileUtils.copyFile(f, zip);
+//                                    UnZipIt.unZip(zip.getAbsolutePath(), "H:\\CurrentWork\\tempZipFileNeedLongName");
+//                                    zip.delete();
+//                                } catch (IOException ex) {
+//                                    Exceptions.printStackTrace(ex);
+//                                }
 
                             //if the txt file doesn't exist, it tries to convert whatever 
                             //can be the txt into the actual txt.
@@ -114,17 +127,17 @@ public final class OpenFolderAction implements ActionListener {
                                 pathToTxtFile += ".txt";
                                 TxtFile.renameTo(new File(pathToTxtFile));
                                 TxtFile = new File(pathToTxtFile);
+                                
                             }
 
                             String content = "";
                             String POIContent = "";
-
+                            
                             try {
                                 content = readTxtFile();
-                                POIContent = getPOI(f);
                                 version = DetermineVersion(content);
                                 NewExtract ext = new NewExtract();
-                                ext.extract(content, POIContent, f.getAbsolutePath(), version, (int)cnt);
+                                ext.extract(content, f.getAbsolutePath(), version, (int)cnt);
 
                             }
                             catch (FileNotFoundException ex) {
@@ -135,9 +148,10 @@ public final class OpenFolderAction implements ActionListener {
                                 Exceptions.printStackTrace(ex);
                             }
                             
+                            
                             double tempProg = (cnt/cnt2) * 100;
                             progressBar.setValue((int)tempProg);
-                            jf.setVisible(true);
+                            System.gc();
                     }
 
                     } else {
@@ -145,8 +159,8 @@ public final class OpenFolderAction implements ActionListener {
                     }  
                 }
               }).start();
-        
-      
+            
+            System.gc();
         
     }
     
@@ -183,6 +197,8 @@ public final class OpenFolderAction implements ActionListener {
         for(String str : list){
             builder.append(str).append("\n");
         }
+        list.clear();
+        list = null;
         
         return builder.toString();
     
@@ -214,7 +230,17 @@ public final class OpenFolderAction implements ActionListener {
      */
     private int DetermineVersion(String content) {
         
-        if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
+        
+        if(!content.contains("Depth of Cover".toLowerCase()) && content.contains("DE Location ID".toLowerCase()) &&
+                content.contains("Severity of DE defect found on pipe:".toLowerCase())){
+            System.out.println("V4");
+            return 4;
+        }
+        if(!content.contains("DE Location ID".toLowerCase())){
+            System.out.println("V3");
+            return 3;
+        }
+        else if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
                     System.out.println("V0");
                     return 0;
                 }

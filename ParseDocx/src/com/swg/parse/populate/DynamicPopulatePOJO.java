@@ -31,13 +31,13 @@ public class DynamicPopulatePOJO {
         
         int k =0;
         int flag = 0;
-        ArrayList <Integer> qNum = new ArrayList<>();
+        ArrayList <String> qNum = new ArrayList<>();
         ArrayList <String> qType = new ArrayList<>();
-        ArrayList <Float> qDistance = new ArrayList<>();
-        ArrayList <Float> qOClock = new ArrayList<>();
-        ArrayList <Float> qAxeLength= new ArrayList<>();
-        ArrayList <Float> qCircLengh= new ArrayList<>();
-        ArrayList <Float> qMax = new ArrayList<>();
+        ArrayList <String> qDistance = new ArrayList<>();
+        ArrayList <String> qOClock = new ArrayList<>();
+        ArrayList <String> qAxeLength= new ArrayList<>();
+        ArrayList <String> qCircLengh= new ArrayList<>();
+        ArrayList <String> qMax = new ArrayList<>();
         ArrayList <String> qRepair = new ArrayList<>();
         ArrayList <String> qcorrosion = new ArrayList<>();
                 
@@ -48,17 +48,10 @@ public class DynamicPopulatePOJO {
                     String tempStr = null;
                     Integer TableRowNum = null;
                     
-                                        
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("type of defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate num
-                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
-                        if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
-                            TableRowNum = null;
-                        }
-                        else{
-                            TableRowNum = Integer.parseInt(ListOfPOJO_Rows.get(i).getValue());
-                        }                        
-                        qNum.add(TableRowNum);
+                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));            
+                        qNum.add(ListOfPOJO_Rows.get(i).getValue());
                         i++;
                     }
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("distance from zero point defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
@@ -68,101 +61,63 @@ public class DynamicPopulatePOJO {
                     }
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("o'clock position defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate distance zero
-                        Float temp = null;
+                        String temp = null;
                         ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
                         if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
                             temp = null;
                         }
                         else{
-                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
-                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
-                            }else{
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9]+", ""));
-                            }
-                            ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9]+", ""));
-                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                            temp = ListOfPOJO_Rows.get(i).getValue();
                         }                        
                         qDistance.add(temp);
                         i++;
                     }
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("length axe defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate position
-                        Float temp = null;
-                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        String temp = null;
                         if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
                             temp = null;
                         }
                         else{
-                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
-                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
-                            }else{
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                            }
-                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                            temp = ListOfPOJO_Rows.get(i).getValue();
                         }                        
                         qOClock.add(temp);
                         i++;
                     }
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("length circ defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate axial
-                        Float temp = null;
-                        ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
+                        String temp = null;
                         if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
                             temp = null;
                         }
                         else{
-                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
-                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
-                            }else{
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                            }
-                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                            temp = ListOfPOJO_Rows.get(i).getValue();
                         }                        
                         qAxeLength.add(temp);                        
                         i++;
                     }
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("maximum depth(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate circ
-                        Float temp = null;
+                        String temp = null;
                         ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
                         if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
                             temp = null;
                         }
                         else{
-                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
-                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
-                            }else{
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                            }
-                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                            temp = ListOfPOJO_Rows.get(i).getValue();
                         }                        
                         qCircLengh.add(temp);                        
                         i++;
                     }
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("repair category(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate max
-                        Float temp = null;
+                        String temp = null;
                         ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll(" ", ""));
                         if(ListOfPOJO_Rows.get(i).getValue().equals("") ){
                             temp = null;
                         }
                         else{
-                            if(ListOfPOJO_Rows.get(i).getValue().contains("/")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("/") ));
-                            }else if(ListOfPOJO_Rows.get(i).getValue().contains("-")){
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().substring(0, ListOfPOJO_Rows.get(i).getValue().indexOf("-") ));
-                            }else{
-                                ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                            }
-                            temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                            temp = ListOfPOJO_Rows.get(i).getValue();
                         }                        
                         qMax.add(temp);                        
                         i++;
@@ -186,7 +141,6 @@ public class DynamicPopulatePOJO {
                         String TablePkey = pojo.getExamination_number() + " " + TableRowNum;
                         pojo.setDefect_title(TablePkey);
                         PopulateOperation.insertData2DefectDetails(pojo);
-                                                
                         
                         pojo.setDefect_number(qNum.get(n));
                         pojo.setDefect_type(qType.get(n));
@@ -199,9 +153,6 @@ public class DynamicPopulatePOJO {
                         pojo.setCorrosion_interactivity(qcorrosion.get(n));
                         PopulateOperation.insertData2DefectDetails1(pojo);
                     }
-                     
-                    
-                    
 
             }
             else if( ListOfPOJO_Rows.get(i).getLabel().contains("  no.")){
@@ -210,9 +161,10 @@ public class DynamicPopulatePOJO {
                     MainPOJO pojo = new MainPOJO();
                     pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
                     String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf(".") + 1);
-                    Integer TableRowNum = Integer.parseInt(tempStr);
+                    String TableRowNum = tempStr;
                     String TablePkey = pojo.getExamination_number() + " " + tempStr;
                     pojo.setDefect_title(TablePkey);
+                    
                     String tp = ListOfPOJO_Rows.get(i).getValue().replace(" ", "");
                     tp = tp.replace("n/a", "");
                     tp = tp.replace("na", "");
@@ -220,7 +172,6 @@ public class DynamicPopulatePOJO {
                         pojo.setDefect_number(null);
                     }
                     else{
-                        TableRowNum = Integer.parseInt(tp);
                         pojo.setDefect_number(TableRowNum);
                     }
                     PopulateOperation.insertData2DefectDetails(pojo);
@@ -231,69 +182,69 @@ public class DynamicPopulatePOJO {
                          if(ListOfPOJO_Rows.get(i).getLabel().contains("type of defect")){
                             pojo.setDefect_type(ListOfPOJO_Rows.get(i).getValue());
                         }
-                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("distance from zero reference")){
+                        else if(ListOfPOJO_Rows.get(i).getLabel().contains("distance from zero reference")){
                             String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
-                            Float temp = null; 
+                            String temp = null; 
                             if(str.equals("")){
                                 temp = null;
-                             }
-                             else{
-                                temp =  Float.parseFloat(str);
-                             }
+                            }
+                            else{
+                                temp =  str;
+                            }
                             pojo.setDistance_from_zero(temp);
-                         }
+                        }
                          else if(ListOfPOJO_Rows.get(i).getLabel().contains("o'clock position")){
                             String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
-                            Float temp = null; 
+                            String temp = null; 
                             if(str.equals("")){
                                 temp = null;
                              }
                              else{
-                                temp =  Float.parseFloat(str);
+                                temp = str;
                              }
                             pojo.setO_clock_position(temp);
                          }
                          else if(ListOfPOJO_Rows.get(i).getLabel().contains("longitudinal length")){
                             String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
-                            Float temp = null; 
+                            String temp = null; 
                             if(str.equals("")){
                                 temp = null;
                              }
                              else{
-                                temp =  Float.parseFloat(str);
+                                temp =  str;
                              }
                             pojo.setAxial_length(temp);
                          }
                          else if(ListOfPOJO_Rows.get(i).getLabel().contains("width")){
                             String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
-                            Float temp = null; 
+                            String temp = null; 
                             if(str.equals("")){
                                 temp = null;
                              }
                              else{
-                                temp =  Float.parseFloat(str);
+                                temp =  str;
                              }
                             pojo.setCircumferential_length(temp);
                          }
                          else if(ListOfPOJO_Rows.get(i).getLabel().contains("maximum depth")){
                             String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
-                            Float temp = null; 
+                            String temp = null; 
                             if(str.equals("")){
                                 temp = null;
                              }
                              else{
-                                temp =  Float.parseFloat(str);
+                                temp =  str;
                              }
                             pojo.setMax_depth(temp); 
                          }
                          else if(ListOfPOJO_Rows.get(i).getLabel().contains("remaining wall thickness")){
                             String str = ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", "");
-                            Float temp = null; 
+                            String temp = null; 
                             if(str.equals("")){
                                 temp = null;
                              }
                              else{
-                                temp =  Float.parseFloat(str);
+                                temp =  str;
                              }
                             pojo.setRemaining_wall_thickness_in(temp);   
                          }
@@ -313,7 +264,7 @@ public class DynamicPopulatePOJO {
                     MainPOJO pojo = new MainPOJO();
                     pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
                     String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("point") + "point".length());
-                    Integer TableRowNum = Integer.parseInt(tempStr);
+                    String TableRowNum = tempStr;
                     pojo.setUltraRowNum(TableRowNum);
                     String TablePkey = pojo.getExamination_number() + " " + tempStr;
                     pojo.setUltraRowPkey(TablePkey);
@@ -326,57 +277,57 @@ public class DynamicPopulatePOJO {
                            !ListOfPOJO_Rows.get(i).getLabel().contains("indicate units of measure:") && !ListOfPOJO_Rows.get(i).getLabel().contains("location of samples")  ){
                         
                         if(ListOfPOJO_Rows.get(i).getLabel().contains("12 o'clock")){
-                            Float temp;
+                            String temp;
                             ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                             if(ListOfPOJO_Rows.get(i).getValue().equals("")){
                                 temp = null;
                             }
                             else{
-                                temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                                temp = ListOfPOJO_Rows.get(i).getValue();
                             }
                             pojo.setClock_12(temp);
                         }
                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("9 o'clock")){
-                            Float temp;
+                            String temp;
                             ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                             if(ListOfPOJO_Rows.get(i).getValue().equals("")){
                                 temp = null;
                             }
                             else{
-                                temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                                temp = ListOfPOJO_Rows.get(i).getValue();
                             }
                             pojo.setClock_9(temp);
                         }
                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("6 o'clock")){
-                            Float temp;
+                            String temp;
                             ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                             if(ListOfPOJO_Rows.get(i).getValue().equals("")){
                                 temp = null;
                             }
                             else{
-                                temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                                temp = ListOfPOJO_Rows.get(i).getValue();
                             }
                             pojo.setClock_6(temp);
                         }
                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("3 o'clock")){
-                            Float temp;
+                            String temp;
                             ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                             if(ListOfPOJO_Rows.get(i).getValue().equals("")){
                                 temp = null;
                             }
                             else{
-                                temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                                temp = ListOfPOJO_Rows.get(i).getValue();
                             }
                             pojo.setClock_3(temp);
                         }
                         else if(ListOfPOJO_Rows.get(i).getLabel().contains("(h-l)/h = wt âˆ†% (10% max)")){
-                            Float temp;
+                            String temp;
                             ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replaceAll("[^0-9^.]+", ""));
                             if(ListOfPOJO_Rows.get(i).getValue().equals("")){
                                 temp = null;
                             }
                             else{
-                                temp = Float.parseFloat(ListOfPOJO_Rows.get(i).getValue());
+                                temp = ListOfPOJO_Rows.get(i).getValue();
                             }
                             pojo.setWt_percentage(temp);
                         }
@@ -418,11 +369,10 @@ public class DynamicPopulatePOJO {
                         }
                         if(ListOfPOJO_Rows.get(i).getLabel().contains("bottle #(")){
                             j++;
-                            ListOfPOJO_Rows.get(i).setValue(ListOfPOJO_Rows.get(i).getValue().replace(" ", ""));
                             if(ListOfPOJO_Rows.get(i).getValue().equals("")){
                                 pojo.setBottle_num(null);
                             }else{
-                            Integer temp = Integer.parseInt(ListOfPOJO_Rows.get(i).getValue());
+                            String temp = ListOfPOJO_Rows.get(i).getValue();
                             pojo.setBottle_num(temp);
                         }}
                         if(ListOfPOJO_Rows.get(i).getLabel().contains("results week 1(")){

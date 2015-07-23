@@ -28,11 +28,11 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 public class MSDocConvTest {
     
     //enter path of the folder here
-    private static final String path = "H:/CurrentWork/dig froms/new7/";
+    private static final String path = "H:/CurrentWork/dig froms/new25/";
     //enter the name of the .txt file here
-    private static final String pathToFile = path + "CAD_2008 E 18.txt";
+    private static final String pathToFile = path + "SCD_2009_E-04 2009.08.21.txt";
     //enter the name of the .docx file here
-    private static final String pathToFileDocx = path + "CAD_2008 E 18.docx";
+    private static final String pathToFileDocx = path + "SCD_2009_E-04 2009.08.21.docx";
     private static final File ConvertedDocx = new File(pathToFile);
     
     public static void main(String[] args) throws FileNotFoundException, IOException, ParseException {
@@ -47,10 +47,10 @@ public class MSDocConvTest {
     void run() throws FileNotFoundException, IOException, ParseException {
                 
         String content = readTxtFile();
-        String POIContent = getPOI();
+        //String POIContent = getPOI();
         
         NewExtract ext = new NewExtract();
-        ext.extract(content, POIContent, pathToFileDocx, 1, 1);
+        ext.extract(content, pathToFileDocx, 4, 1);
         
         
     }
@@ -99,7 +99,7 @@ public class MSDocConvTest {
      */
     private String getPOI() throws FileNotFoundException, IOException {
         
-        FileInputStream inputTest = new FileInputStream(path + "CAD_2008 E 18.docx");
+        FileInputStream inputTest = new FileInputStream(path + "SCD_2009_E-04 2009.08.21.docx");
         XWPFDocument docxTest = new XWPFDocument(inputTest);
         XWPFWordExtractor ContentTest = new XWPFWordExtractor(docxTest);
         String contentIn = ContentTest.getText();

@@ -88,10 +88,9 @@ public final class OpenWord implements ActionListener {
             
             try {
                 content = readTxtFile();
-                POIContent = getPOI();
                version = DetermineVersion(content);
                 NewExtract ext = new NewExtract();
-                ext.extract(content, POIContent, selectedFile.getAbsolutePath(), version, 1);
+                ext.extract(content, selectedFile.getAbsolutePath(), version, 1);
 
             }
             catch (FileNotFoundException ex) {
@@ -173,7 +172,15 @@ public final class OpenWord implements ActionListener {
      */
     private int DetermineVersion(String content) {
         
-        if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
+        if(!content.contains("DE Location ID".toLowerCase())){
+            System.out.println("V3");
+            return 3;
+        }
+        else if(!content.contains("Depth of Cover".toLowerCase())){
+            System.out.println("V4");
+            return 4;
+        }
+        else if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
                     System.out.println("V0");
                     return 0;
                 }

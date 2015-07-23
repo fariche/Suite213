@@ -16,24 +16,24 @@ public class MainPOJO {
     public String Examination_number;
     public String work_request_no;
     public String division;
-    public Integer district_number;
+    public String district_number;
     public String town_or_county;
     public String state;
     public String Tile_Number;
     public String Address;
     public String Inspection_company;
-    public Date GPS_synchronized_date;
-    public Double field_location_start_x;
-    public Double field_location_start_y;
-    public Double field_location_end_x;
-    public Double field_location_end_y;
+    public String GPS_synchronized_date;
+    public String field_location_start_x;
+    public String field_location_start_y;
+    public String field_location_end_x;
+    public String field_location_end_y;
     public String gps_file_name;
     public String region;
-    public Float planned_exam_len_ft;
-    public Float actual_exam_len_ft;
+    public String planned_exam_len_ft;
+    public String actual_exam_len_ft;
     //----------------------------------- ~ Section 2
     public String foreign_pipe_in_excava;
-    public Integer size;    
+    public String size;    
     public String material;
     public String foreign_current;
     public String cp_present;
@@ -41,58 +41,58 @@ public class MainPOJO {
     public String current_flow_to;
     public String current_flow_from;
     public String anode_present;
-    public Float percent_consumed;
-    public Float temperature;
-    public Integer time_24;
+    public String percent_consumed;
+    public String temperature;
+    public String time_24;
     public String weather_conditions;
     public String soil_conditions;
     public String bedding_shading_type;
     public String rockshield_used;
     public String soil_type;
-    public Integer depth_of_cover;
-    public Float nominal_size;
-    public Float in_diam;
-    public Float wthick;
+    public String depth_of_cover;
+    public String nominal_size;
+    public String in_diam;
+    public String wthick;
     public String grade;
-    public Integer yield;
+    public String yield;
     public String coating;
     public String wk_req_no;
-    public Integer installation_month;
-    public Integer installation_year;
+    public String installation_month;
+    public String installation_year;
     public String ops_sys_name;
     public String weld_seam;
     public String coating_types;
     public String coating_condition;
-    public Integer holiday_detec_colt_setting;
-    public Float per_dam_ncorros_disbond;
-    public Integer o_clock_ncorros_disbond;
-    public Float percent_damage_blistering;
-    public Integer o_clock_damage_blistering;
+    public String holiday_detec_colt_setting;
+    public String per_dam_ncorros_disbond;
+    public String o_clock_ncorros_disbond;
+    public String percent_damage_blistering;
+    public String o_clock_damage_blistering;
     public String ground_cover_type;
-    public Float blister_fluid_ph;
+    public String blister_fluid_ph;
     public String procedure_adequate_flag;
     public String inspected_by;
-    public Date inspection_date;
+    public String inspection_date;
     public String reviewed_by;
-    public Date reviewed_date;
+    public String reviewed_date;
     //--------------------------------------- ~ Section3
-    public Float soilph_at_pipe_depth;
-    public Integer soil_resistivity_at_pipe_depth;
+    public String soilph_at_pipe_depth;
+    public String soil_resistivity_at_pipe_depth;
     public String soil_chem_performed_flag;
     public String method_used;
-    public Float chlorides_ppm;
-    public Float nitrates_ppm;
-    public Float sulfates_ppm;
-    public Float pipe_to_soil_frm_exc_6_oclock;
-    public Float pipe_to_soil_frm_exc_3_oclock;
-    public Float pipe_to_soil_frm_exc_9_oclock;
-    public Float pipe_to_soil_frm_exc_12_oclock;
+    public String chlorides_ppm;
+    public String nitrates_ppm;
+    public String sulfates_ppm;
+    public String pipe_to_soil_frm_exc_6_oclock;
+    public String pipe_to_soil_frm_exc_3_oclock;
+    public String pipe_to_soil_frm_exc_9_oclock;
+    public String pipe_to_soil_frm_exc_12_oclock;
     public String bacterial_samples_taken;
     public String asphalt_tar_samples_taken;
     public String defects_found;
     public String defects_comments;
     public String cause_of_corrosion;
-    public Date date_of_incubation;
+    public String date_of_incubation;
     //---------------------------------- ~Section 3,4 and 5 without tables
     public String suspec_severity_coating_anom ;
     public String found_severity_coating_anomaly ;
@@ -111,7 +111,7 @@ public class MainPOJO {
     public String alt_methods_requirement_flag;
     public String corros_other_location_sameHCA;
     public String similar_rootcause_same_HCA;
-    public Date crt_date_calc_completed;
+    public String crt_date_calc_completed;
     public String inspector_comments;
     public String remed_action_requirement_flag;
     public String reference_request_number;
@@ -121,51 +121,51 @@ public class MainPOJO {
     public String explanation_for_other;
     //---------------------------------- ~end of doc
     public String ultrasonicthickness_comments;
-    public Float min_ICDA_scrub_1;
-    public Float max_ICDA_scrub_1;
-    public Float wt_percentage_scrub1;
-    public Float min_ICDA_scrub_2;
-    public Float max_ICDA_scrub_2;
-    public Float wt_percentage_scrub2;
+    public String min_ICDA_scrub_1;
+    public String max_ICDA_scrub_1;
+    public String wt_percentage_scrub1;
+    public String min_ICDA_scrub_2;
+    public String max_ICDA_scrub_2;
+    public String wt_percentage_scrub2;
     //---------------------------------- ~some of section 5
     public String location_of_samples;
     public String collected_by;
-    public Date date_collected;
+    public String date_collected;
     public String seven_day_interpreted_by;
-    public Date seven_day_date_of_reading;
+    public String seven_day_date_of_reading;
     public String fourteen_day_interpreted_by;
-    public Date fourteen_day_date_of_reading;
+    public String fourteen_day_date_of_reading;
     //---------------------------------- ~some of section 6
     public String title;
     //--------------------------------- ~beginning of bacterial table handling
     public String cap_color;
-    public Integer bottle_num;
+    public String bottle_num;
     public String results_w1;
     public String results_w2;
     public String comments;
     //---------------------------------- ~end of bacterial table handling
-    public Integer UltraRowNum;
+    public String UltraRowNum;
     public String UltraRowPkey;
     //---------------------------------- ~beginning of ultrasonic table handling
     public String Dist_from_zero_point;
-    public Float clock_12;
-    public Float clock_3;
-    public Float clock_6;
-    public Float clock_9;
-    public Float wt_percentage;
+    public String clock_12;
+    public String clock_3;
+    public String clock_6;
+    public String clock_9;
+    public String wt_percentage;
     //---------------------------------- ~end of ultrasonic table handling
     public String defect_title;
     //---------------------------------- ~beginning of defect table handling
-    public Integer defect_number;
+    public String defect_number;
     public String defect_type;
-    public Float distance_from_zero;
-    public Float o_clock_position;
-    public Float axial_length;
-    public Float circumferential_length;
-    public Float max_depth;
+    public String distance_from_zero;
+    public String o_clock_position;
+    public String axial_length;
+    public String circumferential_length;
+    public String max_depth;
     public String repair_category;
     public String corrosion_interactivity;
-    public Float remaining_wall_thickness_in;
+    public String remaining_wall_thickness_in;
     //---------------------------------- ~end of defect table handling
     public String Inadequate_CP_current_HCA_exam;
     public String No_CP_time_HCA_exam;
@@ -198,169 +198,169 @@ public class MainPOJO {
     public Integer holiday_detection_volt_range_to;
     public Integer size_range_to;
     public Integer size_range_from;
-    //------------------------------------- ~ranges
+    //------------------------------------- ~ranges NOT NEEDED AT VERSION BETA
 
     public void MainPOJOInit(){
         this.size_range_from = null;
         this.size_range_to = null;
-        this.DE_Location_ID = null;
-        this.HCA_Name = null;
-        this.Examination_number = null;
-        this.work_request_no = null;
-        this.division = null;
-        this.district_number = null;
-        this.town_or_county = null;
-        this.state = null;
-        this.Tile_Number = null;
-        this.Address = null;
-        this.Inspection_company = null;
-        this.GPS_synchronized_date = null;
-        this.field_location_start_x = null;
-        this.field_location_start_y = null;
-        this.field_location_end_x = null;
-        this.field_location_end_y = null;
-        this.gps_file_name = null;
-        this.region = null;
-        this.planned_exam_len_ft = null;
-        this.actual_exam_len_ft = null;
-        this.foreign_pipe_in_excava = null;
-        this.size = null;    
-        this.material = null;
-        this.foreign_current = null;
-        this.cp_present = null;
-        this.bond_present = null;
-        this.current_flow_to = null;
-        this.current_flow_from = null;
-        this.anode_present = null;
-        this.percent_consumed = null;
-        this.temperature = null;
-        this.time_24 = null;
-        this.weather_conditions = null;
-        this.soil_conditions = null;
-        this.bedding_shading_type = null;
-        this.rockshield_used = null;
-        this.soil_type = null;
-        this.depth_of_cover = null;
-        this.nominal_size = null;
-        this.in_diam = null;
-        this.wthick = null;
-        this.grade = null;
-        this.yield = null;
-        this.coating = null;
-        this.wk_req_no = null;
-        this.installation_month = null;
-        this.installation_year = null;
-        this.ops_sys_name = null;
-        this.weld_seam = null;
-        this.coating_types= null;
-        this.coating_condition = null;
-        this.holiday_detec_colt_setting = null;
-        this.per_dam_ncorros_disbond = null;
-        this.o_clock_ncorros_disbond = null;
-        this.percent_damage_blistering = null;
-        this.o_clock_damage_blistering = null;
-        this.ground_cover_type = null;
-        this.blister_fluid_ph = null;
-        this.procedure_adequate_flag = null;
-        this.inspected_by = null;
-        this.inspection_date = null;
-        this.reviewed_by = null;
-        this.reviewed_date = null;
-        this.soilph_at_pipe_depth = null;
-        this.soil_resistivity_at_pipe_depth = null;
-        this.soil_chem_performed_flag = null;
-        this.method_used = null;
-        this.chlorides_ppm = null;
-        this.nitrates_ppm = null;
-        this.sulfates_ppm = null;
-        this.pipe_to_soil_frm_exc_6_oclock = null;
-        this.pipe_to_soil_frm_exc_3_oclock = null;
-        this.pipe_to_soil_frm_exc_9_oclock = null;
-        this.pipe_to_soil_frm_exc_12_oclock = null;
-        this.bacterial_samples_taken = null;
-        this.asphalt_tar_samples_taken = null;
-        this.defects_found = null;
-        this.defects_comments = null;
-        this.cause_of_corrosion = null;
-        this.date_of_incubation = null;
-        this.suspec_severity_coating_anom = null;
-        this.found_severity_coating_anomaly = null;
-        this.DE_defect_severity = null;
-        this.severity_coatinganomaly2xpctd = null;
-        this.initial_assessment_covered_seg = null;
-        this.need_to_adjust_sct_flag = null;
-        this.corrosion_found = null;
-        this.b_or_c_priority_flag = null;
-        this.more_severe_than_A_priority = null;
-        this.sct_assessed_for_adjustment = null;
-        this.changes_made_to_sct_flag = null;
-        this.add_indirect_surveys_needed = null;
-        this.significant_corrosion_flag = null;
-        this.review_conducted_flag = null;
-        this.alt_methods_requirement_flag = null;
-        this.corros_other_location_sameHCA = null;
-        this.similar_rootcause_same_HCA = null;
-        this.crt_date_calc_completed = null;
-        this.inspector_comments = null;
-        this.remed_action_requirement_flag = null;
-        this.reference_request_number = null;
-        this.repair_quickness = null;
-        this.remediation_comments = null;
-        this.if_no_moc_explain_why = null;
-        this.explanation_for_other = null;
-        this.ultrasonicthickness_comments = null;
-        this.min_ICDA_scrub_1 = null;
-        this.max_ICDA_scrub_1 = null;
-        this.wt_percentage_scrub1 = null;
-        this.min_ICDA_scrub_2 = null;
-        this.max_ICDA_scrub_2 = null;
-        this.wt_percentage_scrub2 = null;
-        this.location_of_samples = null;
-        this.collected_by = null;
-        this.date_collected = null;
-        this.seven_day_interpreted_by = null;
-        this.seven_day_date_of_reading = null;
-        this.fourteen_day_interpreted_by = null;
-        this.fourteen_day_date_of_reading = null;
-        this.title = null;
-        this.cap_color = null;
-        this.bottle_num = null;
-        this.results_w1 = null;
-        this.results_w2 = null;
-        this.comments = null;
-        this.UltraRowNum = null;
-        this.UltraRowPkey = null;
-        this.Dist_from_zero_point = null;
-        this.clock_12 = null;
-        this.clock_3 = null;
-        this.clock_6 = null;
-        this.clock_9 = null;
-        this.wt_percentage = null;
-        this.defect_title = null;
-        this.defect_number = null;
-        this.defect_type = null;
-        this.distance_from_zero = null;
-        this.o_clock_position = null;
-        this.axial_length = null;
-        this.circumferential_length = null;
-        this.max_depth = null;
-        this.repair_category = null;
-        this.corrosion_interactivity = null;
-        this.remaining_wall_thickness_in = null;
-        this.Inadequate_CP_current_HCA_exam = null;
-        this.No_CP_time_HCA_exam = null;
-        this.No_CP_metal_couplings_HCA_exam = null;
-        this.interference_source_HCA_exam = null;
-        this.shielding_HCA_exam = null;
-        this.MIC_HCA_exam = null;
-        this.other_root_cause_HCA_exam = null;
-        this.Inadequate_CP_current_HCA_examOther = null;
-        this.No_CP_time_HCA_examOther = null;
-        this.No_CP_metal_couplings_HCA_examOther = null;
-        this.interference_source_HCA_examOther = null;
-        this.shielding_HCA_examOther = null;
-        this.MIC_HCA_examOther = null;
-        this.other_root_cause_HCA_examOther = null;
+        this.setDE_Location_ID(null);
+        this.setHCA_Name(null);
+        this.setExamination_number(null);
+        this.setWork_request_no(null);
+        this.setDivision(null);
+        this.setDistrict_number(null);
+        this.setTown_or_county(null);
+        this.setState(null);
+        this.setTile_Number(null);
+        this.setAddress(null);
+        this.setInspection_company(null);
+        this.setGPS_synchronized_date(null);
+        this.setField_location_start_x(null);
+        this.setField_location_start_y(null);
+        this.setField_location_end_x(null);
+        this.setField_location_end_y(null);
+        this.setGps_file_name(null);
+        this.setRegion(null);
+        this.setPlanned_exam_len_ft(null);
+        this.setActual_exam_len_ft(null);
+        this.setForeign_pipe_in_excava(null);
+        this.setSize(null);    
+        this.setMaterial(null);
+        this.setForeign_current(null);
+        this.setCp_present(null);
+        this.setBond_present(null);
+        this.setCurrent_flow_to(null);
+        this.setCurrent_flow_from(null);
+        this.setAnode_present(null);
+        this.setPercent_consumed(null);
+        this.setTemperature(null);
+        this.setTime_24(null);
+        this.setWeather_conditions(null);
+        this.setSoil_conditions(null);
+        this.setBedding_shading_type(null);
+        this.setRockshield_used(null);
+        this.setSoil_type(null);
+        this.setDepth_of_cover(null);
+        this.setNominal_size(null);
+        this.setIn_diam(null);
+        this.setWthick(null);
+        this.setGrade(null);
+        this.setYield(null);
+        this.setCoating(null);
+        this.setWk_req_no(null);
+        this.setInstallation_month(null);
+        this.setInstallation_year(null);
+        this.setOps_sys_name(null);
+        this.setWeld_seam(null);
+        this.setCoating_types(null);
+        this.setCoating_condition(null);
+        this.setHoliday_detec_colt_setting(null);
+        this.setPer_dam_ncorros_disbond(null);
+        this.setO_clock_ncorros_disbond(null);
+        this.setPercent_damage_blistering(null);
+        this.setO_clock_damage_blistering(null);
+        this.setGround_cover_type(null);
+        this.setBlister_fluid_ph(null);
+        this.setProcedure_adequate_flag(null);
+        this.setInspected_by(null);
+        this.setInspection_date(null);
+        this.setReviewed_by(null);
+        this.setReviewed_date(null);
+        this.setSoilph_at_pipe_depth(null);
+        this.setSoil_resistivity_at_pipe_depth(null);
+        this.setSoil_chem_performed_flag(null);
+        this.setMethod_used(null);
+        this.setChlorides_ppm(null);
+        this.setNitrates_ppm(null);
+        this.setSulfates_ppm(null);
+        this.setPipe_to_soil_frm_exc_6_oclock(null);
+        this.setPipe_to_soil_frm_exc_3_oclock(null);
+        this.setPipe_to_soil_frm_exc_9_oclock(null);
+        this.setPipe_to_soil_frm_exc_12_oclock(null);
+        this.setBacterial_samples_taken(null);
+        this.setAsphalt_tar_samples_taken(null);
+        this.setDefects_found(null);
+        this.setDefects_comments(null);
+        this.setCause_of_corrosion(null);
+        this.setDate_of_incubation(null);
+        this.setSuspec_severity_coating_anom(null);
+        this.setFound_severity_coating_anomaly(null);
+        this.setDE_defect_severity(null);
+        this.setSeverity_coatinganomaly2xpctd(null);
+        this.setInitial_assessment_covered_seg(null);
+        this.setNeed_to_adjust_sct_flag(null);
+        this.setCorrosion_found(null);
+        this.setB_or_c_priority_flag(null);
+        this.setMore_severe_than_A_priority(null);
+        this.setSct_assessed_for_adjustment(null);
+        this.setChanges_made_to_sct_flag(null);
+        this.setAdd_indirect_surveys_needed(null);
+        this.setSignificant_corrosion_flag(null);
+        this.setReview_conducted_flag(null);
+        this.setAlt_methods_requirement_flag(null);
+        this.setCorros_other_location_sameHCA(null);
+        this.setSimilar_rootcause_same_HCA(null);
+        this.setCrt_date_calc_completed(null);
+        this.setInspector_comments(null);
+        this.setRemed_action_requirement_flag(null);
+        this.setReference_request_number(null);
+        this.setRepair_quickness(null);
+        this.setRemediation_comments(null);
+        this.setIf_no_moc_explain_why(null);
+        this.setExplanation_for_other(null);
+        this.setUltrasonicthickness_comments(null);
+        this.setMin_ICDA_scrub_1(null);
+        this.setMax_ICDA_scrub_1(null);
+        this.setWt_percentage_scrub1(null);
+        this.setMin_ICDA_scrub_2(null);
+        this.setMax_ICDA_scrub_2(null);
+        this.setWt_percentage_scrub2(null);
+        this.setLocation_of_samples(null);
+        this.setCollected_by(null);
+        this.setDate_collected(null);
+        this.setSeven_day_interpreted_by(null);
+        this.setSeven_day_date_of_reading(null);
+        this.setFourteen_day_interpreted_by(null);
+        this.setFourteen_day_date_of_reading(null);
+        this.setTitle(null);
+        this.setCap_color(null);
+        this.setBottle_num(null);
+        this.setResults_w1(null);
+        this.setResults_w2(null);
+        this.setComments(null);
+        this.setUltraRowNum(null);
+        this.setUltraRowPkey(null);
+        this.setDist_from_zero_point(null);
+        this.setClock_12(null);
+        this.setClock_3(null);
+        this.setClock_6(null);
+        this.setClock_9(null);
+        this.setWt_percentage(null);
+        this.setDefect_title(null);
+        this.setDefect_number(null);
+        this.setDefect_type(null);
+        this.setDistance_from_zero(null);
+        this.setO_clock_position(null);
+        this.setAxial_length(null);
+        this.setCircumferential_length(null);
+        this.setMax_depth(null);
+        this.setRepair_category(null);
+        this.setCorrosion_interactivity(null);
+        this.setRemaining_wall_thickness_in(null);
+        this.setInadequate_CP_current_HCA_exam(null);
+        this.setNo_CP_time_HCA_exam(null);
+        this.setNo_CP_metal_couplings_HCA_exam(null);
+        this.setInterference_source_HCA_exam(null);
+        this.setShielding_HCA_exam(null);
+        this.setMIC_HCA_exam(null);
+        this.setOther_root_cause_HCA_exam(null);
+        this.setInadequate_CP_current_HCA_examOther(null);
+        this.setNo_CP_time_HCA_examOther(null);
+        this.setNo_CP_metal_couplings_HCA_examOther(null);
+        this.setInterference_source_HCA_examOther(null);
+        this.setShielding_HCA_examOther(null);
+        this.setMIC_HCA_examOther(null);
+        this.setOther_root_cause_HCA_examOther(null);
         this.normal_size_range_from = null;
         this.normal_size_range_to = null;
         this.InDiam_range_from = null;
@@ -376,8 +376,7 @@ public class MainPOJO {
         this.holiday_detection_volt_range_from = null;
         this.holiday_detection_volt_range_to = null;
     }
-    
-    
+
     /**
      * @return the DE_Location_ID
      */
@@ -449,18 +448,16 @@ public class MainPOJO {
     }
 
     /**
-     * getter for distric_num
      * @return the district_number
      */
-    public Integer getDistrict_number() {
+    public String getDistrict_number() {
         return district_number;
     }
 
     /**
-     * setter for distric_num
      * @param district_number the district_number to set
      */
-    public void setDistrict_number(Integer district_number) {
+    public void setDistrict_number(String district_number) {
         this.district_number = district_number;
     }
 
@@ -537,70 +534,70 @@ public class MainPOJO {
     /**
      * @return the GPS_synchronized_date
      */
-    public Date getGPS_synchronized_date() {
+    public String getGPS_synchronized_date() {
         return GPS_synchronized_date;
     }
 
     /**
      * @param GPS_synchronized_date the GPS_synchronized_date to set
      */
-    public void setGPS_synchronized_date(Date GPS_synchronized_date) {
+    public void setGPS_synchronized_date(String GPS_synchronized_date) {
         this.GPS_synchronized_date = GPS_synchronized_date;
     }
 
     /**
      * @return the field_location_start_x
      */
-    public Double getField_location_start_x() {
+    public String getField_location_start_x() {
         return field_location_start_x;
     }
 
     /**
      * @param field_location_start_x the field_location_start_x to set
      */
-    public void setField_location_start_x(Double field_location_start_x) {
+    public void setField_location_start_x(String field_location_start_x) {
         this.field_location_start_x = field_location_start_x;
     }
 
     /**
      * @return the field_location_start_y
      */
-    public Double getField_location_start_y() {
+    public String getField_location_start_y() {
         return field_location_start_y;
     }
 
     /**
      * @param field_location_start_y the field_location_start_y to set
      */
-    public void setField_location_start_y(Double field_location_start_y) {
+    public void setField_location_start_y(String field_location_start_y) {
         this.field_location_start_y = field_location_start_y;
     }
 
     /**
      * @return the field_location_end_x
      */
-    public Double getField_location_end_x() {
+    public String getField_location_end_x() {
         return field_location_end_x;
     }
 
     /**
      * @param field_location_end_x the field_location_end_x to set
      */
-    public void setField_location_end_x(Double field_location_end_x) {
+    public void setField_location_end_x(String field_location_end_x) {
         this.field_location_end_x = field_location_end_x;
     }
 
     /**
      * @return the field_location_end_y
      */
-    public Double getField_location_end_y() {
+    public String getField_location_end_y() {
         return field_location_end_y;
     }
 
     /**
      * @param field_location_end_y the field_location_end_y to set
      */
-    public void setField_location_end_y(Double field_location_end_y) {
+    public void setField_location_end_y(String field_location_end_y) {
         this.field_location_end_y = field_location_end_y;
     }
 
@@ -635,28 +632,28 @@ public class MainPOJO {
     /**
      * @return the planned_exam_len_ft
      */
-    public Float getPlanned_exam_len_ft() {
+    public String getPlanned_exam_len_ft() {
         return planned_exam_len_ft;
     }
 
     /**
      * @param planned_exam_len_ft the planned_exam_len_ft to set
      */
-    public void setPlanned_exam_len_ft(Float planned_exam_len_ft) {
+    public void setPlanned_exam_len_ft(String planned_exam_len_ft) {
         this.planned_exam_len_ft = planned_exam_len_ft;
     }
 
     /**
      * @return the actual_exam_len_ft
      */
-    public Float getActual_exam_len_ft() {
+    public String getActual_exam_len_ft() {
         return actual_exam_len_ft;
     }
 
     /**
      * @param actual_exam_len_ft the actual_exam_len_ft to set
      */
-    public void setActual_exam_len_ft(Float actual_exam_len_ft) {
+    public void setActual_exam_len_ft(String actual_exam_len_ft) {
         this.actual_exam_len_ft = actual_exam_len_ft;
     }
 
@@ -677,14 +674,14 @@ public class MainPOJO {
     /**
      * @return the size
      */
-    public Integer getSize() {
+    public String getSize() {
         return size;
     }
 
     /**
      * @param size the size to set
      */
-    public void setSize(Integer size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -789,42 +786,42 @@ public class MainPOJO {
     /**
      * @return the percent_consumed
      */
-    public Float getPercent_consumed() {
+    public String getPercent_consumed() {
         return percent_consumed;
     }
 
     /**
      * @param percent_consumed the percent_consumed to set
      */
-    public void setPercent_consumed(Float percent_consumed) {
+    public void setPercent_consumed(String percent_consumed) {
         this.percent_consumed = percent_consumed;
     }
 
     /**
      * @return the temperature
      */
-    public Float getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
     /**
      * @param temperature the temperature to set
      */
-    public void setTemperature(Float temperature) {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 
     /**
      * @return the time_24
      */
-    public Integer getTime_24() {
+    public String getTime_24() {
         return time_24;
     }
 
     /**
      * @param time_24 the time_24 to set
      */
-    public void setTime_24(Integer time_24) {
+    public void setTime_24(String time_24) {
         this.time_24 = time_24;
     }
 
@@ -901,56 +898,56 @@ public class MainPOJO {
     /**
      * @return the depth_of_cover
      */
-    public Integer getDepth_of_cover() {
+    public String getDepth_of_cover() {
         return depth_of_cover;
     }
 
     /**
      * @param depth_of_cover the depth_of_cover to set
      */
-    public void setDepth_of_cover(Integer depth_of_cover) {
+    public void setDepth_of_cover(String depth_of_cover) {
         this.depth_of_cover = depth_of_cover;
     }
 
     /**
      * @return the nominal_size
      */
-    public Float getNominal_size() {
+    public String getNominal_size() {
         return nominal_size;
     }
 
     /**
      * @param nominal_size the nominal_size to set
      */
-    public void setNominal_size(Float nominal_size) {
+    public void setNominal_size(String nominal_size) {
         this.nominal_size = nominal_size;
     }
 
     /**
      * @return the in_diam
      */
-    public Float getIn_diam() {
+    public String getIn_diam() {
         return in_diam;
     }
 
     /**
      * @param in_diam the in_diam to set
      */
-    public void setIn_diam(Float in_diam) {
+    public void setIn_diam(String in_diam) {
         this.in_diam = in_diam;
     }
 
     /**
      * @return the wthick
      */
-    public Float getWthick() {
+    public String getWthick() {
         return wthick;
     }
 
     /**
      * @param wthick the wthick to set
      */
-    public void setWthick(Float wthick) {
+    public void setWthick(String wthick) {
         this.wthick = wthick;
     }
 
@@ -971,14 +968,14 @@ public class MainPOJO {
     /**
      * @return the yield
      */
-    public Integer getYield() {
+    public String getYield() {
         return yield;
     }
 
     /**
      * @param yield the yield to set
      */
-    public void setYield(Integer yield) {
+    public void setYield(String yield) {
         this.yield = yield;
     }
 
@@ -1013,28 +1010,28 @@ public class MainPOJO {
     /**
      * @return the installation_month
      */
-    public Integer getInstallation_month() {
+    public String getInstallation_month() {
         return installation_month;
     }
 
     /**
      * @param installation_month the installation_month to set
      */
-    public void setInstallation_month(Integer installation_month) {
+    public void setInstallation_month(String installation_month) {
         this.installation_month = installation_month;
     }
 
     /**
      * @return the installation_year
      */
-    public Integer getInstallation_year() {
+    public String getInstallation_year() {
         return installation_year;
     }
 
     /**
      * @param installation_year the installation_year to set
      */
-    public void setInstallation_year(Integer installation_year) {
+    public void setInstallation_year(String installation_year) {
         this.installation_year = installation_year;
     }
 
@@ -1097,70 +1094,70 @@ public class MainPOJO {
     /**
      * @return the holiday_detec_colt_setting
      */
-    public Integer getHoliday_detec_colt_setting() {
+    public String getHoliday_detec_colt_setting() {
         return holiday_detec_colt_setting;
     }
 
     /**
      * @param holiday_detec_colt_setting the holiday_detec_colt_setting to set
      */
-    public void setHoliday_detec_colt_setting(Integer holiday_detec_colt_setting) {
+    public void setHoliday_detec_colt_setting(String holiday_detec_colt_setting) {
         this.holiday_detec_colt_setting = holiday_detec_colt_setting;
     }
 
     /**
      * @return the per_dam_ncorros_disbond
      */
-    public Float getPer_dam_ncorros_disbond() {
+    public String getPer_dam_ncorros_disbond() {
         return per_dam_ncorros_disbond;
     }
 
     /**
      * @param per_dam_ncorros_disbond the per_dam_ncorros_disbond to set
      */
-    public void setPer_dam_ncorros_disbond(Float per_dam_ncorros_disbond) {
+    public void setPer_dam_ncorros_disbond(String per_dam_ncorros_disbond) {
         this.per_dam_ncorros_disbond = per_dam_ncorros_disbond;
     }
 
     /**
      * @return the o_clock_ncorros_disbond
      */
-    public Integer getO_clock_ncorros_disbond() {
+    public String getO_clock_ncorros_disbond() {
         return o_clock_ncorros_disbond;
     }
 
     /**
      * @param o_clock_ncorros_disbond the o_clock_ncorros_disbond to set
      */
-    public void setO_clock_ncorros_disbond(Integer o_clock_ncorros_disbond) {
+    public void setO_clock_ncorros_disbond(String o_clock_ncorros_disbond) {
         this.o_clock_ncorros_disbond = o_clock_ncorros_disbond;
     }
 
     /**
      * @return the percent_damage_blistering
      */
-    public Float getPercent_damage_blistering() {
+    public String getPercent_damage_blistering() {
         return percent_damage_blistering;
     }
 
     /**
      * @param percent_damage_blistering the percent_damage_blistering to set
      */
-    public void setPercent_damage_blistering(Float percent_damage_blistering) {
+    public void setPercent_damage_blistering(String percent_damage_blistering) {
         this.percent_damage_blistering = percent_damage_blistering;
     }
 
     /**
      * @return the o_clock_damage_blistering
      */
-    public Integer getO_clock_damage_blistering() {
+    public String getO_clock_damage_blistering() {
         return o_clock_damage_blistering;
     }
 
     /**
      * @param o_clock_damage_blistering the o_clock_damage_blistering to set
      */
-    public void setO_clock_damage_blistering(Integer o_clock_damage_blistering) {
+    public void setO_clock_damage_blistering(String o_clock_damage_blistering) {
         this.o_clock_damage_blistering = o_clock_damage_blistering;
     }
 
@@ -1181,14 +1178,14 @@ public class MainPOJO {
     /**
      * @return the blister_fluid_ph
      */
-    public Float getBlister_fluid_ph() {
+    public String getBlister_fluid_ph() {
         return blister_fluid_ph;
     }
 
     /**
      * @param blister_fluid_ph the blister_fluid_ph to set
      */
-    public void setBlister_fluid_ph(Float blister_fluid_ph) {
+    public void setBlister_fluid_ph(String blister_fluid_ph) {
         this.blister_fluid_ph = blister_fluid_ph;
     }
 
@@ -1223,14 +1220,14 @@ public class MainPOJO {
     /**
      * @return the inspection_date
      */
-    public Date getInspection_date() {
+    public String getInspection_date() {
         return inspection_date;
     }
 
     /**
      * @param inspection_date the inspection_date to set
      */
-    public void setInspection_date(Date inspection_date) {
+    public void setInspection_date(String inspection_date) {
         this.inspection_date = inspection_date;
     }
 
@@ -1251,42 +1248,42 @@ public class MainPOJO {
     /**
      * @return the reviewed_date
      */
-    public Date getReviewed_date() {
+    public String getReviewed_date() {
         return reviewed_date;
     }
 
     /**
      * @param reviewed_date the reviewed_date to set
      */
-    public void setReviewed_date(Date reviewed_date) {
+    public void setReviewed_date(String reviewed_date) {
         this.reviewed_date = reviewed_date;
     }
 
     /**
      * @return the soilph_at_pipe_depth
      */
-    public Float getSoilph_at_pipe_depth() {
+    public String getSoilph_at_pipe_depth() {
         return soilph_at_pipe_depth;
     }
 
     /**
      * @param soilph_at_pipe_depth the soilph_at_pipe_depth to set
      */
-    public void setSoilph_at_pipe_depth(Float soilph_at_pipe_depth) {
+    public void setSoilph_at_pipe_depth(String soilph_at_pipe_depth) {
         this.soilph_at_pipe_depth = soilph_at_pipe_depth;
     }
 
     /**
      * @return the soil_resistivity_at_pipe_depth
      */
-    public Integer getSoil_resistivity_at_pipe_depth() {
+    public String getSoil_resistivity_at_pipe_depth() {
         return soil_resistivity_at_pipe_depth;
     }
 
     /**
      * @param soil_resistivity_at_pipe_depth the soil_resistivity_at_pipe_depth to set
      */
-    public void setSoil_resistivity_at_pipe_depth(Integer soil_resistivity_at_pipe_depth) {
+    public void setSoil_resistivity_at_pipe_depth(String soil_resistivity_at_pipe_depth) {
         this.soil_resistivity_at_pipe_depth = soil_resistivity_at_pipe_depth;
     }
 
@@ -1321,98 +1318,98 @@ public class MainPOJO {
     /**
      * @return the chlorides_ppm
      */
-    public Float getChlorides_ppm() {
+    public String getChlorides_ppm() {
         return chlorides_ppm;
     }
 
     /**
      * @param chlorides_ppm the chlorides_ppm to set
      */
-    public void setChlorides_ppm(Float chlorides_ppm) {
+    public void setChlorides_ppm(String chlorides_ppm) {
         this.chlorides_ppm = chlorides_ppm;
     }
 
     /**
      * @return the nitrates_ppm
      */
-    public Float getNitrates_ppm() {
+    public String getNitrates_ppm() {
         return nitrates_ppm;
     }
 
     /**
      * @param nitrates_ppm the nitrates_ppm to set
      */
-    public void setNitrates_ppm(Float nitrates_ppm) {
+    public void setNitrates_ppm(String nitrates_ppm) {
         this.nitrates_ppm = nitrates_ppm;
     }
 
     /**
      * @return the sulfates_ppm
      */
-    public Float getSulfates_ppm() {
+    public String getSulfates_ppm() {
         return sulfates_ppm;
     }
 
     /**
      * @param sulfates_ppm the sulfates_ppm to set
      */
-    public void setSulfates_ppm(Float sulfates_ppm) {
+    public void setSulfates_ppm(String sulfates_ppm) {
         this.sulfates_ppm = sulfates_ppm;
     }
 
     /**
      * @return the pipe_to_soil_frm_exc_6_oclock
      */
-    public Float getPipe_to_soil_frm_exc_6_oclock() {
+    public String getPipe_to_soil_frm_exc_6_oclock() {
         return pipe_to_soil_frm_exc_6_oclock;
     }
 
     /**
      * @param pipe_to_soil_frm_exc_6_oclock the pipe_to_soil_frm_exc_6_oclock to set
      */
-    public void setPipe_to_soil_frm_exc_6_oclock(Float pipe_to_soil_frm_exc_6_oclock) {
+    public void setPipe_to_soil_frm_exc_6_oclock(String pipe_to_soil_frm_exc_6_oclock) {
         this.pipe_to_soil_frm_exc_6_oclock = pipe_to_soil_frm_exc_6_oclock;
     }
 
     /**
      * @return the pipe_to_soil_frm_exc_3_oclock
      */
-    public Float getPipe_to_soil_frm_exc_3_oclock() {
+    public String getPipe_to_soil_frm_exc_3_oclock() {
         return pipe_to_soil_frm_exc_3_oclock;
     }
 
     /**
      * @param pipe_to_soil_frm_exc_3_oclock the pipe_to_soil_frm_exc_3_oclock to set
      */
-    public void setPipe_to_soil_frm_exc_3_oclock(Float pipe_to_soil_frm_exc_3_oclock) {
+    public void setPipe_to_soil_frm_exc_3_oclock(String pipe_to_soil_frm_exc_3_oclock) {
         this.pipe_to_soil_frm_exc_3_oclock = pipe_to_soil_frm_exc_3_oclock;
     }
 
     /**
      * @return the pipe_to_soil_frm_exc_9_oclock
      */
-    public Float getPipe_to_soil_frm_exc_9_oclock() {
+    public String getPipe_to_soil_frm_exc_9_oclock() {
         return pipe_to_soil_frm_exc_9_oclock;
     }
 
     /**
      * @param pipe_to_soil_frm_exc_9_oclock the pipe_to_soil_frm_exc_9_oclock to set
      */
-    public void setPipe_to_soil_frm_exc_9_oclock(Float pipe_to_soil_frm_exc_9_oclock) {
+    public void setPipe_to_soil_frm_exc_9_oclock(String pipe_to_soil_frm_exc_9_oclock) {
         this.pipe_to_soil_frm_exc_9_oclock = pipe_to_soil_frm_exc_9_oclock;
     }
 
     /**
      * @return the pipe_to_soil_frm_exc_12_oclock
      */
-    public Float getPipe_to_soil_frm_exc_12_oclock() {
+    public String getPipe_to_soil_frm_exc_12_oclock() {
         return pipe_to_soil_frm_exc_12_oclock;
     }
 
     /**
      * @param pipe_to_soil_frm_exc_12_oclock the pipe_to_soil_frm_exc_12_oclock to set
      */
-    public void setPipe_to_soil_frm_exc_12_oclock(Float pipe_to_soil_frm_exc_12_oclock) {
+    public void setPipe_to_soil_frm_exc_12_oclock(String pipe_to_soil_frm_exc_12_oclock) {
         this.pipe_to_soil_frm_exc_12_oclock = pipe_to_soil_frm_exc_12_oclock;
     }
 
@@ -1489,14 +1486,14 @@ public class MainPOJO {
     /**
      * @return the date_of_incubation
      */
-    public Date getDate_of_incubation() {
+    public String getDate_of_incubation() {
         return date_of_incubation;
     }
 
     /**
      * @param date_of_incubation the date_of_incubation to set
      */
-    public void setDate_of_incubation(Date date_of_incubation) {
+    public void setDate_of_incubation(String date_of_incubation) {
         this.date_of_incubation = date_of_incubation;
     }
 
@@ -1741,14 +1738,14 @@ public class MainPOJO {
     /**
      * @return the crt_date_calc_completed
      */
-    public Date getCrt_date_calc_completed() {
+    public String getCrt_date_calc_completed() {
         return crt_date_calc_completed;
     }
 
     /**
      * @param crt_date_calc_completed the crt_date_calc_completed to set
      */
-    public void setCrt_date_calc_completed(Date crt_date_calc_completed) {
+    public void setCrt_date_calc_completed(String crt_date_calc_completed) {
         this.crt_date_calc_completed = crt_date_calc_completed;
     }
 
@@ -1867,84 +1864,84 @@ public class MainPOJO {
     /**
      * @return the min_ICDA_scrub_1
      */
-    public Float getMin_ICDA_scrub_1() {
+    public String getMin_ICDA_scrub_1() {
         return min_ICDA_scrub_1;
     }
 
     /**
      * @param min_ICDA_scrub_1 the min_ICDA_scrub_1 to set
      */
-    public void setMin_ICDA_scrub_1(Float min_ICDA_scrub_1) {
+    public void setMin_ICDA_scrub_1(String min_ICDA_scrub_1) {
         this.min_ICDA_scrub_1 = min_ICDA_scrub_1;
     }
 
     /**
      * @return the max_ICDA_scrub_1
      */
-    public Float getMax_ICDA_scrub_1() {
+    public String getMax_ICDA_scrub_1() {
         return max_ICDA_scrub_1;
     }
 
     /**
      * @param max_ICDA_scrub_1 the max_ICDA_scrub_1 to set
      */
-    public void setMax_ICDA_scrub_1(Float max_ICDA_scrub_1) {
+    public void setMax_ICDA_scrub_1(String max_ICDA_scrub_1) {
         this.max_ICDA_scrub_1 = max_ICDA_scrub_1;
     }
 
     /**
      * @return the wt_percentage_scrub1
      */
-    public Float getWt_percentage_scrub1() {
+    public String getWt_percentage_scrub1() {
         return wt_percentage_scrub1;
     }
 
     /**
      * @param wt_percentage_scrub1 the wt_percentage_scrub1 to set
      */
-    public void setWt_percentage_scrub1(Float wt_percentage_scrub1) {
+    public void setWt_percentage_scrub1(String wt_percentage_scrub1) {
         this.wt_percentage_scrub1 = wt_percentage_scrub1;
     }
 
     /**
      * @return the min_ICDA_scrub_2
      */
-    public Float getMin_ICDA_scrub_2() {
+    public String getMin_ICDA_scrub_2() {
         return min_ICDA_scrub_2;
     }
 
     /**
      * @param min_ICDA_scrub_2 the min_ICDA_scrub_2 to set
      */
-    public void setMin_ICDA_scrub_2(Float min_ICDA_scrub_2) {
+    public void setMin_ICDA_scrub_2(String min_ICDA_scrub_2) {
         this.min_ICDA_scrub_2 = min_ICDA_scrub_2;
     }
 
     /**
      * @return the max_ICDA_scrub_2
      */
-    public Float getMax_ICDA_scrub_2() {
+    public String getMax_ICDA_scrub_2() {
         return max_ICDA_scrub_2;
     }
 
     /**
      * @param max_ICDA_scrub_2 the max_ICDA_scrub_2 to set
      */
-    public void setMax_ICDA_scrub_2(Float max_ICDA_scrub_2) {
+    public void setMax_ICDA_scrub_2(String max_ICDA_scrub_2) {
         this.max_ICDA_scrub_2 = max_ICDA_scrub_2;
     }
 
     /**
      * @return the wt_percentage_scrub2
      */
-    public Float getWt_percentage_scrub2() {
+    public String getWt_percentage_scrub2() {
         return wt_percentage_scrub2;
     }
 
     /**
      * @param wt_percentage_scrub2 the wt_percentage_scrub2 to set
      */
-    public void setWt_percentage_scrub2(Float wt_percentage_scrub2) {
+    public void setWt_percentage_scrub2(String wt_percentage_scrub2) {
         this.wt_percentage_scrub2 = wt_percentage_scrub2;
     }
 
@@ -1979,14 +1976,14 @@ public class MainPOJO {
     /**
      * @return the date_collected
      */
-    public Date getDate_collected() {
+    public String getDate_collected() {
         return date_collected;
     }
 
     /**
      * @param date_collected the date_collected to set
      */
-    public void setDate_collected(Date date_collected) {
+    public void setDate_collected(String date_collected) {
         this.date_collected = date_collected;
     }
 
@@ -2007,14 +2004,14 @@ public class MainPOJO {
     /**
      * @return the seven_day_date_of_reading
      */
-    public Date getSeven_day_date_of_reading() {
+    public String getSeven_day_date_of_reading() {
         return seven_day_date_of_reading;
     }
 
     /**
      * @param seven_day_date_of_reading the seven_day_date_of_reading to set
      */
-    public void setSeven_day_date_of_reading(Date seven_day_date_of_reading) {
+    public void setSeven_day_date_of_reading(String seven_day_date_of_reading) {
         this.seven_day_date_of_reading = seven_day_date_of_reading;
     }
 
@@ -2035,14 +2032,14 @@ public class MainPOJO {
     /**
      * @return the fourteen_day_date_of_reading
      */
-    public Date getFourteen_day_date_of_reading() {
+    public String getFourteen_day_date_of_reading() {
         return fourteen_day_date_of_reading;
     }
 
     /**
      * @param fourteen_day_date_of_reading the fourteen_day_date_of_reading to set
      */
-    public void setFourteen_day_date_of_reading(Date fourteen_day_date_of_reading) {
+    public void setFourteen_day_date_of_reading(String fourteen_day_date_of_reading) {
         this.fourteen_day_date_of_reading = fourteen_day_date_of_reading;
     }
 
@@ -2077,14 +2074,14 @@ public class MainPOJO {
     /**
      * @return the bottle_num
      */
-    public Integer getBottle_num() {
+    public String getBottle_num() {
         return bottle_num;
     }
 
     /**
      * @param bottle_num the bottle_num to set
      */
-    public void setBottle_num(Integer bottle_num) {
+    public void setBottle_num(String bottle_num) {
         this.bottle_num = bottle_num;
     }
 
@@ -2133,14 +2130,14 @@ public class MainPOJO {
     /**
      * @return the UltraRowNum
      */
-    public Integer getUltraRowNum() {
+    public String getUltraRowNum() {
         return UltraRowNum;
     }
 
     /**
      * @param UltraRowNum the UltraRowNum to set
      */
-    public void setUltraRowNum(Integer UltraRowNum) {
+    public void setUltraRowNum(String UltraRowNum) {
         this.UltraRowNum = UltraRowNum;
     }
 
@@ -2175,70 +2172,70 @@ public class MainPOJO {
     /**
      * @return the clock_12
      */
-    public Float getClock_12() {
+    public String getClock_12() {
         return clock_12;
     }
 
     /**
      * @param clock_12 the clock_12 to set
      */
-    public void setClock_12(Float clock_12) {
+    public void setClock_12(String clock_12) {
         this.clock_12 = clock_12;
     }
 
     /**
      * @return the clock_3
      */
-    public Float getClock_3() {
+    public String getClock_3() {
         return clock_3;
     }
 
     /**
      * @param clock_3 the clock_3 to set
      */
-    public void setClock_3(Float clock_3) {
+    public void setClock_3(String clock_3) {
         this.clock_3 = clock_3;
     }
 
     /**
      * @return the clock_6
      */
-    public Float getClock_6() {
+    public String getClock_6() {
         return clock_6;
     }
 
     /**
      * @param clock_6 the clock_6 to set
      */
-    public void setClock_6(Float clock_6) {
+    public void setClock_6(String clock_6) {
         this.clock_6 = clock_6;
     }
 
     /**
      * @return the clock_9
      */
-    public Float getClock_9() {
+    public String getClock_9() {
         return clock_9;
     }
 
     /**
      * @param clock_9 the clock_9 to set
      */
-    public void setClock_9(Float clock_9) {
+    public void setClock_9(String clock_9) {
         this.clock_9 = clock_9;
     }
 
     /**
      * @return the wt_percentage
      */
-    public Float getWt_percentage() {
+    public String getWt_percentage() {
         return wt_percentage;
     }
 
     /**
      * @param wt_percentage the wt_percentage to set
      */
-    public void setWt_percentage(Float wt_percentage) {
+    public void setWt_percentage(String wt_percentage) {
         this.wt_percentage = wt_percentage;
     }
 
@@ -2259,14 +2256,14 @@ public class MainPOJO {
     /**
      * @return the defect_number
      */
-    public Integer getDefect_number() {
+    public String getDefect_number() {
         return defect_number;
     }
 
     /**
      * @param defect_number the defect_number to set
      */
-    public void setDefect_number(Integer defect_number) {
+    public void setDefect_number(String defect_number) {
         this.defect_number = defect_number;
     }
 
@@ -2287,70 +2284,70 @@ public class MainPOJO {
     /**
      * @return the distance_from_zero
      */
-    public Float getDistance_from_zero() {
+    public String getDistance_from_zero() {
         return distance_from_zero;
     }
 
     /**
      * @param distance_from_zero the distance_from_zero to set
      */
-    public void setDistance_from_zero(Float distance_from_zero) {
+    public void setDistance_from_zero(String distance_from_zero) {
         this.distance_from_zero = distance_from_zero;
     }
 
     /**
      * @return the o_clock_position
      */
-    public Float getO_clock_position() {
+    public String getO_clock_position() {
         return o_clock_position;
     }
 
     /**
      * @param o_clock_position the o_clock_position to set
      */
-    public void setO_clock_position(Float o_clock_position) {
+    public void setO_clock_position(String o_clock_position) {
         this.o_clock_position = o_clock_position;
     }
 
     /**
      * @return the axial_length
      */
-    public Float getAxial_length() {
+    public String getAxial_length() {
         return axial_length;
     }
 
     /**
      * @param axial_length the axial_length to set
      */
-    public void setAxial_length(Float axial_length) {
+    public void setAxial_length(String axial_length) {
         this.axial_length = axial_length;
     }
 
     /**
      * @return the circumferential_length
      */
-    public Float getCircumferential_length() {
+    public String getCircumferential_length() {
         return circumferential_length;
     }
 
     /**
      * @param circumferential_length the circumferential_length to set
      */
-    public void setCircumferential_length(Float circumferential_length) {
+    public void setCircumferential_length(String circumferential_length) {
         this.circumferential_length = circumferential_length;
     }
 
     /**
      * @return the max_depth
      */
-    public Float getMax_depth() {
+    public String getMax_depth() {
         return max_depth;
     }
 
     /**
      * @param max_depth the max_depth to set
      */
-    public void setMax_depth(Float max_depth) {
+    public void setMax_depth(String max_depth) {
         this.max_depth = max_depth;
     }
 
@@ -2385,14 +2382,14 @@ public class MainPOJO {
     /**
      * @return the remaining_wall_thickness_in
      */
-    public Float getRemaining_wall_thickness_in() {
+    public String getRemaining_wall_thickness_in() {
         return remaining_wall_thickness_in;
     }
 
     /**
      * @param remaining_wall_thickness_in the remaining_wall_thickness_in to set
      */
-    public void setRemaining_wall_thickness_in(Float remaining_wall_thickness_in) {
+    public void setRemaining_wall_thickness_in(String remaining_wall_thickness_in) {
         this.remaining_wall_thickness_in = remaining_wall_thickness_in;
     }
 
@@ -2591,228 +2588,6 @@ public class MainPOJO {
     public void setOther_root_cause_HCA_examOther(String other_root_cause_HCA_examOther) {
         this.other_root_cause_HCA_examOther = other_root_cause_HCA_examOther;
     }
+    
 
-    /**
-     * @return the normal_size_range_from
-     */
-    public Float getNormal_size_range_from() {
-        return normal_size_range_from;
-    }
-
-    /**
-     * @param normal_size_range_from the normal_size_range_from to set
-     */
-    public void setNormal_size_range_from(Float normal_size_range_from) {
-        this.normal_size_range_from = normal_size_range_from;
-    }
-
-    /**
-     * @return the normal_size_range_to
-     */
-    public Float getNormal_size_range_to() {
-        return normal_size_range_to;
-    }
-
-    /**
-     * @param normal_size_range_to the normal_size_range_to to set
-     */
-    public void setNormal_size_range_to(Float normal_size_range_to) {
-        this.normal_size_range_to = normal_size_range_to;
-    }
-
-    /**
-     * @return the InDiam_range_from
-     */
-    public Float getInDiam_range_from() {
-        return InDiam_range_from;
-    }
-
-    /**
-     * @param InDiam_range_from the InDiam_range_from to set
-     */
-    public void setInDiam_range_from(Float InDiam_range_from) {
-        this.InDiam_range_from = InDiam_range_from;
-    }
-
-    /**
-     * @return the InDiam_range_to
-     */
-    public Float getInDiam_range_to() {
-        return InDiam_range_to;
-    }
-
-    /**
-     * @param InDiam_range_to the InDiam_range_to to set
-     */
-    public void setInDiam_range_to(Float InDiam_range_to) {
-        this.InDiam_range_to = InDiam_range_to;
-    }
-
-    /**
-     * @return the wthick_range_from
-     */
-    public Float getWthick_range_from() {
-        return wthick_range_from;
-    }
-
-    /**
-     * @param wthick_range_from the wthick_range_from to set
-     */
-    public void setWthick_range_from(Float wthick_range_from) {
-        this.wthick_range_from = wthick_range_from;
-    }
-
-    /**
-     * @return the wthick_range_to
-     */
-    public Float getWthick_range_to() {
-        return wthick_range_to;
-    }
-
-    /**
-     * @param wthick_range_to the wthick_range_to to set
-     */
-    public void setWthick_range_to(Float wthick_range_to) {
-        this.wthick_range_to = wthick_range_to;
-    }
-
-    /**
-     * @return the yield_range_from
-     */
-    public Integer getYield_range_from() {
-        return yield_range_from;
-    }
-
-    /**
-     * @param yield_range_from the yield_range_from to set
-     */
-    public void setYield_range_from(Integer yield_range_from) {
-        this.yield_range_from = yield_range_from;
-    }
-
-    /**
-     * @return the yield_range_to
-     */
-    public Integer getYield_range_to() {
-        return yield_range_to;
-    }
-
-    /**
-     * @param yield_range_to the yield_range_to to set
-     */
-    public void setYield_range_to(Integer yield_range_to) {
-        this.yield_range_to = yield_range_to;
-    }
-
-    /**
-     * @return the installation_month_range_from
-     */
-    public Integer getInstallation_month_range_from() {
-        return installation_month_range_from;
-    }
-
-    /**
-     * @param installation_month_range_from the installation_month_range_from to set
-     */
-    public void setInstallation_month_range_from(Integer installation_month_range_from) {
-        this.installation_month_range_from = installation_month_range_from;
-    }
-
-    /**
-     * @return the installation_month_range_to
-     */
-    public Integer getInstallation_month_range_to() {
-        return installation_month_range_to;
-    }
-
-    /**
-     * @param installation_month_range_to the installation_month_range_to to set
-     */
-    public void setInstallation_month_range_to(Integer installation_month_range_to) {
-        this.installation_month_range_to = installation_month_range_to;
-    }
-
-    /**
-     * @return the installation_year_range_from
-     */
-    public Integer getInstallation_year_range_from() {
-        return installation_year_range_from;
-    }
-
-    /**
-     * @param installation_year_range_from the installation_year_range_from to set
-     */
-    public void setInstallation_year_range_from(Integer installation_year_range_from) {
-        this.installation_year_range_from = installation_year_range_from;
-    }
-
-    /**
-     * @return the installation_year_range_to
-     */
-    public Integer getInstallation_year_range_to() {
-        return installation_year_range_to;
-    }
-
-    /**
-     * @param installation_year_range_to the installation_year_range_to to set
-     */
-    public void setInstallation_year_range_to(Integer installation_year_range_to) {
-        this.installation_year_range_to = installation_year_range_to;
-    }
-
-    /**
-     * @return the holiday_detection_volt_range_from
-     */
-    public Integer getHoliday_detection_volt_range_from() {
-        return holiday_detection_volt_range_from;
-    }
-
-    /**
-     * @param holiday_detection_volt_range_from the holiday_detection_volt_range_from to set
-     */
-    public void setHoliday_detection_volt_range_from(Integer holiday_detection_volt_range_from) {
-        this.holiday_detection_volt_range_from = holiday_detection_volt_range_from;
-    }
-
-    /**
-     * @return the holiday_detection_volt_range_to
-     */
-    public Integer getHoliday_detection_volt_range_to() {
-        return holiday_detection_volt_range_to;
-    }
-
-    /**
-     * @param holiday_detection_volt_range_to the holiday_detection_volt_range_to to set
-     */
-    public void setHoliday_detection_volt_range_to(Integer holiday_detection_volt_range_to) {
-        this.holiday_detection_volt_range_to = holiday_detection_volt_range_to;
-    }
-
-    /**
-     * @return the Size_range_to
-     */
-    public Integer getSize_range_to() {
-        return size_range_to;
-    }
-
-    /**
-     * @param Size_range_to the Size_range_to to set
-     */
-    public void setSize_range_to(Integer Size_range_to) {
-        this.size_range_to = Size_range_to;
-    }
-
-    /**
-     * @return the Size_range_from
-     */
-    public Integer getSize_range_from() {
-        return size_range_from;
-    }
-
-    /**
-     * @param Size_range_from the Size_range_from to set
-     */
-    public void setSize_range_from(Integer Size_range_from) {
-        this.size_range_from = Size_range_from;
-    }
 }

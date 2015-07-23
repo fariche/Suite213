@@ -26,7 +26,7 @@ public class populatePOJOs {
        mainPojo.MainPOJOInit();
        
         for(int i=0; i< ExtractPOJOList.size(); i++){
-            if(ExtractPOJOList.get(i).getLabel().equals("examination number")){
+            if(ExtractPOJOList.get(i).getLabel().equals("examination number") || ExtractPOJOList.get(i).getLabel().equals("exam number")){
                 mainPojo.setExamination_number(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("de location id")){
@@ -42,14 +42,8 @@ public class populatePOJOs {
                 mainPojo.setDivision(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("district number")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setDistrict_number(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setDistrict_number(val);
-            }}
+                mainPojo.setDistrict_number(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("town or county")){
                 mainPojo.setTown_or_county(ExtractPOJOList.get(i).getValue());
             }
@@ -66,120 +60,22 @@ public class populatePOJOs {
                 mainPojo.setInspection_company(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("date gps synchronized")){
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(!ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setGPS_synchronized_date(dateVal);
-                }
-                else{
-                    mainPojo.setGPS_synchronized_date(null);
-                }
+                mainPojo.setGPS_synchronized_date(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("start: gps x")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_start_x(null);
-                }else{
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                
-                int pointCnt = 0;
-                for(int k = 0; k< ExtractPOJOList.get(i).getValue().length(); k++){
-                    if(ExtractPOJOList.get(i).getValue().charAt(k) == '.'){
-                        pointCnt++;
-                        if(pointCnt > 1){
-                            StringBuilder sb = new StringBuilder(ExtractPOJOList.get(i).getValue());
-                            ExtractPOJOList.get(i).setValue(sb.deleteCharAt(k).toString());
-                        }
-                    }
-                }
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_start_x(null);
-                }else{
-                Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
-                mainPojo.setField_location_start_x(val);
-            }}}
+                mainPojo.setField_location_start_x(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("y") && 
                     ExtractPOJOList.get(i-1).getLabel().equals("start: gps x")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_start_y(null);
-                }else{
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                
-                int pointCnt = 0;
-                for(int k = 0; k< ExtractPOJOList.get(i).getValue().length(); k++){
-                    if(ExtractPOJOList.get(i).getValue().charAt(k) == '.'){
-                        pointCnt++;
-                        if(pointCnt > 1){
-                            StringBuilder sb = new StringBuilder(ExtractPOJOList.get(i).getValue());
-                            ExtractPOJOList.get(i).setValue(sb.deleteCharAt(k).toString());
-                        }
-                    }
-                }
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_start_x(null);
-                }else{
-                Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
-                mainPojo.setField_location_start_y(val);
-            }}}
+                mainPojo.setField_location_start_y(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("end: gps x")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_end_x(null);
-                }else{
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                
-                    int pointCnt = 0;
-                    for(int k = 0; k< ExtractPOJOList.get(i).getValue().length(); k++){
-                        if(ExtractPOJOList.get(i).getValue().charAt(k) == '.'){
-                            pointCnt++;
-                            if(pointCnt > 1){
-                                StringBuilder sb = new StringBuilder(ExtractPOJOList.get(i).getValue());
-                                ExtractPOJOList.get(i).setValue(sb.deleteCharAt(k).toString());
-                            }
-                        }
-                    }
-                    
-                    if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_start_x(null);
-                }else{
-                    Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
-                mainPojo.setField_location_end_x(val);
-            }}}
+                mainPojo.setField_location_start_x(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("y") && 
                     ExtractPOJOList.get(i-1).getLabel().equals("end: gps x")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_end_y(null);
-                }else{
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                
-                int pointCnt = 0;
-                for(int k = 0; k< ExtractPOJOList.get(i).getValue().length(); k++){
-                    if(ExtractPOJOList.get(i).getValue().charAt(k) == '.'){
-                        pointCnt++;
-                        if(pointCnt > 1){
-                            StringBuilder sb = new StringBuilder(ExtractPOJOList.get(i).getValue());
-                            ExtractPOJOList.get(i).setValue(sb.deleteCharAt(k).toString());
-                        }
-                    }
-                }
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setField_location_start_x(null);
-                }else{
-                Double val = Double.parseDouble(ExtractPOJOList.get(i).getValue());
-                mainPojo.setField_location_end_y(val);
-            }}}
+                mainPojo.setField_location_end_y(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("gps file name")){
                 mainPojo.setGps_file_name(ExtractPOJOList.get(i).getValue());
             }
@@ -187,104 +83,17 @@ public class populatePOJOs {
                 mainPojo.setRegion(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("planned examination length")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpValueWithUnit(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll(" ", ""));
-
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPlanned_exam_len_ft(null);
-                }//more clean up?
-                else if(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).size() > 1){
-                    Float second = Float.parseFloat(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).get(1));
-                    second = second/12;
-                
-                    Float first = Float.parseFloat(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).get(0));
-                    mainPojo.setPlanned_exam_len_ft((first + second));
-                }
-                else{
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                    Float first = Float.parseFloat(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).get(0));
-                    mainPojo.setPlanned_exam_len_ft((first));
-                }
+                mainPojo.setPlanned_exam_len_ft(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("actual examination length")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpValueWithUnit(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll(" ", ""));
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setActual_exam_len_ft(null);
-                }//more clean up?
-                else if(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).size() > 1){
-                    Float second = Float.parseFloat(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).get(1));
-                    second = second/12;
-                
-                    Float first = Float.parseFloat(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).get(0));
-                    mainPojo.setActual_exam_len_ft((first + second));
-                }
-                else{
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-                    Float first = Float.parseFloat(Arrays.asList(ExtractPOJOList.get(i).getValue().trim().split(" ")).get(0));
-                    mainPojo.setActual_exam_len_ft((first));
-                }
+                mainPojo.setActual_exam_len_ft(ExtractPOJOList.get(i).getValue());
             }
             //---------------------------------------------------------------------------------Section 1
             else if(ExtractPOJOList.get(i).getLabel().equals("foreign pipe in excavation")){
                 mainPojo.setForeign_pipe_in_excava(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("size")){
-                
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9]+", "");
-                    temp2 = temp2.replaceAll("[^0-9]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setSize_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setSize_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setSize_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setSize_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9]+", "");
-                    temp2 = temp2.replaceAll("[^0-9]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setSize_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setSize_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setSize_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setSize_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setSize_range_to(null);
-                    mainPojo.setSize_range_from(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));  
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setSize(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setSize(val);
-            }}
+                mainPojo.setSize(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("material")){
                 mainPojo.setMaterial(ExtractPOJOList.get(i).getValue());
@@ -308,32 +117,14 @@ public class populatePOJOs {
                 mainPojo.setAnode_present(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("% consumed")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPercent_consumed(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPercent_consumed(val);
-            }}
+                mainPojo.setPercent_consumed(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("temp")){
-                
-               ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setTemperature(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setTemperature(val);
-            }}
+                mainPojo.setTemperature(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("time 24-hr")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setTime_24(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setTime_24(val);
-            }}
+                mainPojo.setTime_24(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("weather conditions")){
                 mainPojo.setWeather_conditions(ExtractPOJOList.get(i).getValue());
             }
@@ -350,230 +141,23 @@ public class populatePOJOs {
                 mainPojo.setSoil_type(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("depth of cover")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setDepth_of_cover(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setDepth_of_cover(val);
-            }}
+                mainPojo.setDepth_of_cover(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("nominal size")){
-                
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setNormal_size_range_from(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp1);
-                        mainPojo.setNormal_size_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setNormal_size_range_to(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp2);
-                        mainPojo.setNormal_size_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setNormal_size_range_from(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp1);
-                        mainPojo.setNormal_size_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setNormal_size_range_to(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp2);
-                        mainPojo.setNormal_size_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setNormal_size_range_to(null);
-                    mainPojo.setNormal_size_range_from(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));  
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setNominal_size(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setNominal_size(val);
-            }}}
+                mainPojo.setNominal_size(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("indiam")){
-                
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setInDiam_range_from(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp1);
-                        mainPojo.setInDiam_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setInDiam_range_to(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp2);
-                        mainPojo.setInDiam_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setInDiam_range_from(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp1);
-                        mainPojo.setInDiam_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setInDiam_range_to(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp2);
-                        mainPojo.setInDiam_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setInDiam_range_from(null);
-                    mainPojo.setInDiam_range_to(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));  
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setIn_diam(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setIn_diam(val);
-            }}}
+                mainPojo.setIn_diam(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("wthick")){
-                
-                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setWthick_range_from(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp1);
-                        mainPojo.setWthick_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setWthick_range_to(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp2);
-                        mainPojo.setWthick_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setWthick_range_from(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp1);
-                        mainPojo.setWthick_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setWthick_range_to(null);
-                    }
-                    else{
-                        Float val = Float.parseFloat(temp2);
-                        mainPojo.setWthick_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setWthick_range_from(null);
-                    mainPojo.setWthick_range_to(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));                
-                    if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setWthick(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setWthick(val);
-            }}}
+                mainPojo.setWthick(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("grade")){
                 mainPojo.setGrade(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("yield")){
-                
-                 ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setYield_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setYield_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setYield_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setYield_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setYield_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setYield_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setYield_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setYield_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setYield_range_from(null);
-                    mainPojo.setYield_range_to(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setYield(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setYield(val);
-            }}}
+                mainPojo.setYield(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("coating")){
                 mainPojo.setCoating(ExtractPOJOList.get(i).getValue());
             }
@@ -581,112 +165,11 @@ public class populatePOJOs {
                 mainPojo.setWk_req_no(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("installation month")){
-                
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setInstallation_month_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setInstallation_month_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setInstallation_month_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setInstallation_month_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setInstallation_month_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setInstallation_month_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setInstallation_month_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setInstallation_month_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setInstallation_month_range_to(null);
-                    mainPojo.setInstallation_month_range_from(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setInstallation_month(null);
-                }else{
-                    Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setInstallation_month(val);
-                }}
+                mainPojo.setInstallation_month(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("installation year")){
-                
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setInstallation_year_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setInstallation_year_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setInstallation_year_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setInstallation_year_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setInstallation_year_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setInstallation_year_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setInstallation_year_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setInstallation_year_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setInstallation_year_range_from(null);
-                    mainPojo.setInstallation_year_range_to(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setInstallation_year(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setInstallation_year(val);
-            }}}
+                mainPojo.setInstallation_year(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("opssysname")){
                 mainPojo.setOps_sys_name(ExtractPOJOList.get(i).getValue());
             }
@@ -701,109 +184,27 @@ public class populatePOJOs {
             }
             //-------------------------------------------------------------------------
             else if(ExtractPOJOList.get(i).getLabel().equals("holiday detection volt setting")){
-               
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                
-                if(ExtractPOJOList.get(i).getValue().contains("/")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("/"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setHoliday_detection_volt_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setHoliday_detection_volt_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setHoliday_detection_volt_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setHoliday_detection_volt_range_to(val);
-                    }
-                }
-                else if(ExtractPOJOList.get(i).getValue().contains("-")){
-                    String temp1 = ExtractPOJOList.get(i).getValue().substring(0, ExtractPOJOList.get(i).getValue().indexOf("-"));
-                    String temp2 = ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("-") + 1);
-                    temp1 = temp1.replaceAll("[^0-9^.]+", "");
-                    temp2 = temp2.replaceAll("[^0-9^.]+", "");
-                    if(temp1.equals("")){
-                        mainPojo.setHoliday_detection_volt_range_from(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp1);
-                        mainPojo.setHoliday_detection_volt_range_from(val);
-                    }
-                    if(temp2.equals("")){
-                        mainPojo.setHoliday_detection_volt_range_to(null);
-                    }
-                    else{
-                        Integer val = Integer.parseInt(temp2);
-                        mainPojo.setHoliday_detection_volt_range_to(val);
-                    }
-                }
-                else{
-                    mainPojo.setHoliday_detection_volt_range_from(null);
-                    mainPojo.setHoliday_detection_volt_range_to(null);
-                    ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setHoliday_detec_colt_setting(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setHoliday_detec_colt_setting(val);
-            }}}
+               mainPojo.setHoliday_detec_colt_setting(ExtractPOJOList.get(i).getValue());
+            }
             //-------------------------------------------------------------------------
             else if(ExtractPOJOList.get(i).getLabel().equals("non-corrosive disbondment % damage")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPer_dam_ncorros_disbond(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPer_dam_ncorros_disbond(val);
-            }}
+                mainPojo.setPer_dam_ncorros_disbond(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("non-corrosive disbondment o'clock/position")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setO_clock_ncorros_disbond(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setO_clock_ncorros_disbond(val);
-            }}
+                mainPojo.setO_clock_ncorros_disbond(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("blistering due to corrosion % damage")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPercent_damage_blistering(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPercent_damage_blistering(val);
-            }}
+                mainPojo.setPercent_damage_blistering(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("blistering due to corrosion o'clock/position")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setO_clock_damage_blistering(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setO_clock_damage_blistering(val);
-            }}
+                mainPojo.setO_clock_damage_blistering(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("ground cover found:")){
                 mainPojo.setGround_cover_type(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("ph of fluid in blisters")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setBlister_fluid_ph(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setBlister_fluid_ph(val);
-            }}
+                mainPojo.setBlister_fluid_ph(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("i have reviewed the procedures performed and have found them:")){
                 mainPojo.setProcedure_adequate_flag(ExtractPOJOList.get(i).getValue());
             }
@@ -811,65 +212,20 @@ public class populatePOJOs {
                 mainPojo.setInspected_by(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("inspection date")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(!ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setInspection_date(dateVal);
-                }
-                else{
-                    mainPojo.setInspection_date(null);
-                }
+                mainPojo.setInspection_date(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("reviewed by")){
                 mainPojo.setReviewed_by(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("date reviewed")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("-", "/"));
-                String tempComp = ExtractPOJOList.get(i).getValue();
-                int y = 0;
-                for(int h = 0; h< tempComp.length(); h++){
-                    if(tempComp.charAt(h) == '/'){
-                        y++;
-                    }
-                }
-                if(y > 2){
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/")+1));
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().substring(ExtractPOJOList.get(i).getValue().indexOf("/")+5));
-                    ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-                }
-                if(!ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setReviewed_date(dateVal);
-                }
-                else{
-                    mainPojo.setReviewed_date(null);
-                }
+                mainPojo.setReviewed_date(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("soil ph at pipe depth")){
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setSoilph_at_pipe_depth(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setSoilph_at_pipe_depth(val);
-            }}
+                mainPojo.setSoilph_at_pipe_depth(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("soil resistivity at pipe depth")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setSoil_resistivity_at_pipe_depth(null);
-                }else{
-                Integer val = Integer.parseInt(ExtractPOJOList.get(i).getValue());
-                mainPojo.setSoil_resistivity_at_pipe_depth(val);
-            }}
+                mainPojo.setSoil_resistivity_at_pipe_depth(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("soil chemistry performed")){
                 mainPojo.setSoil_chem_performed_flag(ExtractPOJOList.get(i).getValue());
             }
@@ -877,72 +233,26 @@ public class populatePOJOs {
                 mainPojo.setMethod_used(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("chlorides")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setChlorides_ppm(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setChlorides_ppm(val);
-            }}
+                mainPojo.setChlorides_ppm(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("nitrates")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setNitrates_ppm(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setNitrates_ppm(val);
-            }}
+                mainPojo.setNitrates_ppm(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("sulfates")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setSulfates_ppm(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setSulfates_ppm(val);
-            }}
+                mainPojo.setSulfates_ppm(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("6 o'clock") || ExtractPOJOList.get(i).getLabel().equals("Pipe to Soil from Start of Excavation: 6 o'clock") ){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPipe_to_soil_frm_exc_6_oclock(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPipe_to_soil_frm_exc_6_oclock(val);
-            }}
+                mainPojo.setPipe_to_soil_frm_exc_6_oclock(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("Pipe to Soil from Start of Excavation: 3 o'clock") ){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPipe_to_soil_frm_exc_3_oclock(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPipe_to_soil_frm_exc_3_oclock(val);
-            }}
+                mainPojo.setPipe_to_soil_frm_exc_3_oclock(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("Pipe to Soil from Start of Excavation: 9 o'clock") ){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPipe_to_soil_frm_exc_9_oclock(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPipe_to_soil_frm_exc_9_oclock(val);
-            }}
+                mainPojo.setPipe_to_soil_frm_exc_9_oclock(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("pipe to soil from start of excavation: 12 o'clock") ){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.^-]+", ""));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setPipe_to_soil_frm_exc_12_oclock(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setPipe_to_soil_frm_exc_12_oclock(val);
-            }}
+                mainPojo.setPipe_to_soil_frm_exc_12_oclock(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("bacterial samples taken")){
                 mainPojo.setBacterial_samples_taken(ExtractPOJOList.get(i).getValue());
             }
@@ -950,17 +260,7 @@ public class populatePOJOs {
                 mainPojo.setAsphalt_tar_samples_taken(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("date of incubation")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(!ExtractPOJOList.get(i).getValue().equals("")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setDate_of_incubation(dateVal);
-                }
-                else{
-                    mainPojo.setDate_of_incubation(null);
-                }
+                mainPojo.setDate_of_incubation(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("Anomaly:  Coating Defect")){
                 mainPojo.setDefects_found(ExtractPOJOList.get(i).getValue());
@@ -1029,20 +329,7 @@ public class populatePOJOs {
                 mainPojo.setSimilar_rootcause_same_HCA(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("date calculation completed:")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("1  n/a", ""));
-                ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("0  n/a", ""));
-                if(!ExtractPOJOList.get(i).getValue().equals("") && !ExtractPOJOList.get(i).getValue().equals(",")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    
-                SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setCrt_date_calc_completed(dateVal);
-                }
-                else{
-                    mainPojo.setCrt_date_calc_completed(null);
-                }
+                mainPojo.setCrt_date_calc_completed(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("inspector?s comments:")){
                 mainPojo.setInspector_comments(ExtractPOJOList.get(i).getValue());
@@ -1060,60 +347,23 @@ public class populatePOJOs {
                 mainPojo.setRemediation_comments(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("icda scrub #1: min")){
-                
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setMin_ICDA_scrub_1(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setMin_ICDA_scrub_1(val);
-            }}
+                mainPojo.setMin_ICDA_scrub_1(ExtractPOJOList.get(i).getValue());
+            }
             else if(i>2 && ExtractPOJOList.get(i-1).getLabel().equals("icda scrub #1: min") && ExtractPOJOList.get(i).getLabel().equals("max")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setMax_ICDA_scrub_1(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setMax_ICDA_scrub_1(val);
-            }}
+                mainPojo.setMax_ICDA_scrub_1(ExtractPOJOList.get(i).getValue());
+            }
             else if(i>2 && ExtractPOJOList.get(i-2).getLabel().equals("icda scrub #1: min") && ExtractPOJOList.get(i).getLabel().equals("wt ?%")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setWt_percentage_scrub1(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setWt_percentage_scrub1(val);
-            }}
+                mainPojo.setWt_percentage_scrub1(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("icda scrub #2: min")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setMin_ICDA_scrub_2(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setMin_ICDA_scrub_2(val);
-            }}
+                mainPojo.setMin_ICDA_scrub_2(ExtractPOJOList.get(i).getValue());
+            }
             else if(i>2 && ExtractPOJOList.get(i-1).getLabel().equals("icda scrub #2: min") && ExtractPOJOList.get(i).getLabel().equals("max")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setMax_ICDA_scrub_2(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setMax_ICDA_scrub_2(val);
-            }}
+                mainPojo.setMax_ICDA_scrub_2(ExtractPOJOList.get(i).getValue());
+            }
             else if(i>2 && ExtractPOJOList.get(i-2).getLabel().equals("icda scrub #2: min") && ExtractPOJOList.get(i).getLabel().equals("wt ?%")){
-                
-                ExtractPOJOList.get(i).setValue(CleanUpSingleDecimalValue(ExtractPOJOList, i));
-                if(ExtractPOJOList.get(i).getValue().equals("")){
-                    mainPojo.setWt_percentage_scrub2(null);
-                }else{
-                Float val = Float.parseFloat(ExtractPOJOList.get(i).getValue());
-                mainPojo.setWt_percentage_scrub2(val);
-            }}
+                mainPojo.setWt_percentage_scrub2(ExtractPOJOList.get(i).getValue());
+            }
             else if(ExtractPOJOList.get(i).getLabel().equals("location of samples")){
                 mainPojo.setLocation_of_samples(ExtractPOJOList.get(i).getValue());
             }
@@ -1121,49 +371,19 @@ public class populatePOJOs {
                 mainPojo.setCollected_by(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("date collected")){
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(!ExtractPOJOList.get(i).getValue().equals("") && !ExtractPOJOList.get(i).getValue().equals(",")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setDate_collected(dateVal);
-                }
-                else{
-                    mainPojo.setDate_collected(null);
-                }
+                mainPojo.setDate_collected(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("7th day interpreted by")){
                 mainPojo.setSeven_day_interpreted_by(ExtractPOJOList.get(i).getValue());
             }
             else if(i>1 && ExtractPOJOList.get(i-1).getLabel().equals("7th day interpreted by") && ExtractPOJOList.get(i).getLabel().equals("date of reading")){
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(!ExtractPOJOList.get(i).getValue().equals("") && !ExtractPOJOList.get(i).getValue().equals(",")){
-                    
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setSeven_day_date_of_reading(dateVal);
-                }
-                else{
-                    mainPojo.setSeven_day_date_of_reading(null);
-                }
+                mainPojo.setSeven_day_date_of_reading(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("14th day interpreted by")){
                 mainPojo.setFourteen_day_interpreted_by(ExtractPOJOList.get(i).getValue());
             }
             else if(i>1 && ExtractPOJOList.get(i-1).getLabel().equals("14th day interpreted by") && ExtractPOJOList.get(i).getLabel().equals("date of reading")){
-                ExtractPOJOList.get(i).setValue(CleanUpSingleIntegerID(ExtractPOJOList, i));
-                if(!ExtractPOJOList.get(i).getValue().equals("") && !ExtractPOJOList.get(i).getValue().equals(",")){
-                    ExtractPOJOList.get(i).setValue(CleanUpDate(ExtractPOJOList, i));
-                    
-                    SimpleDateFormat DateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateVal = DateFormat.parse(ExtractPOJOList.get(i).getValue());
-                    mainPojo.setFourteen_day_date_of_reading(dateVal);
-                }
-                else{
-                    mainPojo.setFourteen_day_date_of_reading(null);
-                }
+                mainPojo.setFourteen_day_date_of_reading(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().contains("inadequate cp currentfor this hca exam")){
                 mainPojo.setInadequate_CP_current_HCA_exam(ExtractPOJOList.get(i).getValue());
@@ -1211,99 +431,4 @@ public class populatePOJOs {
         }
         
     }
-
-    /**
-     * This function cleans all the space, n/a, na and unknown equivalence from the EXTRACTPOJO.VALUE
-     * This is mostly used for values containing ID numbers
-     * @param ExtractPOJOList the extracted POJO of labels and values populated in NewExtractS
-     * @param ExtractPOJOList index of the element in the POJO
-     */
-    private String CleanUpSingleIntegerID(ArrayList<ExtractPOJO> ExtractPOJOList, int i) {
-        
-         ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
-         ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unk", ""));
-         ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknown", ""));
-                
-         ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-         ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
-         ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
-        
-         return ExtractPOJOList.get(i).getValue();
-    }
-    
-    /**
-     * 
-     * @param ExtractPOJOList the extracted POJO of labels and values populated in NewExtractS
-     * @param ExtractPOJOList index of the element in the POJO
-     */
-    private String CleanUpValueWithUnit(ArrayList<ExtractPOJO> ExtractPOJOList, int i) {
-        
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unk", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknown", ""));
-                
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
-                
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", " "));
-        return ExtractPOJOList.get(i).getValue();
-    }
-    
-    /**
-     * 
-     * @param ExtractPOJOList the extracted POJO of labels and values populated in NewExtractS
-     * @param ExtractPOJOList index of the element in the POJO
-     */
-    private String CleanUpSingleIntegerValue(ArrayList<ExtractPOJO> ExtractPOJOList, int i) {
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unk", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknown", ""));
-
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9]+", ""));
-        return ExtractPOJOList.get(i).getValue();   
-    }
-
-    /**
-     * 
-     * @param ExtractPOJOList the extracted POJO of labels and values populated in NewExtractS
-     * @param ExtractPOJOList index of the element in the POJO
-     */
-    private String CleanUpSingleDecimalValue(ArrayList<ExtractPOJO> ExtractPOJOList, int i) {
-        
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknwn", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unk", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("unknown", ""));
-
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(" ", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("na", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("n/a", ""));
-            ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^.]+", ""));
-
-        return ExtractPOJOList.get(i).getValue(); 
-    }
-
-    private String CleanUpDate(ArrayList<ExtractPOJO> ExtractPOJOList, int i) {
-        
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("-", "/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("th", ""));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace(",", "/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("january", "01/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("february", "02/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("march", "03/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("april", "04/")); 
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("may", "05/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("june", "06/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("july", "07/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("august", "08/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("september", "09/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("october", "10/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("november", "11/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replace("december", "12/"));
-        ExtractPOJOList.get(i).setValue(ExtractPOJOList.get(i).getValue().replaceAll("[^0-9^/]+", ""));
-        return ExtractPOJOList.get(i).getValue();        
-    }
-    
 }

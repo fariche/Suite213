@@ -50,7 +50,7 @@ public class V2Test {
         String POIContent = getPOI();
         
         NewExtract ext = new NewExtract();
-        ext.extract(content, POIContent, pathToFileDocx, 1, 1);
+        ext.extract(content, pathToFileDocx, 1, 1);
         
     }
 
