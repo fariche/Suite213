@@ -38,6 +38,8 @@ import org.openide.util.NbBundle.Messages;
 import org.openide.windows.WindowManager;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /***
  * ID of the action
@@ -95,7 +97,7 @@ public final class OpenFolderAction implements ActionListener {
                        
                         File file = fc.getSelectedFile();
                         selectedFile = file;
-
+                        
                         FileFilter fileFilter = new WildcardFileFilter("*.docx");
                         File[] files = selectedFile.listFiles(fileFilter);
                         double cnt = 0, cnt2 = 0;     //number of how many .docx is in the folder
@@ -109,16 +111,32 @@ public final class OpenFolderAction implements ActionListener {
                             pathToTxtFile = f.getAbsolutePath().replace(".docx", ".txt");
                             TxtFile = new File(pathToTxtFile);
                             
+                            //----------------------------------------------------
+//                            String zipFilePath = "H:/CurrentWork/test.zip";
+//                            String destDirectory = "H:/CurrentWork/testZip/temp " + cnt;
+//                            UnzipUtility unzipper = new UnzipUtility();
 //                            try {
-//                                //may have to change the directory path
-//                                    File zip = new File("H:\\CurrentWork\\test.zip");
-//                                    FileUtils.copyFile(f, zip);
-//                                    UnZipIt.unZip(zip.getAbsolutePath(), "H:\\CurrentWork\\tempZipFileNeedLongName");
-//                                    zip.delete();
-//                                } catch (IOException ex) {
-//                                    Exceptions.printStackTrace(ex);
+//                                File zip = new File(zipFilePath);
+//                                File directory = new File(destDirectory);
+//                                FileUtils.copyFile(f, zip);
+//                                unzipper.UnzipUtility(zip, directory);
+//                                
+//                                zip.delete();
+//                                
+//                                String mediaPath = destDirectory + "/word/media/";
+//                                File mediaDir = new File(mediaPath);
+//                                
+//                                for(File fil:mediaDir.listFiles()){
+//                                    FileUtils.copyFile(fil, new File("H:/CurrentWork/Pictures/" + cnt + "/" + fil.getName()));
 //                                }
-
+//                                
+//                                FileUtils.deleteDirectory(directory);
+//                                
+//                            } catch (Exception ex) {
+//                                ex.printStackTrace();
+//                            }
+                            //----------------------------------------------------
+                            
                             //if the txt file doesn't exist, it tries to convert whatever 
                             //can be the txt into the actual txt.
                             if(!TxtFile.exists()){
@@ -127,7 +145,6 @@ public final class OpenFolderAction implements ActionListener {
                                 pathToTxtFile += ".txt";
                                 TxtFile.renameTo(new File(pathToTxtFile));
                                 TxtFile = new File(pathToTxtFile);
-                                
                             }
 
                             String content = "";
@@ -159,6 +176,8 @@ public final class OpenFolderAction implements ActionListener {
                     }  
                 }
               }).start();
+            
+            
             
             System.gc();
         
@@ -230,28 +249,37 @@ public final class OpenFolderAction implements ActionListener {
      */
     private int DetermineVersion(String content) {
         
-        
-        if(!content.contains("Depth of Cover".toLowerCase()) && content.contains("DE Location ID".toLowerCase()) &&
-                content.contains("Severity of DE defect found on pipe:".toLowerCase())){
+        int ver = 0;
+        if(content.contains("Severity of DE defect found on pipe:".toLowerCase())
+                && content.contains("Severity of Coating Anomaly Suspected:".toLowerCase())
+                && content.contains("Severity of Coating Anomaly Found:".toLowerCase())){
             System.out.println("V4");
-            return 4;
+            ver = 4;
         }
-        if(!content.contains("DE Location ID".toLowerCase())){
+        else if(!content.contains("DE Location ID".toLowerCase()) &&
+                content.contains("Exam Number".toLowerCase()) ){
             System.out.println("V3");
-            return 3;
+            ver = 3;
         }
-        else if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
-                    System.out.println("V0");
-                    return 0;
-                }
-        else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase())){
-                    System.out.println("V1");
-                    return 1;
-                }
-                else{
+        else if(!content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) ){
             System.out.println("V2");
-            return 2;
+            ver = 2;
         }
+        else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) &&
+                !content.contains("Depth of Cover".toLowerCase()) && 
+                !content.contains("1.   Severity of Coating Anomaly Suspected")){
+                    System.out.println("V1");
+                    ver = 1;
+                }
+        else if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase()) &&
+                !content.contains("Exam Number") && 
+                !content.contains("1. Severity of Coating Anomaly Suspected:") &&
+                content.contains("Depth of Cover".toLowerCase()) ){
+                    System.out.println("V0");
+                    ver = 0;
+                }
+        
+        return ver;
     }
     
 }

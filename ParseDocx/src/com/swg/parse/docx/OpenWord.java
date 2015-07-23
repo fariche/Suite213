@@ -172,26 +172,37 @@ public final class OpenWord implements ActionListener {
      */
     private int DetermineVersion(String content) {
         
-        if(!content.contains("DE Location ID".toLowerCase())){
-            System.out.println("V3");
-            return 3;
-        }
-        else if(!content.contains("Depth of Cover".toLowerCase())){
+        int ver = 0;
+        if(content.contains("Severity of DE defect found on pipe:".toLowerCase())
+                && content.contains("Severity of Coating Anomaly Suspected:".toLowerCase())
+                && content.contains("Severity of Coating Anomaly Found:".toLowerCase())){
             System.out.println("V4");
-            return 4;
+            ver = 4;
         }
-        else if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase())){
-                    System.out.println("V0");
-                    return 0;
-                }
-                else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase())){
+        else if(!content.contains("DE Location ID".toLowerCase()) &&
+                content.contains("Exam Number".toLowerCase()) ){
+            System.out.println("V3");
+            ver = 3;
+        }
+        else if(!content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) ){
+            System.out.println("V2");
+            ver = 2;
+        }
+        else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) &&
+                !content.contains("Depth of Cover".toLowerCase()) && 
+                !content.contains("1.   Severity of Coating Anomaly Suspected")){
                     System.out.println("V1");
-                    return 1;
+                    ver = 1;
                 }
-                else{
-                    System.out.println("V2");
-                    return 2;
+        else if(!content.contains("Anomaly:  Coating Defect, Pipe Damage, Corrosion and Pitting Measurements and Location (from Grid Sketch)".toLowerCase()) &&
+                !content.contains("Exam Number") && 
+                !content.contains("1. Severity of Coating Anomaly Suspected:") &&
+                content.contains("Depth of Cover".toLowerCase()) ){
+                    System.out.println("V0");
+                    ver = 0;
                 }
+        
+        return ver;
     }
     
     /***

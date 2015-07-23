@@ -1607,7 +1607,7 @@ public class NewExtract {
             builder.append(str).append(" ");
         }
         value = builder.toString();
-        if(value.contains("section")){
+        if(value.contains("section") && value.length() > value.indexOf("section") + "section".length() + 2 ){
             value = value.replace(value.subSequence(value.indexOf("section"), value.indexOf("section") + "section".length() + 2), "");                    
         }
         return value;
