@@ -70,7 +70,7 @@ public class populatePOJOs {
                 mainPojo.setField_location_start_y(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("end: gps x")){
-                mainPojo.setField_location_start_x(ExtractPOJOList.get(i).getValue());
+                mainPojo.setField_location_end_x(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("y") && 
                     ExtractPOJOList.get(i-1).getLabel().equals("end: gps x")){
@@ -164,10 +164,10 @@ public class populatePOJOs {
             else if(ExtractPOJOList.get(i).getLabel().equals("wkreqno")){
                 mainPojo.setWk_req_no(ExtractPOJOList.get(i).getValue());
             }
-            else if(ExtractPOJOList.get(i).getLabel().equals("installation month")){
+            else if(ExtractPOJOList.get(i).getLabel().equals("installation month") || ExtractPOJOList.get(i).getLabel().equals("install month")){
                 mainPojo.setInstallation_month(ExtractPOJOList.get(i).getValue());
             }
-            else if(ExtractPOJOList.get(i).getLabel().equals("installation year")){
+            else if(ExtractPOJOList.get(i).getLabel().equals("installation year") || ExtractPOJOList.get(i).getLabel().equals("install year") ){
                 mainPojo.setInstallation_year(ExtractPOJOList.get(i).getValue());
             }
             else if(ExtractPOJOList.get(i).getLabel().equals("opssysname")){

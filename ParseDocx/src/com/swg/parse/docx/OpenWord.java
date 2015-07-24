@@ -173,11 +173,24 @@ public final class OpenWord implements ActionListener {
     private int DetermineVersion(String content) {
         
         int ver = 0;
-        if(content.contains("Severity of DE defect found on pipe:".toLowerCase())
+        if(content.contains("Indicate the direction of sight on the grid sketch.".toLowerCase()) &&
+                content.contains("Culture Results".toLowerCase()) &&
+                content.indexOf("Indicate the direction of sight on the grid sketch.".toLowerCase()) < content.indexOf("Culture Results".toLowerCase())){
+            System.out.println("V6");
+            ver = 6;
+        }
+        else if(content.contains("Severity of DE defect found on pipe:".toLowerCase())
                 && content.contains("Severity of Coating Anomaly Suspected:".toLowerCase())
                 && content.contains("Severity of Coating Anomaly Found:".toLowerCase())){
             System.out.println("V4");
             ver = 4;
+        }
+        else if(!content.contains("DE Location ID".toLowerCase()) &&
+                content.contains("Exam Number".toLowerCase()) && 
+                !content.contains("WkReqNo".toLowerCase())){
+            System.out.println("V5");
+            ver = 5;
+            
         }
         else if(!content.contains("DE Location ID".toLowerCase()) &&
                 content.contains("Exam Number".toLowerCase()) ){
@@ -187,6 +200,11 @@ public final class OpenWord implements ActionListener {
         else if(!content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) ){
             System.out.println("V2");
             ver = 2;
+        }
+        else if(content.contains("HCA Name".toLowerCase()) && !content.contains("Depth of Cover".toLowerCase()) &&
+               content.contains("1. Severity of Coating Anomaly Suspected:".toLowerCase()) ){
+            System.out.println("V7");
+            ver = 7;
         }
         else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) &&
                 !content.contains("Depth of Cover".toLowerCase()) && 

@@ -112,8 +112,8 @@ public final class OpenFolderAction implements ActionListener {
                             TxtFile = new File(pathToTxtFile);
                             
                             //----------------------------------------------------
-//                            String zipFilePath = "H:/CurrentWork/test.zip";
-//                            String destDirectory = "H:/CurrentWork/testZip/temp " + cnt;
+//                            String zipFilePath = "C:\\Users\\KXK3\\Documents\\ZipTest\\test.zip";
+//                            String destDirectory = "C:\\Users\\KXK3\\Documents\\ZipTest\\temp " + cnt;
 //                            UnzipUtility unzipper = new UnzipUtility();
 //                            try {
 //                                File zip = new File(zipFilePath);
@@ -127,7 +127,7 @@ public final class OpenFolderAction implements ActionListener {
 //                                File mediaDir = new File(mediaPath);
 //                                
 //                                for(File fil:mediaDir.listFiles()){
-//                                    FileUtils.copyFile(fil, new File("H:/CurrentWork/Pictures/" + cnt + "/" + fil.getName()));
+//                                    FileUtils.copyFile(fil, new File("C:\\Users\\KXK3\\Documents\\ZipTest\\Pictures\\" + cnt + "\\" + fil.getName()));
 //                                }
 //                                
 //                                FileUtils.deleteDirectory(directory);
@@ -249,12 +249,25 @@ public final class OpenFolderAction implements ActionListener {
      */
     private int DetermineVersion(String content) {
         
-        int ver = 0;
-        if(content.contains("Severity of DE defect found on pipe:".toLowerCase())
+         int ver = 0;
+        if(content.contains("Indicate the direction of sight on the grid sketch.".toLowerCase()) &&
+                content.contains("Culture Results".toLowerCase()) &&
+                content.indexOf("Indicate the direction of sight on the grid sketch.".toLowerCase()) < content.indexOf("Culture Results".toLowerCase())){
+            System.out.println("V6");
+            ver = 6;
+        }
+        else if(content.contains("Severity of DE defect found on pipe:".toLowerCase())
                 && content.contains("Severity of Coating Anomaly Suspected:".toLowerCase())
                 && content.contains("Severity of Coating Anomaly Found:".toLowerCase())){
             System.out.println("V4");
             ver = 4;
+        }
+        else if(!content.contains("DE Location ID".toLowerCase()) &&
+                content.contains("Exam Number".toLowerCase()) && 
+                !content.contains("WkReqNo".toLowerCase())){
+            System.out.println("V5");
+            ver = 5;
+            
         }
         else if(!content.contains("DE Location ID".toLowerCase()) &&
                 content.contains("Exam Number".toLowerCase()) ){
@@ -264,6 +277,11 @@ public final class OpenFolderAction implements ActionListener {
         else if(!content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) ){
             System.out.println("V2");
             ver = 2;
+        }
+        else if(content.contains("HCA Name".toLowerCase()) && !content.contains("Depth of Cover".toLowerCase()) &&
+               content.contains("1. Severity of Coating Anomaly Suspected:".toLowerCase()) ){
+            System.out.println("V7");
+            ver = 7;
         }
         else if(content.contains(("Culture Results\n" + "BTI Products, MICkit 5 Diagnostic Field Test Kit").toLowerCase()) &&
                 !content.contains("Depth of Cover".toLowerCase()) && 
