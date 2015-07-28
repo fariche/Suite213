@@ -112,29 +112,29 @@ public final class OpenFolderAction implements ActionListener {
                             TxtFile = new File(pathToTxtFile);
                             
                             //----------------------------------------------------
-//                            String zipFilePath = "C:\\Users\\KXK3\\Documents\\ZipTest\\test.zip";
-//                            String destDirectory = "C:\\Users\\KXK3\\Documents\\ZipTest\\temp " + cnt;
-//                            UnzipUtility unzipper = new UnzipUtility();
-//                            try {
-//                                File zip = new File(zipFilePath);
-//                                File directory = new File(destDirectory);
-//                                FileUtils.copyFile(f, zip);
-//                                unzipper.UnzipUtility(zip, directory);
-//                                
-//                                zip.delete();
-//                                
-//                                String mediaPath = destDirectory + "/word/media/";
-//                                File mediaDir = new File(mediaPath);
-//                                
-//                                for(File fil:mediaDir.listFiles()){
-//                                    FileUtils.copyFile(fil, new File("C:\\Users\\KXK3\\Documents\\ZipTest\\Pictures\\" + cnt + "\\" + fil.getName()));
-//                                }
-//                                
-//                                FileUtils.deleteDirectory(directory);
-//                                
-//                            } catch (Exception ex) {
-//                                ex.printStackTrace();
-//                            }
+                            String zipFilePath = "C:\\Users\\KXK3\\Documents\\ZipTest\\test.zip";
+                            String destDirectory = "C:\\Users\\KXK3\\Documents\\ZipTest\\temp " + cnt;
+                            UnzipUtility unzipper = new UnzipUtility();
+                            try {
+                                File zip = new File(zipFilePath);
+                                File directory = new File(destDirectory);
+                                FileUtils.copyFile(f, zip);
+                                unzipper.UnzipUtility(zip, directory);
+                                
+                                zip.delete();
+                                
+                                String mediaPath = destDirectory + "/word/media/";
+                                File mediaDir = new File(mediaPath);
+                                
+                                for(File fil:mediaDir.listFiles()){
+                                    FileUtils.copyFile(fil, new File("C:\\Users\\KXK3\\Documents\\ZipTest\\Pictures\\" + f.getName() + "\\" + fil.getName()));
+                                }
+                                
+                                FileUtils.deleteDirectory(directory);
+                                
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                             //----------------------------------------------------
                             
                             //if the txt file doesn't exist, it tries to convert whatever 

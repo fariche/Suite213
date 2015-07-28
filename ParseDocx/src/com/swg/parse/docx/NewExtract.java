@@ -157,7 +157,7 @@ public class NewExtract {
             FindTextField("on the field sketch.", "see remediation", "SpecialTableForcing");
             FindTextField("Comments:", "Ultrasonic Thickness Readings", "labelException = defects comments:,");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
+            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6 , vertical");
             FindTextField("ICDA Scrub #1: Min", "Max", "");
             FindTextField("Max", "WT ?%", "");
             FindTextField("WT ?%", "ICDA Scrub #2: Min", "");
@@ -295,7 +295,7 @@ public class NewExtract {
             FindTextField("Cause of Corrosion:", "All external corrosion anomalies shall be identified and quantified below", "");
             FindTextField("sketch in Section 6 of this inspection report.", "Ultrasonic Thickness Testing", "colNum = 8, manualHeader");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Testing", "Culture Results", "colNum = 5");
+            FindTextField("Ultrasonic Thickness Testing", "Culture Results", "colNum = 5 , vertical");
             SectionMarker(6);
             FindTextField("Location of samples", "Collected by", "");
             FindTextField("Collected by", "Date collected", "");
@@ -406,7 +406,7 @@ public class NewExtract {
             FindTextField("Cause of Corrosion:", "All external corrosion anomalies shall be identified and quantified below", "");
             FindTextField("sketch in Section 6 of this inspection report.", "Ultrasonic Thickness Testing", "colNum = 8, manualHeader");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Testing", "ANOMALY SKETCH", "colNum = 5");
+            FindTextField("Ultrasonic Thickness Testing", "ANOMALY SKETCH", "colNum = 5 , vertical");
             SectionMarker(6);
             //FindTextField("", "", "");    //reserved for the table section 6 V2
             FindTextField("Indicate units of measure:", "Inspector's Comments:", "");
@@ -497,7 +497,7 @@ public class NewExtract {
             FindTextField("on the field sketch.", "see remediation", "SpecialTableForcing");
             FindTextField("Comments:", "Ultrasonic Thickness Readings", "labelException = defects comments:,");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
+            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6 , vertical");
             FindTextField("ICDA Scrub #1: Min", "Max", "");
             FindTextField("Max", "WT ?%", "");
             FindTextField("WT ?%", "ICDA Scrub #2: Min", "");
@@ -631,7 +631,7 @@ public class NewExtract {
             FindTextField("on the field sketch.", "see remediation", "SpecialTableForcing");
             FindTextField("Comments:", "Ultrasonic Thickness Readings", "labelException = defects comments:,");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
+            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6 , vertical");
             FindTextField("ICDA Scrub #1: Min", "Max", "");
             FindTextField("Max", "WT ?%", "");
             FindTextField("WT ?%", "ICDA Scrub #2: Min", "");
@@ -768,7 +768,7 @@ public class NewExtract {
             FindTextField("on the field sketch.", "see remediation", "SpecialTableForcing");
             FindTextField("Comments:", "Ultrasonic Thickness Readings", "labelException = defects comments:,");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6");
+            FindTextField("Ultrasonic Thickness Readings", "ICDA Scrub #1: Min", "colNum = 6 , vertical");
             FindTextField("ICDA Scrub #1: Min", "Max", "");
             FindTextField("Max", "WT ?%", "");
             FindTextField("WT ?%", "ICDA Scrub #2: Min", "");
@@ -906,7 +906,7 @@ public class NewExtract {
             FindTextField("Cause of Corrosion:", "All external corrosion anomalies shall be identified and quantified below", "");
             FindTextField("sketch in Section 6 of this inspection report.", "Ultrasonic Thickness Testing", "colNum = 8, manualHeader");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Testing", "ANOMALY SKETCH", "colNum = 5");
+            FindTextField("Ultrasonic Thickness Testing", "ANOMALY SKETCH", "colNum = 5 , vertical");
             SectionMarker(6);
             //reserved for table
             FindTextField("Indicate units of measure:", "Culture Results", "");
@@ -1013,7 +1013,7 @@ public class NewExtract {
             FindTextField("Cause of Corrosion:", "All external corrosion anomalies shall be identified and quantified below", "");
             FindTextField("sketch in Section 9 of this inspection report.", "Ultrasonic Thickness Testing", "colNum = 8, manualHeader");
             SectionMarker(5);
-            FindTextField("Ultrasonic Thickness Testing", "Culture Results", "colNum = 5");
+            FindTextField("Ultrasonic Thickness Testing", "Culture Results", "colNum = 5 , vertical");
             SectionMarker(6);
             FindTextField("Location of samples", "Collected by", "");
             FindTextField("Collected by", "Date collected", "");
@@ -1143,7 +1143,7 @@ public class NewExtract {
                 else if(TableType.contains("horizontal")){
                     processHorizontalTable(value);
                 }
-                else if(TableType.contains("vertical")){
+                else if(TableType.contains("vertical") || comment.contains("vertical")){
                     processVerticalTable(value, comment);
                 }
                 else if(TableType.contains("no label")){

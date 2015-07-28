@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
@@ -72,6 +73,31 @@ public final class OpenWord implements ActionListener {
             
             pathToTxtFile = selectedFile.getAbsolutePath().replace(".docx", ".txt");
             TxtFile = new File(pathToTxtFile);
+            
+            
+                            String zipFilePath = "C:\\Users\\KXK3\\Documents\\ZipTest\\test.zip";
+                            String destDirectory = "C:\\Users\\KXK3\\Documents\\ZipTest\\temp";
+                            UnzipUtility unzipper = new UnzipUtility();
+                            try {
+                                File zip = new File(zipFilePath);
+                                File directory = new File(destDirectory);
+                                FileUtils.copyFile(selectedFile, zip);
+                                unzipper.UnzipUtility(zip, directory);
+                                                                
+                                String mediaPath = destDirectory + "/word/media/";
+                                File mediaDir = new File(mediaPath);
+                                
+                                for(File fil:mediaDir.listFiles()){
+                                    FileUtils.copyFile(fil, new File("C:\\Users\\KXK3\\Documents\\ZipTest\\Pictures\\" + fil.getName()));
+                                }
+                                
+                                zip.delete();
+                                FileUtils.deleteDirectory(directory);
+                                
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+            
             
             //if the txt file doesn't exist, it tries to convert whatever 
             //can be the txt into the actual txt.
