@@ -47,7 +47,6 @@ public class NewExtract {
     private static int section = 0;
     private static String TempLab = null;
     
-    
     private static ArrayList<String> labelBeforePOJO = new ArrayList<>();
     private static ArrayList<String> ValueBeforePOJO = new ArrayList<>();
     private static ArrayList<String> typeBeforePOJO = new ArrayList<>();
@@ -68,6 +67,8 @@ public class NewExtract {
          //in case we need to use the entire content, we can re-use "content"
         CopyOfContent = content.toLowerCase();
         //in case we need to use the entire POI content, we can re-use "POI content"
+        
+        System.out.println(content);
         
         File file= new File(filePath);
                 

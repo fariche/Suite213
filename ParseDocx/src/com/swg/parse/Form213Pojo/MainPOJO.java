@@ -182,27 +182,27 @@ public class MainPOJO {
     public String MIC_HCA_examOther;
     public String other_root_cause_HCA_examOther;
     //---------------------------------- ~special table on Version0
-    public Float normal_size_range_from;
-    public Float normal_size_range_to;
-    public Float InDiam_range_from;
-    public Float InDiam_range_to;
-    public Float wthick_range_from;
-    public Float wthick_range_to;
-    public Integer yield_range_from;
-    public Integer yield_range_to;
-    public Integer installation_month_range_from;
-    public Integer installation_month_range_to;
-    public Integer installation_year_range_from;
-    public Integer installation_year_range_to;
-    public Integer holiday_detection_volt_range_from;
-    public Integer holiday_detection_volt_range_to;
-    public Integer size_range_to;
-    public Integer size_range_from;
+//    public Float normal_size_range_from;
+//    public Float normal_size_range_to;
+//    public Float InDiam_range_from;
+//    public Float InDiam_range_to;
+//    public Float wthick_range_from;
+//    public Float wthick_range_to;
+//    public Integer yield_range_from;
+//    public Integer yield_range_to;
+//    public Integer installation_month_range_from;
+//    public Integer installation_month_range_to;
+//    public Integer installation_year_range_from;
+//    public Integer installation_year_range_to;
+//    public Integer holiday_detection_volt_range_from;
+//    public Integer holiday_detection_volt_range_to;
+//    public Integer size_range_to;
+//    public Integer size_range_from;
     //------------------------------------- ~ranges NOT NEEDED AT VERSION BETA
 
     public void MainPOJOInit(){
-        this.size_range_from = null;
-        this.size_range_to = null;
+//        this.size_range_from = null;
+//        this.size_range_to = null;
         this.setDE_Location_ID(null);
         this.setHCA_Name(null);
         this.setExamination_number(null);
@@ -361,20 +361,20 @@ public class MainPOJO {
         this.setShielding_HCA_examOther(null);
         this.setMIC_HCA_examOther(null);
         this.setOther_root_cause_HCA_examOther(null);
-        this.normal_size_range_from = null;
-        this.normal_size_range_to = null;
-        this.InDiam_range_from = null;
-        this.InDiam_range_to = null;
-        this.wthick_range_from = null;
-        this.wthick_range_to = null;
-        this.yield_range_from = null;
-        this.yield_range_to = null;
-        this.installation_month_range_from = null;
-        this.installation_month_range_to = null;
-        this.installation_year_range_from = null;
-        this.installation_year_range_to = null;
-        this.holiday_detection_volt_range_from = null;
-        this.holiday_detection_volt_range_to = null;
+//        this.normal_size_range_from = null;
+//        this.normal_size_range_to = null;
+//        this.InDiam_range_from = null;
+//        this.InDiam_range_to = null;
+//        this.wthick_range_from = null;
+//        this.wthick_range_to = null;
+//        this.yield_range_from = null;
+//        this.yield_range_to = null;
+//        this.installation_month_range_from = null;
+//        this.installation_month_range_to = null;
+//        this.installation_year_range_from = null;
+//        this.installation_year_range_to = null;
+//        this.holiday_detection_volt_range_from = null;
+//        this.holiday_detection_volt_range_to = null;
     }
 
     /**
