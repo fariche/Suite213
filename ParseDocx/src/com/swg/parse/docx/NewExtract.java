@@ -64,6 +64,10 @@ public class NewExtract {
     public void extract(String content,String filePath, int Ver, int FileCnt) throws ParseException {
 
         version = Ver;
+        ValueBeforePOJO.clear();
+        labelBeforePOJO.clear();
+        typeBeforePOJO.clear();
+        ListOfPOJO_Rows.clear();
          //in case we need to use the entire content, we can re-use "content"
         CopyOfContent = content.toLowerCase();
         //in case we need to use the entire POI content, we can re-use "POI content"
@@ -1066,7 +1070,6 @@ public class NewExtract {
         
         
         //FindTextField("", "", "");
-        
         PopulatePOJOAlpha();
         DynamicPopulatePOJO pojoPop = new DynamicPopulatePOJO(ListOfPOJO_Rows, ValueBeforePOJO, version);
                 

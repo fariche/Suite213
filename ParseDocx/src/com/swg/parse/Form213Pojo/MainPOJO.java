@@ -137,6 +137,7 @@ public class MainPOJO {
     public String fourteen_day_date_of_reading;
     //---------------------------------- ~some of section 6
     public String title;
+    public String title_gps_row;
     //--------------------------------- ~beginning of bacterial table handling
     public String cap_color;
     public String bottle_num;
@@ -375,6 +376,167 @@ public class MainPOJO {
 //        this.installation_year_range_to = null;
 //        this.holiday_detection_volt_range_from = null;
 //        this.holiday_detection_volt_range_to = null;
+    }
+    
+    public void clearIt(){
+                this.setDE_Location_ID(null);
+        this.setHCA_Name(null);
+        this.setExamination_number(null);
+        this.setWork_request_no(null);
+        this.setDivision(null);
+        this.setDistrict_number(null);
+        this.setTown_or_county(null);
+        this.setState(null);
+        this.setTile_Number(null);
+        this.setAddress(null);
+        this.setInspection_company(null);
+        this.setGPS_synchronized_date(null);
+        this.setField_location_start_x(null);
+        this.setField_location_start_y(null);
+        this.setField_location_end_x(null);
+        this.setField_location_end_y(null);
+        this.setGps_file_name(null);
+        this.setRegion(null);
+        this.setPlanned_exam_len_ft(null);
+        this.setActual_exam_len_ft(null);
+        this.setForeign_pipe_in_excava(null);
+        this.setSize(null);    
+        this.setMaterial(null);
+        this.setForeign_current(null);
+        this.setCp_present(null);
+        this.setBond_present(null);
+        this.setCurrent_flow_to(null);
+        this.setCurrent_flow_from(null);
+        this.setAnode_present(null);
+        this.setPercent_consumed(null);
+        this.setTemperature(null);
+        this.setTime_24(null);
+        this.setWeather_conditions(null);
+        this.setSoil_conditions(null);
+        this.setBedding_shading_type(null);
+        this.setRockshield_used(null);
+        this.setSoil_type(null);
+        this.setDepth_of_cover(null);
+        this.setNominal_size(null);
+        this.setIn_diam(null);
+        this.setWthick(null);
+        this.setGrade(null);
+        this.setYield(null);
+        this.setCoating(null);
+        this.setWk_req_no(null);
+        this.setInstallation_month(null);
+        this.setInstallation_year(null);
+        this.setOps_sys_name(null);
+        this.setWeld_seam(null);
+        this.setCoating_types(null);
+        this.setCoating_condition(null);
+        this.setHoliday_detec_colt_setting(null);
+        this.setPer_dam_ncorros_disbond(null);
+        this.setO_clock_ncorros_disbond(null);
+        this.setPercent_damage_blistering(null);
+        this.setO_clock_damage_blistering(null);
+        this.setGround_cover_type(null);
+        this.setBlister_fluid_ph(null);
+        this.setProcedure_adequate_flag(null);
+        this.setInspected_by(null);
+        this.setInspection_date(null);
+        this.setReviewed_by(null);
+        this.setReviewed_date(null);
+        this.setSoilph_at_pipe_depth(null);
+        this.setSoil_resistivity_at_pipe_depth(null);
+        this.setSoil_chem_performed_flag(null);
+        this.setMethod_used(null);
+        this.setChlorides_ppm(null);
+        this.setNitrates_ppm(null);
+        this.setSulfates_ppm(null);
+        this.setPipe_to_soil_frm_exc_6_oclock(null);
+        this.setPipe_to_soil_frm_exc_3_oclock(null);
+        this.setPipe_to_soil_frm_exc_9_oclock(null);
+        this.setPipe_to_soil_frm_exc_12_oclock(null);
+        this.setBacterial_samples_taken(null);
+        this.setAsphalt_tar_samples_taken(null);
+        this.setDefects_found(null);
+        this.setDefects_comments(null);
+        this.setCause_of_corrosion(null);
+        this.setDate_of_incubation(null);
+        this.setSuspec_severity_coating_anom(null);
+        this.setFound_severity_coating_anomaly(null);
+        this.setDE_defect_severity(null);
+        this.setSeverity_coatinganomaly2xpctd(null);
+        this.setInitial_assessment_covered_seg(null);
+        this.setNeed_to_adjust_sct_flag(null);
+        this.setCorrosion_found(null);
+        this.setB_or_c_priority_flag(null);
+        this.setMore_severe_than_A_priority(null);
+        this.setSct_assessed_for_adjustment(null);
+        this.setChanges_made_to_sct_flag(null);
+        this.setAdd_indirect_surveys_needed(null);
+        this.setSignificant_corrosion_flag(null);
+        this.setReview_conducted_flag(null);
+        this.setAlt_methods_requirement_flag(null);
+        this.setCorros_other_location_sameHCA(null);
+        this.setSimilar_rootcause_same_HCA(null);
+        this.setCrt_date_calc_completed(null);
+        this.setInspector_comments(null);
+        this.setRemed_action_requirement_flag(null);
+        this.setReference_request_number(null);
+        this.setRepair_quickness(null);
+        this.setRemediation_comments(null);
+        this.setIf_no_moc_explain_why(null);
+        this.setExplanation_for_other(null);
+        this.setUltrasonicthickness_comments(null);
+        this.setMin_ICDA_scrub_1(null);
+        this.setMax_ICDA_scrub_1(null);
+        this.setWt_percentage_scrub1(null);
+        this.setMin_ICDA_scrub_2(null);
+        this.setMax_ICDA_scrub_2(null);
+        this.setWt_percentage_scrub2(null);
+        this.setLocation_of_samples(null);
+        this.setCollected_by(null);
+        this.setDate_collected(null);
+        this.setSeven_day_interpreted_by(null);
+        this.setSeven_day_date_of_reading(null);
+        this.setFourteen_day_interpreted_by(null);
+        this.setFourteen_day_date_of_reading(null);
+        this.setTitle(null);
+        this.setCap_color(null);
+        this.setBottle_num(null);
+        this.setResults_w1(null);
+        this.setResults_w2(null);
+        this.setComments(null);
+        this.setUltraRowNum(null);
+        this.setUltraRowPkey(null);
+        this.setDist_from_zero_point(null);
+        this.setClock_12(null);
+        this.setClock_3(null);
+        this.setClock_6(null);
+        this.setClock_9(null);
+        this.setWt_percentage(null);
+        this.setDefect_title(null);
+        this.setDefect_number(null);
+        this.setDefect_type(null);
+        this.setDistance_from_zero(null);
+        this.setO_clock_position(null);
+        this.setAxial_length(null);
+        this.setCircumferential_length(null);
+        this.setMax_depth(null);
+        this.setRepair_category(null);
+        this.setCorrosion_interactivity(null);
+        this.setRemaining_wall_thickness_in(null);
+        this.setInadequate_CP_current_HCA_exam(null);
+        this.setNo_CP_time_HCA_exam(null);
+        this.setNo_CP_metal_couplings_HCA_exam(null);
+        this.setInterference_source_HCA_exam(null);
+        this.setShielding_HCA_exam(null);
+        this.setMIC_HCA_exam(null);
+        this.setOther_root_cause_HCA_exam(null);
+        this.setInadequate_CP_current_HCA_examOther(null);
+        this.setNo_CP_time_HCA_examOther(null);
+        this.setNo_CP_metal_couplings_HCA_examOther(null);
+        this.setInterference_source_HCA_examOther(null);
+        this.setShielding_HCA_examOther(null);
+        this.setMIC_HCA_examOther(null);
+        this.setOther_root_cause_HCA_examOther(null);
     }
 
     /**
@@ -2587,6 +2749,20 @@ public class MainPOJO {
      */
     public void setOther_root_cause_HCA_examOther(String other_root_cause_HCA_examOther) {
         this.other_root_cause_HCA_examOther = other_root_cause_HCA_examOther;
+    }
+
+    /**
+     * @return the title_gps_row
+     */
+    public String getTitle_gps_row() {
+        return title_gps_row;
+    }
+
+    /**
+     * @param title_gps_row the title_gps_row to set
+     */
+    public void setTitle_gps_row(String title_gps_row) {
+        this.title_gps_row = title_gps_row;
     }
     
 

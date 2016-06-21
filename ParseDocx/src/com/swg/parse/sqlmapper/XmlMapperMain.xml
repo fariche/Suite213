@@ -135,7 +135,7 @@
         #{reviewed_by},
         #{reviewed_date}
         
-        ) ON DUPLICATE KEY UPDATE reviewed_by=#{reviewed_by}
+        )
 <!--        The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
     </insert>
     
@@ -149,7 +149,7 @@
         
         INSERT INTO examination_specific_details ( 
         
-        Examination_number,
+        gps_file_name,
         soilph_at_pipe_depth,
         soil_resistivity_at_pipe_depth,
         soil_chem_performed_flag,
@@ -216,7 +216,7 @@
         
         )
         VALUES (
-        ( SELECT Examination_number FROM direct_examination_details WHERE Examination_number = #{Examination_number} ),
+        ( SELECT gps_file_name FROM direct_examination_details WHERE gps_file_name = #{gps_file_name} ),
         #{soilph_at_pipe_depth},
         #{soil_resistivity_at_pipe_depth},
         #{soil_chem_performed_flag},
@@ -280,9 +280,7 @@
         #{shielding_HCA_examOther},
         #{MIC_HCA_examOther},
         #{other_root_cause_HCA_examOther}
-
-        
-        ) ON DUPLICATE KEY UPDATE wt_percentage_scrub2=#{wt_percentage_scrub2}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -294,7 +292,7 @@
     <insert id="insertData2BacterialSample" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
         
         INSERT INTO bacterial_samples ( 
-        Examamination_number,
+        gps_file_name,
         location_of_samples,
         collected_by,
         date_collected,
@@ -302,10 +300,9 @@
         7_day_date_of_reading,
         14_day_interpreted_by,
         14_day_date_of_reading
-
         )
         VALUES (
-        ( SELECT Examination_number FROM direct_examination_details WHERE Examination_number = #{Examination_number} ),
+        ( SELECT gps_file_name FROM direct_examination_details WHERE gps_file_name = #{gps_file_name} ),
         #{location_of_samples},
         #{collected_by},
         #{date_collected},
@@ -313,8 +310,7 @@
         #{seven_day_date_of_reading},
         #{fourteen_day_interpreted_by},
         #{fourteen_day_date_of_reading}
-
-        ) ON DUPLICATE KEY UPDATE 14_day_date_of_reading=#{fourteen_day_date_of_reading}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -326,16 +322,16 @@
     
     <insert id="insertData2BacterialSampleDetail" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
         
-        INSERT INTO bacterial_samples_details ( 
-        Examination_number,
+        INSERT IGNORE INTO bacterial_samples_details ( 
+        gps_file_name,
         title
 
         )
         VALUES (
-        ( SELECT Examamination_number FROM bacterial_samples WHERE Examamination_number = #{Examination_number} ),
+        ( SELECT gps_file_name FROM bacterial_samples WHERE gps_file_name = #{gps_file_name} ),
         #{title}
 
-        ) ON DUPLICATE KEY UPDATE Examination_number=#{Examination_number}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -347,13 +343,14 @@
     
     <insert id="insertData2BacterialSampleDetail1" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
         
-        INSERT INTO bacterial_samples_details1 ( 
+        INSERT IGNORE INTO bacterial_samples_details1 ( 
         title,
         cap_color,
         bottle_num,
         results_w1,
         results_w2,
-        comments
+        comments,
+        title_gps_row
 
         )
         VALUES (
@@ -362,9 +359,10 @@
         #{bottle_num},
         #{results_w1},
         #{results_w2},
-        #{comments}
+        #{comments},
+        #{title_gps_row}
 
-        ) ON DUPLICATE KEY UPDATE comments=#{comments}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -377,17 +375,15 @@
     <insert id="insertData2Ultra" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
         
         INSERT INTO ultra_sonic_thickness_reading ( 
-        Examination_number,
-        row_num,
+        gps_file_name,
         TablePkey
 
         )
         VALUES (
-        ( SELECT Examination_number FROM examination_specific_details WHERE Examination_number = #{Examination_number} ),
-        #{UltraRowNum},
+        ( SELECT gps_file_name FROM examination_specific_details WHERE gps_file_name = #{gps_file_name} ),
         #{UltraRowPkey}
 
-        ) ON DUPLICATE KEY UPDATE Examination_number=#{Examination_number}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -419,7 +415,7 @@
         #{clock_9},
         #{wt_percentage}
 
-        ) ON DUPLICATE KEY UPDATE wt_percentage=#{wt_percentage}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -432,15 +428,15 @@
     <insert id="insertData2DefectDetails" parameterType="MainPOJO" useGeneratedKeys="true" keyProperty="id">
         
         INSERT INTO defect_details ( 
-        Examination_number,
+        gps_file_name,
         table_Pkey
 
         )
         VALUES (
-        ( SELECT Examination_number FROM examination_specific_details WHERE Examination_number = #{Examination_number} ),
+        ( SELECT gps_file_name FROM examination_specific_details WHERE gps_file_name = #{gps_file_name} ),
         #{defect_title}
 
-        ) ON DUPLICATE KEY UPDATE Examination_number=#{Examination_number}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>
@@ -479,7 +475,7 @@
         ( SELECT table_Pkey FROM defect_details WHERE table_Pkey = #{defect_title} )
         
 
-        ) ON DUPLICATE KEY UPDATE defect_number=#{defect_number}
+        )
 <!--    The ON DUPLICATE KEY UPDATE statement is just for being able to continue and skip duplicate ids ...-->
 <!--    This one doesn't need multiple row for same foreign key-->
     </insert>

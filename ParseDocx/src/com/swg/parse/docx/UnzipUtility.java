@@ -8,14 +8,12 @@ package com.swg.parse.docx;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-import org.apache.commons.io.IOUtils;
+import org.apache.poi.util.IOUtils;
  
 /**
  * This utility extracts files and directories of a standard zip file to

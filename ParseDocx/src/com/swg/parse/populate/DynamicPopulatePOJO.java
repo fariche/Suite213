@@ -44,9 +44,20 @@ public class DynamicPopulatePOJO {
         for(int i=0; i< ValueBeforePOJO.size(); i++){
             
             if( (ListOfPOJO_Rows.get(i).getLabel().contains("number(") ) ){
+                qNum.clear();
+                qType.clear();
+                qDistance.clear();
+                qOClock.clear();
+                qAxeLength.clear();
+                qCircLengh.clear();
+                qMax.clear();
+                qRepair.clear();
+                qcorrosion.clear();
+                
                     MainPOJO pojo = new MainPOJO();
                     String tempStr = null;
                     Integer TableRowNum = null;
+                    pojo.clearIt();
                     
                     while(!ListOfPOJO_Rows.get(i).getLabel().contains("type of defect(") && !ListOfPOJO_Rows.get(i).getLabel().contains("defects comments:")){
                         //populate num
@@ -133,12 +144,12 @@ public class DynamicPopulatePOJO {
                         i++;
                     }
                     
-                    for(int n = 1; n < qNum.size(); n++ ){
+                    for(int n = 0; n < qNum.size(); n++ ){
                         
-                        pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                        pojo.setGps_file_name(PojoPop.mainPojo.getGps_file_name());
                         //tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("(") + 1, ListOfPOJO_Rows.get(i).getLabel().indexOf(")") );
-                        TableRowNum = n-1;       //Integer.parseInt(tempStr);
-                        String TablePkey = pojo.getExamination_number() + " " + TableRowNum;
+                        TableRowNum = n;       //Integer.parseInt(tempStr);
+                        String TablePkey = pojo.getGps_file_name() + " " + TableRowNum;
                         pojo.setDefect_title(TablePkey);
                         PopulateOperation.insertData2DefectDetails(pojo);
                         
@@ -151,7 +162,19 @@ public class DynamicPopulatePOJO {
                         pojo.setMax_depth(qMax.get(n));
                         pojo.setRepair_category(qRepair.get(n));
                         pojo.setCorrosion_interactivity(qcorrosion.get(n));
+                        
                         PopulateOperation.insertData2DefectDetails1(pojo);
+                        
+//                        pojo.setDefect_number(qNum.get(n-1));
+//                        pojo.setDefect_type(qType.get(n-1));
+//                        pojo.setDistance_from_zero(qDistance.get(n-1));
+//                        pojo.setO_clock_position(qOClock.get(n-1));
+//                        pojo.setAxial_length(qAxeLength.get(n-1));
+//                        pojo.setCircumferential_length(qCircLengh.get(n-1));
+//                        pojo.setMax_depth(qMax.get(n-1));
+//                        pojo.setRepair_category(qRepair.get(n-1));
+//                        pojo.setCorrosion_interactivity(qcorrosion.get(n-1));
+//                        PopulateOperation.insertData2DefectDetails1(pojo);
                     }
 
             }
@@ -159,10 +182,10 @@ public class DynamicPopulatePOJO {
                 String temp1 = ListOfPOJO_Rows.get(i).getValue().replace(" ", "");
                 if(!temp1.equals("")){
                     MainPOJO pojo = new MainPOJO();
-                    pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                    pojo.setGps_file_name(PojoPop.mainPojo.getGps_file_name());
                     String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf(".") + 1);
                     String TableRowNum = tempStr;
-                    String TablePkey = pojo.getExamination_number() + " " + tempStr;
+                    String TablePkey = pojo.getGps_file_name() + " " + tempStr;
                     pojo.setDefect_title(TablePkey);
                     
                     String tp = ListOfPOJO_Rows.get(i).getValue().replace(" ", "");
@@ -254,7 +277,6 @@ public class DynamicPopulatePOJO {
                      PopulateOperation.insertData2DefectDetails1(pojo);
             }
             }
-            
             //-------------------------------
             //exam num, row num into ultra sonic
             if(ListOfPOJO_Rows.get(i).getLabel().contains("distance from zero point") && ListOfPOJO_Rows.get(i).getValue() != null &&
@@ -262,11 +284,10 @@ public class DynamicPopulatePOJO {
                 String tp = ListOfPOJO_Rows.get(i).getValue().replace(" ", "");
                 if(!tp.equals("")){
                     MainPOJO pojo = new MainPOJO();
-                    pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                    pojo.setGps_file_name(PojoPop.mainPojo.getGps_file_name());
                     String tempStr = ListOfPOJO_Rows.get(i).getLabel().substring(ListOfPOJO_Rows.get(i).getLabel().indexOf("point") + "point".length());
                     String TableRowNum = tempStr;
-                    pojo.setUltraRowNum(TableRowNum);
-                    String TablePkey = pojo.getExamination_number() + " " + tempStr;
+                    String TablePkey = pojo.getGps_file_name() + " " + tempStr;
                     pojo.setUltraRowPkey(TablePkey);
                     pojo.setDist_from_zero_point(ListOfPOJO_Rows.get(i).getValue());
                     
@@ -347,8 +368,8 @@ public class DynamicPopulatePOJO {
             
             if(ListOfPOJO_Rows.get(i).getLabel().equals("title") && ListOfPOJO_Rows.get(i).getValue() != null ){
                     MainPOJO pojo = new MainPOJO();
-                    pojo.setTitle(PojoPop.mainPojo.getExamination_number() + " " + ListOfPOJO_Rows.get(i).getValue());
-                    pojo.setExamination_number(PojoPop.mainPojo.getExamination_number());
+                    pojo.setGps_file_name(PojoPop.mainPojo.getGps_file_name());
+                    pojo.setTitle(PojoPop.mainPojo.getGps_file_name() + " " + ListOfPOJO_Rows.get(i).getValue());
                     PopulateOperation.insertData2BacterialSampleDetail(pojo);
                     
                     int j = 0;
@@ -374,6 +395,7 @@ public class DynamicPopulatePOJO {
                             }else{
                             String temp = ListOfPOJO_Rows.get(i).getValue();
                             pojo.setBottle_num(temp);
+                            pojo.setTitle_gps_row(pojo.getTitle() + " " + pojo.getCap_color() + " " + pojo.getBottle_num()  );
                         }}
                         if(ListOfPOJO_Rows.get(i).getLabel().contains("results week 1(")){
                             j++;
