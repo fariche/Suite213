@@ -19,11 +19,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 
 
+
 /**
  *
  * @author KXK3
  */
-public class Form213FactoryMain implements IXmlMapperMain {
+public class Form213FactoryMain implements IXmlMapperMain{
     
     protected SqlSessionFactory sqlSessionFactory;
     private final static String ConfigProps = "/com/swg/parse/config/configuration.properties";
@@ -60,95 +61,237 @@ public class Form213FactoryMain implements IXmlMapperMain {
         }
 
     }
-
+    
     @Override
-    public void insertData2DirectDetails(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void insertData2DirectDetails(MainPOJO pojo) {
+        
+        SqlSession session = sqlSessionFactory.openSession();
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2DirectDetails(pojo);
+            session.commit();
 
+      
+        
+    }
+    
     @Override
     public void deleteAllDirectDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        SqlSession session = sqlSessionFactory.openSession();
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllDirectDetails();        //only change this
+            session.commit();
 
-    @Override
-    public void insertData2SpecificDetails(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+        @Override
+    public void insertData2SpecificDetails(MainPOJO pojo) {
+        SqlSession session = sqlSessionFactory.openSession();
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2SpecificDetails(pojo);
+            session.commit();
+
+       
     }
 
     @Override
     public void deleteAllSpecificDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        SqlSession session = sqlSessionFactory.openSession();
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllSpecificDetails();        //only change this
+            session.commit();
 
+      
+    }
+    
     @Override
-    public void insertData2BacterialSample(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2BacterialSample(MainPOJO pojo) {
+        trSqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2BacterialSample(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
     }
 
     @Override
     public void deleteAllBacterialSample() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllBacterialSample();        //only change this
+            session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+    }
+    
     @Override
-    public void insertData2BacterialSampleDetail(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2BacterialSampleDetail(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2BacterialSampleDetail(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
     }
 
     @Override
     public void deleteAllBacterialSampleDetail() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllBacterialSampleDetail();        //only change this
+            session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+    }
+    
     @Override
-    public void insertData2BacterialSampleDetail1(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2BacterialSampleDetail1(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2BacterialSampleDetail1(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
     }
 
     @Override
     public void deleteAllBacterialSampleDetail1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllBacterialSampleDetail1();        //only change this
+            session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+    }
+    
+    
     @Override
-    public void insertData2Ultra(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2Ultra(MainPOJO pojo) {
+        
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2Ultra(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
+        
     }
 
     @Override
     public void deleteAllUltra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllUltra();        //only change this
+            session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+        
+    }
+    
+    
     @Override
-    public void insertData2UltraDetails(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2UltraDetails(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2UltraDetails(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
     }
 
     @Override
     public void deleteAllUltraDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllUltraDetails();        //only change this
+            session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+    }
+    
+    
     @Override
-    public void insertData2DefectDetails(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2DefectDetails(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2DefectDetails(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
+    
     }
 
     @Override
     public void deleteAllDefectDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllDefectDetails();        //only change this
+            session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+    }
+    
     @Override
-    public void insertData2DefectDetails1(MainPOJO ExtractPOJO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertData2DefectDetails1(MainPOJO pojo) {
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.insertData2DefectDetails1(pojo);
+            session.commit();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            //System.exit(1);
+        }
     }
 
     @Override
     public void deleteAllDefectDetails1() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try(SqlSession session = sqlSessionFactory.openSession()){
+            IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
+            xmlMapper.deleteAllDefectDetails1();        //only change this
+            session.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
+    
     }
     
 }
