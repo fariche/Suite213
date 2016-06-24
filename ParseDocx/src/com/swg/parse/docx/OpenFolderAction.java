@@ -112,8 +112,8 @@ public final class OpenFolderAction implements ActionListener {
                             TxtFile = new File(pathToTxtFile);
                             
                             //----------------------------------------------------
-                            String zipFilePath = "C:\\Users\\fja2\\Desktop\\junk\\Test\\test.zip";
-                            String destDirectory = "C:\\Users\\fja2\\Desktop\\junk\\Test " + cnt;
+                            String zipFilePath = "C:\\Users\\PXT1\\Desktop\\test\\01.27.2016 CAD_2016_RE-01.zip";
+                            String destDirectory = "C:\\Users\\PXT1\\Desktop\\test " + cnt;
                             UnzipUtility unzipper = new UnzipUtility();
                             try {
                                 File zip = new File(zipFilePath);
@@ -127,7 +127,7 @@ public final class OpenFolderAction implements ActionListener {
                                 File mediaDir = new File(mediaPath);
                                 
                                 for(File fil:mediaDir.listFiles()){
-                                    FileUtils.copyFile(fil, new File("C:\\Users\\KXK3\\Documents\\ZipTest\\Pictures\\" + f.getName() + "\\" + fil.getName()));
+                                    FileUtils.copyFile(fil, new File("C:\\Users\\PXT1\\Desktop\\test\\Pictures\\" + f.getName() + "\\" + fil.getName()));
                                 }
                                 
                                 FileUtils.deleteDirectory(directory);

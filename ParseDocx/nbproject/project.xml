@@ -7,7 +7,7 @@
             <suite-component/>
             <module-dependencies>
                 <dependency>
-                    <code-name-base>com.swgas.mybatis</code-name-base>
+                    <code-name-base>apachepoi</code-name-base>
                     <build-prerequisite/>
                     <compile-dependency/>
                     <run-dependency>
@@ -15,7 +15,31 @@
                     </run-dependency>
                 </dependency>
                 <dependency>
-                    <code-name-base>common.swgas.com</code-name-base>
+                    <code-name-base>apachepoixml</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>cglib</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>commonsio</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>mybatis</code-name-base>
                     <build-prerequisite/>
                     <compile-dependency/>
                     <run-dependency>
@@ -52,22 +76,6 @@
                     <compile-dependency/>
                     <run-dependency>
                         <specification-version>6.71.1</specification-version>
-                    </run-dependency>
-                </dependency>
-                <dependency>
-                    <code-name-base>poi.swgas.com</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <specification-version>1.0</specification-version>
-                    </run-dependency>
-                </dependency>
-                <dependency>
-                    <code-name-base>poioxml.swgas.com</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <specification-version>1.0</specification-version>
                     </run-dependency>
                 </dependency>
             </module-dependencies>

@@ -20,12 +20,13 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 
 
+
 /**
  *
  * @author KXK3
  */
 public class Form213FactoryMain implements IXmlMapperMain{
-    
+
     protected SqlSessionFactory sqlSessionFactory;
     private final static String ConfigProps = "/com/swg/parse/config/configuration.properties";
     private final static String ServerConfig = "com/swg/parse/config/configuration.xml";
@@ -64,12 +65,16 @@ public class Form213FactoryMain implements IXmlMapperMain{
     
     @Override
     public void insertData2DirectDetails(MainPOJO pojo) {
-        
         SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2DirectDetails(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
       
         
     }
@@ -77,48 +82,65 @@ public class Form213FactoryMain implements IXmlMapperMain{
     @Override
     public void deleteAllDirectDetails() {
         SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllDirectDetails();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
     }
     
         @Override
     public void insertData2SpecificDetails(MainPOJO pojo) {
         SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2SpecificDetails(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
        
     }
 
     @Override
     public void deleteAllSpecificDetails() {
         SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllSpecificDetails();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            //System.exit(1);
+        }
       
     }
     
     @Override
     public void insertData2BacterialSample(MainPOJO pojo) {
-        trSqlSession session = sqlSessionFactory.openSession()){
+       SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2BacterialSample(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
     }
 
     @Override
     public void deleteAllBacterialSample() {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
             xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
@@ -131,22 +153,24 @@ public class Form213FactoryMain implements IXmlMapperMain{
     
     @Override
     public void insertData2BacterialSampleDetail(MainPOJO pojo) {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2BacterialSampleDetail(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
     }
 
     @Override
     public void deleteAllBacterialSampleDetail() {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllBacterialSampleDetail();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
@@ -157,22 +181,24 @@ public class Form213FactoryMain implements IXmlMapperMain{
     
     @Override
     public void insertData2BacterialSampleDetail1(MainPOJO pojo) {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2BacterialSampleDetail1(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
     }
 
     @Override
     public void deleteAllBacterialSampleDetail1() {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllBacterialSampleDetail1();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
@@ -185,13 +211,14 @@ public class Form213FactoryMain implements IXmlMapperMain{
     @Override
     public void insertData2Ultra(MainPOJO pojo) {
         
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2Ultra(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
         
@@ -200,9 +227,10 @@ public class Form213FactoryMain implements IXmlMapperMain{
     @Override
     public void deleteAllUltra() {
         
-        try(SqlSession session = sqlSessionFactory.openSession()){
+       SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllUltra();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
@@ -215,22 +243,24 @@ public class Form213FactoryMain implements IXmlMapperMain{
     
     @Override
     public void insertData2UltraDetails(MainPOJO pojo) {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2UltraDetails(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
     }
 
     @Override
     public void deleteAllUltraDetails() {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllUltraDetails();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
@@ -242,13 +272,14 @@ public class Form213FactoryMain implements IXmlMapperMain{
     
     @Override
     public void insertData2DefectDetails(MainPOJO pojo) {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2DefectDetails(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
     
@@ -256,9 +287,10 @@ public class Form213FactoryMain implements IXmlMapperMain{
 
     @Override
     public void deleteAllDefectDetails() {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllDefectDetails();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
@@ -269,22 +301,24 @@ public class Form213FactoryMain implements IXmlMapperMain{
     
     @Override
     public void insertData2DefectDetails1(MainPOJO pojo) {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.insertData2DefectDetails1(pojo);
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.exit(1);
         }
     }
 
     @Override
     public void deleteAllDefectDetails1() {
-        try(SqlSession session = sqlSessionFactory.openSession()){
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
             IXmlMapperMain xmlMapper = session.getMapper(IXmlMapperMain.class);
-            xmlMapper.deleteAllDefectDetails1();        //only change this
+            xmlMapper.deleteAllBacterialSample();        //only change this
             session.commit();
 
         } catch (Exception e) {
