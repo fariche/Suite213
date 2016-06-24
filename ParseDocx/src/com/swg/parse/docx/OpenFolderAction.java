@@ -112,8 +112,8 @@ public final class OpenFolderAction implements ActionListener {
                             TxtFile = new File(pathToTxtFile);
                             
                             //----------------------------------------------------
-                            String zipFilePath = "C:\\Users\\PXT1\\Desktop\\test\\01.27.2016 CAD_2016_RE-01.zip";
-                            String destDirectory = "C:\\Users\\PXT1\\Desktop\\test " + cnt;
+                            String zipFilePath = "C:\\Users\\fja2\\Desktop\\junk\\Test\\test.zip";
+                            String destDirectory = "C:\\Users\\fja2\\Desktop\\junk\\Test " + cnt;
                             UnzipUtility unzipper = new UnzipUtility();
                             try {
                                 File zip = new File(zipFilePath);

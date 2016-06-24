@@ -77,8 +77,8 @@ public class NewExtract {
         File file= new File(filePath);
                 
         //extractImages(file.toString(), FileCnt);
-
-        if(version == 0){
+try {
+            if(version == 0){
             //always put at least end of the label and start of end string 
             SectionMarker(0);
             FindTextField("This form is used", "DE Location ID", "");
@@ -1066,6 +1066,9 @@ public class NewExtract {
             SectionMarker(10);
             SectionMarker(11);
         }
+        } catch (Exception e) {
+        }
+        
         
         
         
@@ -1491,6 +1494,7 @@ public class NewExtract {
 
             }
             else if(temp != " " && temp != "" && temp != "  "){
+                try {
                     System.out.println(VerticalLabels.get(j) + dataCnt + " = " + temp);
                     labelBeforePOJO.add(VerticalLabels.get(j) + dataCnt);
                     ValueBeforePOJO.add(temp);
@@ -1501,6 +1505,10 @@ public class NewExtract {
                         j = 0;
                         dataCnt ++;
                     }
+                } catch (Exception e) {
+                    System.out.println("VerticalLebels is Empty");
+                }
+                    
                 }
             }
         }
@@ -1606,7 +1614,9 @@ public class NewExtract {
         ValueBeforePOJO.add(TableTitle);
         sectionBeforePOJO.add(section);
         int k =0;
-        for(int i=1; i<value.length(); i++){
+        
+        try {
+            for(int i=1; i<value.length(); i++){
             if(value.charAt(i) != '\n'){
                 temp = temp + value.charAt(i);
             }
@@ -1634,6 +1644,10 @@ public class NewExtract {
                 }
             }
         }
+        } catch (Exception e) {
+            System.out.println("HEAD CONTENT IS EMPTY");
+        }
+        
                             
     }
 
